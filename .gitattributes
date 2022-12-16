@@ -6,4 +6,4 @@
 *.gif -text
 *.webp -text
 
-/plugins/* linguist-vendored
+plugins/* linguist-vendored
