@@ -1,37 +1,61 @@
-import { Context, Schema, Service } from 'koishi'
+import { Context, Logger, Schema, Service } from 'koishi'
 import { loadPyodide, PyodideInterface } from 'pyodide'
 import * as modules from './modules'
+import fetch from 'node-fetch'
+import { basename } from 'path'
+
+if (!globalThis.fetch) {
+  globalThis.fetch = fetch as any
+}
+
+const logger = new Logger('nonebot')
 
 declare module 'koishi' {
   interface Context {
-    nonebot: NoneBotRuntime
+    nonebot: NoneBot
   }
 }
 
-export const name = 'nonebot'
-
-export interface Config {}
-
-export const Config: Schema<Config> = Schema.object({})
-
-export class NoneBotRuntime extends Service {
+class NoneBot extends Service {
   python: PyodideInterface
 
-  constructor(protected ctx: Context) {
+  constructor(protected ctx: Context, protected config: NoneBot.Config) {
     super(ctx, 'nonebot')
   }
 
   async start() {
     this.python = await loadPyodide({
-      stdout: this.ctx.logger('nonebot').info,
-      stderr: this.ctx.logger('nonebot').error,
+      stdout: logger.info,
+      stderr: logger.warn,
     })
-    this.python.FS.mkdir('/home/pyodide/nb/')
-    this.python.FS.mount(this.python.FS.filesystems.NODEFS, {root: './nonebot-packages'}, '/lib/python3.10/site-packages/')
-    this.python.FS.mount(this.python.FS.filesystems.NODEFS, {root: './nonebot'}, '/home/pyodide/nb/')
+    const root = this.config.packagesFolder
+    this.python.FS.mount(this.python.FS.filesystems.NODEFS, { root }, '/lib/python3.10/site-packages/')
     this.python.registerJsModule('nonebot', new modules.NoneBot(this.ctx))
-    await this.python.loadPackage(['pydantic', 'micropip'])
+    await this.python.loadPackage(['pydantic', 'micropip'], logger.info, logger.warn)
     this.python.pyimport('pydantic')
     this.python.pyimport('nonebot')
   }
+
+  import(root: string) {
+    const name = basename(root)
+    this.python.FS.mkdir(`/home/pyodide/${name}/`)
+    this.python.FS.mount(this.python.FS.filesystems.NODEFS, { root }, `/home/pyodide/${name}/`)
+    this.python.pyimport(name)
+  }
+
+  async stop() {
+    // TODO
+  }
 }
+
+namespace NoneBot {
+  export interface Config {
+    packagesFolder?: string
+  }
+  
+  export const Config: Schema<Config> = Schema.object({
+    packagesFolder: Schema.string().description('site-packages 目录。').default('data/nonebot/site-packages'),
+  })
+}
+
+export default NoneBot
