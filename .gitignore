@@ -18,4 +18,5 @@ tsconfig.tsbuildinfo
 *.njsproj
 *.sln
 
+/build
 /test

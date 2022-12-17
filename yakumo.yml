@@ -8,8 +8,10 @@ require:
   - yakumo-tsc
   - yakumo-upgrade
   - yakumo-version
+  - ./scripts
 
 pipeline:
   build:
+    - nbp
     - tsc
     - esbuild
