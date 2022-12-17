@@ -1,0 +1,23 @@
+name: Docs
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install
+        run: yarn
+      - name: Build
+        run: yarn docs:build
+      - name: Deploy vercel
+        run: vercel deploy docs/.vitepress/dist --token ${{ secrets.VERCEL_TOKEN }} --prod --yes

@@ -6,7 +6,7 @@ export default defineConfig({
   description: '在 Koishi 中使用 NoneBot 插件',
 
   head: [
-    ['link', { rel: 'icon', href: 'https://koishi.chat/logo.png' }],
+    ['link', { rel: 'icon', href: '/logo.png' }],
     ['link', { rel: 'manifest', href: 'https://koishi.chat/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#5546a3' }],
   ],
@@ -27,5 +27,13 @@ export default defineConfig({
         { text: 'NoneBot 官网', link: 'https://v2.nonebot.dev' },
       ],
     }],
+
+    socialLinks: {
+      github: 'https://github.com/nonebotjs/koishi-plugin-nonebot',
+    },
+
+    editLink: {
+      pattern: 'https://github.com/nonebotjs/koishi-plugin-nonebot/edit/main/docs/:path',
+    },
   },
 })
