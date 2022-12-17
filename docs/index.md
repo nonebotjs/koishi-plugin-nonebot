@@ -5,12 +5,12 @@ hero:
   name: koishi-plugin-nonebot
   text: 在 Koishi 中加载 NoneBot 插件
   image:
-    src: /logo-light.png
+    src: /logo.png
     alt: logo
   actions:
     - theme: brand
       text: 即刻起步
-      link: /starter
+      link: /usage
     - theme: alt
       text: 插件一览
       link: /plugins

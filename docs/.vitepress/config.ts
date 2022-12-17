@@ -13,9 +13,9 @@ export default defineConfig({
 
   themeConfig: {
     nav: [
+      { text: '起步', link: './usage' },
       { text: '插件', link: './plugins' },
       { text: 'API', link: './api' },
-      { text: '配置项', link: './config' },
       {
         text: '更多',
         items: [
@@ -28,10 +28,9 @@ export default defineConfig({
     sidebar: [{
       text: '指南',
       items: [
-        { text: '介绍', link: './' },
+        { text: '起步', link: './usage' },
         { text: '插件', link: './plugins' },
         { text: 'API', link: './api' },
-        { text: '配置项', link: './config' },
       ],
     }, {
       text: '更多',
