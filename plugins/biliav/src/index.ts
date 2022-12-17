@@ -6,5 +6,5 @@ export const name = 'biliav'
 export const using = ['nonebot']
 
 export function apply(ctx: Context) {
-  ctx.nonebot.import(resolve(__dirname, '../nonebot_plugin_biliav'))
+  ctx.nonebot.import(resolve(__dirname, '../nonebot_plugin_biliav/nonebot_plugin_biliav'))
 }

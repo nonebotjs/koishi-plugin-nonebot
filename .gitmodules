@@ -1,0 +1,3 @@
+[submodule "plugins/biliav/nonebot_plugin_biliav"]
+	path = plugins/biliav/nonebot_plugin_biliav
+	url = https://github.com/nonebotjs/nonebot_plugin_biliav
