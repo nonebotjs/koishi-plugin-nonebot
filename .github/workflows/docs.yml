@@ -3,6 +3,7 @@ name: Docs
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -20,4 +21,5 @@ jobs:
       - name: Build
         run: yarn docs:build
       - name: Deploy vercel
+        if: ${{ github.repository == 'nonebotjs/koishi-plugin-nonebot' && github.ref == 'refs/heads/main' }}
         run: vercel deploy docs/.vitepress/dist --token ${{ secrets.VERCEL_TOKEN }} --prod --yes

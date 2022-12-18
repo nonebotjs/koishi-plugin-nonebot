@@ -3,6 +3,7 @@ name: Build
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,6 +12,9 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
