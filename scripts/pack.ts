@@ -1,12 +1,12 @@
 import del from 'del'
-import mkdirp from 'mkdirp'
+import { mkdir } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { register, spawnAsync } from 'yakumo'
 
 register('nbp-pack', async (project) => {
   const pathDist = resolve(__dirname, '../build/dist')
   await del(pathDist)
-  await mkdirp(pathDist)
+  await mkdir(pathDist, { recursive: true })
 
   await Promise.all(
     Object.keys(project.targets)

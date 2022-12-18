@@ -1,5 +1,4 @@
-import mkdirp from 'mkdirp'
-import fs from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { register } from 'yakumo'
 import type { Nbp } from './types'
@@ -12,7 +11,7 @@ const buildNonebot = async () => {
   const pathDist = join(pathPackage, 'dist')
 
   if (await exists(pathDist)) return
-  await mkdirp(pathDist)
+  await mkdir(pathDist, { recursive: true })
 }
 
 const buildPlugin = async (path: string) => {
@@ -23,7 +22,7 @@ const buildPlugin = async (path: string) => {
   const nbp: Nbp = require(join(pathPackage, 'nbp.json'))
 
   if (await exists(pathDist)) return
-  await mkdirp(pathDist)
+  await mkdir(pathDist, { recursive: true })
 
   const directDeps = JSON.parse(
     await spawnOutput('python3', [
@@ -39,7 +38,7 @@ const buildPlugin = async (path: string) => {
   )[0].requires.filter((x: string) => !blacklist.some((y) => x.startsWith(y)))
 
   if (!directDeps.length) {
-    await fs.writeFile(join(pathDist, 'deps.json'), '[]')
+    await writeFile(join(pathDist, 'deps.json'), '[]')
     return
   }
 
@@ -62,7 +61,7 @@ const buildPlugin = async (path: string) => {
 
   await Promise.all(deps.map((x) => download(x.url, pathDist, x.filename)))
 
-  await fs.writeFile(
+  await writeFile(
     join(pathDist, 'deps.json'),
     JSON.stringify(deps.map((x) => ({ name: x.name, filename: x.filename })))
   )

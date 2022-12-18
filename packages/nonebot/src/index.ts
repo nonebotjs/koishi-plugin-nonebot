@@ -1,6 +1,6 @@
+import { mkdir } from 'node:fs/promises'
 import { Context, Dict, Logger, Schema, Service } from 'koishi'
-import mkdirp from 'mkdirp'
-import { basename, join } from 'node:path'
+import { basename, join, resolve } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
 import { loadPyodide } from 'pyodide'
 import * as modules from './modules'
@@ -34,10 +34,11 @@ class NoneBot extends Service {
       homedir: '/pyodide',
     })
 
-    await mkdirp(this.config.packagesFolder)
+    const root = resolve(this.ctx.baseDir, this.config.packagesFolder)
+    await mkdir(root, { recursive: true })
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
-      { root: this.config.packagesFolder },
+      { root },
       '/lib/python3.10/site-packages/'
     )
 
