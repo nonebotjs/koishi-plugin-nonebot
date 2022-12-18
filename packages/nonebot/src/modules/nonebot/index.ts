@@ -13,8 +13,8 @@ export default class NoneBot {
     }
   }
 
-  on_regex(regex) {
-    return new RegexDecorator(this.ctx, new RegExp(regex))
+  on_regex(pattern: string) {
+    return new RegexDecorator(this.ctx, new RegExp(pattern))
   }
 
   typing = {
