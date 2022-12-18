@@ -1,14 +1,9 @@
 import { Context, Logger, Schema, Service } from 'koishi'
 import mkdirp from 'mkdirp'
-import fetch from 'node-fetch'
 import { basename, join } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
 import { loadPyodide } from 'pyodide'
 import * as modules from './modules'
-
-if (!globalThis.fetch) {
-  globalThis.fetch = fetch as any
-}
 
 const logger = new Logger('nonebot')
 
