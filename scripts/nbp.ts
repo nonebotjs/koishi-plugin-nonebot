@@ -69,9 +69,10 @@ const buildPlugin = async (path: string) => {
 }
 
 register('nbp', (project) =>
-  Promise.all(
-    Object.keys(project.targets)
+  Promise.all([
+    ...Object.keys(project.targets)
       .filter((path) => path.startsWith('/plugins'))
-      .map(buildPlugin)
-  )
+      .map(buildPlugin),
+    buildNonebot(),
+  ])
 )
