@@ -1,5 +1,6 @@
 import { Context, segment } from 'koishi'
-import { RegexDecorator } from './decorators/regex'
+import { MessageMatcher } from './matcher'
+import { extractText } from './utils'
 
 export class NoneBot {
   constructor(protected ctx: Context) {}
@@ -12,8 +13,25 @@ export class NoneBot {
     }
   }
 
-  on_regex(regex) {
-    return new RegexDecorator(this.ctx, new RegExp(regex))
+  on_startswith(text: string) {
+    return new MessageMatcher(this.ctx, message => message.startsWith(text))
+  }
+
+  on_endswith(text: string) {
+    return new MessageMatcher(this.ctx, message => message.endsWith(text))
+  }
+
+  on_fullmatch(text: string) {
+    return new MessageMatcher(this.ctx, message => message === text)
+  }
+
+  on_keyword(text: string) {
+    return new MessageMatcher(this.ctx, message => message.includes(text))
+  }
+
+  on_regex(pattern: string) {
+    const regexp = new RegExp(pattern)
+    return new MessageMatcher(this.ctx, message => regexp.test(message))
   }
 
   typing = {
