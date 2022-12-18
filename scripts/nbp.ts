@@ -1,10 +1,9 @@
-import del from 'del'
 import mkdirp from 'mkdirp'
-import { promises as fs } from 'node:fs'
+import fs from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { register } from 'yakumo'
 import type { Nbp } from './types'
-import { download, spawnOutput } from './utils'
+import { download, exists, spawnOutput } from './utils'
 
 const blacklist = ['nonebot-adapter-', 'nonebot2', 'httpx']
 
@@ -15,7 +14,7 @@ const build = async (path: string) => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const nbp: Nbp = require(join(pathPackage, 'nbp.json'))
 
-  await del(pathDist)
+  if (await exists(pathDist)) return
   await mkdirp(pathDist)
 
   const directDeps = JSON.parse(

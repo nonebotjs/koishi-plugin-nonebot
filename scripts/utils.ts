@@ -1,6 +1,8 @@
 import axios from 'axios'
 import execa from 'execa'
+import type { PathLike } from 'node:fs'
 import { createWriteStream } from 'node:fs'
+import fs from 'node:fs/promises'
 import { join } from 'node:path'
 import stream from 'node:stream'
 import { promisify } from 'node:util'
@@ -34,4 +36,13 @@ export async function download(src: string, dest: string, filename: string) {
   await promisify(stream.finished)(
     (res.data as stream.Readable).pipe(writeStream)
   )
+}
+
+export async function exists(path: PathLike): Promise<boolean> {
+  try {
+    await fs.stat(path)
+  } catch (_) {
+    return false
+  }
+  return true
 }
