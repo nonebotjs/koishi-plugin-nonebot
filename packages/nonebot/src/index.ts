@@ -52,18 +52,9 @@ class NoneBot extends Service {
   async import(pathModule: string, pathDeps: string) {
     const name = basename(pathModule)
 
-    const pathVFSDeps = `/pyodide/kpn_${name}_deps/`
-    this.python.FS.mkdirTree(pathVFSDeps)
-    this.python.FS.mount(
-      this.python.FS.filesystems.NODEFS,
-      { root: pathDeps },
-      pathVFSDeps
-    )
-
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const deps = require(join(pathDeps, 'deps.json'))
-    for (const dep of deps)
-      await this.install(pathVFSDeps, dep.name, dep.filename)
+    for (const dep of deps) await this.install(pathDeps, dep.name, dep.filename)
 
     const pathVFSModule = `/pyodide/${name}/`
     this.python.FS.mkdirTree(pathVFSModule)
@@ -75,16 +66,11 @@ class NoneBot extends Service {
     this.python.pyimport(name)
   }
 
-  private async install(pathVFSDeps: string, name: string, filename: string) {
+  private async install(pathDeps: string, name: string, filename: string) {
     if (this.installed.includes(name)) return
 
-    // await this.micropip.install.callKwargs(path, {
-    //   keep_going: true,
-    //   deps: false,
-    // })
-
     await this.python.loadPackage(
-      `emfs:${pathVFSDeps}${filename}`,
+      join(pathDeps, filename),
       logger.info,
       logger.warn
     )
