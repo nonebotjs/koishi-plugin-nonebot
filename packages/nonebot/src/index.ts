@@ -20,7 +20,6 @@ declare module 'koishi' {
 
 class NoneBot extends Service {
   python: PyodideInterface
-  // micropip: PyProxy
   installed: string[] = []
 
   constructor(protected ctx: Context, protected config: NoneBot.Config) {
@@ -44,9 +43,6 @@ class NoneBot extends Service {
 
     this.python.registerJsModule('nonebot', new modules.NoneBot(this.ctx))
     this.python.pyimport('nonebot')
-
-    // await this.python.loadPackage(['micropip'], logger.info, logger.warn)
-    // this.micropip = this.python.pyimport('micropip')
   }
 
   async import(pathModule: string, pathDeps: string) {
