@@ -1,4 +1,5 @@
 import { Context, Logger, Schema, Service } from 'koishi'
+import mkdirp from 'mkdirp'
 import fetch from 'node-fetch'
 import { basename, join } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
@@ -34,6 +35,7 @@ class NoneBot extends Service {
       homedir: '/pyodide',
     })
 
+    await mkdirp(this.config.packagesFolder)
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
       { root: this.config.packagesFolder },

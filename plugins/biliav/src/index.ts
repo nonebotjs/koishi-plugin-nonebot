@@ -8,6 +8,6 @@ export const using = ['nonebot']
 export function apply(ctx: Context) {
   ctx.nonebot.import(
     resolve(__dirname, '../nonebot_plugin_biliav/nonebot_plugin_biliav'),
-    resolve(__dirname, '../deps')
+    resolve(__dirname, '../dist')
   )
 }
