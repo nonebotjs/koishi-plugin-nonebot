@@ -7,7 +7,15 @@ import { download, exists, spawnOutput } from './utils'
 
 const blacklist = ['nonebot-adapter-', 'nonebot2', 'httpx']
 
-const build = async (path: string) => {
+const buildNonebot = async () => {
+  const pathPackage = resolve(__dirname, '../packages/nonebot')
+  const pathDist = join(pathPackage, 'dist')
+
+  if (await exists(pathDist)) return
+  await mkdirp(pathDist)
+}
+
+const buildPlugin = async (path: string) => {
   const pathPackage = resolve(__dirname, `..${path}`)
   const pathDist = join(pathPackage, 'dist')
 
@@ -64,6 +72,6 @@ register('nbp', (project) =>
   Promise.all(
     Object.keys(project.targets)
       .filter((path) => path.startsWith('/plugins'))
-      .map(build)
+      .map(buildPlugin)
   )
 )
