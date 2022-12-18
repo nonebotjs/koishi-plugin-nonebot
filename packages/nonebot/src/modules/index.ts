@@ -1,3 +1,1 @@
-import NoneBot from './nonebot'
-
-export { NoneBot }
+export * from './nonebot'

@@ -1,14 +1,13 @@
 import { Context, segment } from 'koishi'
 import { RegexDecorator } from './decorators/regex'
 
-export default class NoneBot {
-  constructor(protected ctx: Context) {
-  }
+export class NoneBot {
+  constructor(protected ctx: Context) {}
 
   get_driver() {
     return {
       config: {
-        dict: () => new Map()
+        dict: () => new Map(),
       },
     }
   }
@@ -29,9 +28,9 @@ export default class NoneBot {
         Message: {},
         MessageSegment: {
           image: (t) => segment.image(t),
-        }
-      }
-    }
+        },
+      },
+    },
   }
 
   params = {
