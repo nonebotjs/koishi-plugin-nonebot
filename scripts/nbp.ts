@@ -2,13 +2,13 @@ import del from 'del'
 import mkdirp from 'mkdirp'
 import { promises as fs } from 'node:fs'
 import { basename, join, resolve } from 'node:path'
-import { PackageJson, register } from 'yakumo'
+import { register } from 'yakumo'
 import type { Nbp } from './types'
 import { download, spawnOutput } from './utils'
 
 const blacklist = ['nonebot-adapter-', 'nonebot2', 'httpx']
 
-const build = async (path: string, meta: PackageJson) => {
+const build = async (path: string) => {
   const pathPackage = resolve(__dirname, `..${path}`)
   const pathDist = join(pathPackage, 'dist')
 
@@ -65,6 +65,6 @@ register('nbp', (project) =>
   Promise.all(
     Object.keys(project.targets)
       .filter((path) => path.startsWith('/plugins'))
-      .map((path) => build(path, project.targets[path]))
+      .map(build)
   )
 )
