@@ -1,5 +1,3 @@
-
-
 .layout-home {
   min-height: 100vh;
   box-sizing: border-box;
@@ -14,7 +12,7 @@
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 !important;
 
     &::before {

@@ -1,4 +1,4 @@
-import { Context, Logger, Schema, Service } from 'koishi'
+import { Context, Dict, Logger, Schema, Service } from 'koishi'
 import mkdirp from 'mkdirp'
 import { basename, join } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
@@ -13,9 +13,14 @@ declare module 'koishi' {
   }
 }
 
+interface Dependency {
+  name: string
+  filename: string
+}
+
 class NoneBot extends Service {
-  python: PyodideInterface
-  installed: string[] = []
+  public python: PyodideInterface
+  private installed: Dict<Promise<void>> = Object.create(null)
 
   constructor(protected ctx: Context, protected config: NoneBot.Config) {
     super(ctx, 'nonebot')
@@ -44,8 +49,8 @@ class NoneBot extends Service {
     const name = basename(pathModule)
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const deps = require(join(pathDeps, 'deps.json'))
-    for (const dep of deps) await this.install(pathDeps, dep.name, dep.filename)
+    const deps: Dependency[] = require(join(pathDeps, 'deps.json'))
+    await Promise.all(deps.map(dep => this.install(pathDeps, dep)))
 
     const pathVFSModule = `/pyodide/${name}/`
     this.python.FS.mkdirTree(pathVFSModule)
@@ -57,15 +62,12 @@ class NoneBot extends Service {
     this.python.pyimport(name)
   }
 
-  private async install(pathDeps: string, name: string, filename: string) {
-    if (this.installed.includes(name)) return
-
-    await this.python.loadPackage(
-      join(pathDeps, filename),
+  private async install(pathDeps: string, dep: Dependency) {
+    return this.installed[dep.name] ||= this.python.loadPackage(
+      join(pathDeps, dep.filename),
       logger.info,
       logger.warn
     )
-    this.installed.push(name)
   }
 
   async stop() {
