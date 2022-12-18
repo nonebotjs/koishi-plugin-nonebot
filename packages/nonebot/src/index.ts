@@ -1,8 +1,9 @@
 import { Context, Logger, Schema, Service } from 'koishi'
-import { loadPyodide, PyodideInterface } from 'pyodide'
-import * as modules from './modules'
 import fetch from 'node-fetch'
-import { basename } from 'path'
+import { basename, join } from 'node:path'
+import type { PyodideInterface } from 'pyodide'
+import { loadPyodide } from 'pyodide'
+import * as modules from './modules'
 
 if (!globalThis.fetch) {
   globalThis.fetch = fetch as any
@@ -18,6 +19,8 @@ declare module 'koishi' {
 
 class NoneBot extends Service {
   python: PyodideInterface
+  // micropip: PyProxy
+  installed: string[] = []
 
   constructor(protected ctx: Context, protected config: NoneBot.Config) {
     super(ctx, 'nonebot')
@@ -27,20 +30,63 @@ class NoneBot extends Service {
     this.python = await loadPyodide({
       stdout: logger.info,
       stderr: logger.warn,
+      fullStdLib: false,
+      homedir: '/pyodide',
     })
-    const root = this.config.packagesFolder
-    this.python.FS.mount(this.python.FS.filesystems.NODEFS, { root }, '/lib/python3.10/site-packages/')
+
+    this.python.FS.mount(
+      this.python.FS.filesystems.NODEFS,
+      { root: this.config.packagesFolder },
+      '/lib/python3.10/site-packages/'
+    )
+
     this.python.registerJsModule('nonebot', new modules.NoneBot(this.ctx))
-    await this.python.loadPackage(['pydantic', 'micropip'], logger.info, logger.warn)
-    this.python.pyimport('pydantic')
     this.python.pyimport('nonebot')
+
+    // await this.python.loadPackage(['micropip'], logger.info, logger.warn)
+    // this.micropip = this.python.pyimport('micropip')
   }
 
-  import(root: string) {
-    const name = basename(root)
-    this.python.FS.mkdir(`/home/pyodide/${name}/`)
-    this.python.FS.mount(this.python.FS.filesystems.NODEFS, { root }, `/home/pyodide/${name}/`)
+  async import(pathModule: string, pathDeps: string) {
+    const name = basename(pathModule)
+
+    const pathVFSDeps = `/pyodide/kpn_${name}_deps/`
+    this.python.FS.mkdirTree(pathVFSDeps)
+    this.python.FS.mount(
+      this.python.FS.filesystems.NODEFS,
+      { root: pathDeps },
+      pathVFSDeps
+    )
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const deps = require(join(pathDeps, 'deps.json'))
+    for (const dep of deps)
+      await this.install(pathVFSDeps, dep.name, dep.filename)
+
+    const pathVFSModule = `/pyodide/${name}/`
+    this.python.FS.mkdirTree(pathVFSModule)
+    this.python.FS.mount(
+      this.python.FS.filesystems.NODEFS,
+      { root: pathModule },
+      pathVFSModule
+    )
     this.python.pyimport(name)
+  }
+
+  private async install(pathVFSDeps: string, name: string, filename: string) {
+    if (this.installed.includes(name)) return
+
+    // await this.micropip.install.callKwargs(path, {
+    //   keep_going: true,
+    //   deps: false,
+    // })
+
+    await this.python.loadPackage(
+      `emfs:${pathVFSDeps}${filename}`,
+      logger.info,
+      logger.warn
+    )
+    this.installed.push(name)
   }
 
   async stop() {
@@ -52,9 +98,11 @@ namespace NoneBot {
   export interface Config {
     packagesFolder?: string
   }
-  
+
   export const Config: Schema<Config> = Schema.object({
-    packagesFolder: Schema.string().description('site-packages 目录。').default('data/nonebot/site-packages'),
+    packagesFolder: Schema.string()
+      .description('site-packages 目录。')
+      .default('data/nonebot/site-packages'),
   })
 }
 
