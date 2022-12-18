@@ -24,3 +24,10 @@ jobs:
         run: pip install johnnydep
       - name: Build
         run: yarn build
+      - name: Pack
+        run: yarn nbp:pack
+      - name: Upload Packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages-${{ github.sha }}.zip
+          path: build/dist/
