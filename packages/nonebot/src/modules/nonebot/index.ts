@@ -1,6 +1,8 @@
-import { Context, segment } from 'koishi'
+import { Context, Logger, segment } from 'koishi'
 import { CommandMatcher, MessageMatcher } from './matcher'
 import { kwarg } from './utils'
+
+const logger = new Logger('nonebot')
 
 export class NoneBot {
   public config: any
@@ -57,6 +59,9 @@ export class NoneBot {
       v11: {
         Bot() {},
         Event() {},
+        MessageEvent() {},
+        GroupMessageEvent() {},
+        PrivateMessageEvent() {},
         Message: {},
         MessageSegment: {
           text: (text: string) => text,
@@ -67,6 +72,10 @@ export class NoneBot {
         },
       },
     },
+  }
+
+  log = {
+    logger,
   }
 
   params = {

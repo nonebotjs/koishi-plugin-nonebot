@@ -50,13 +50,13 @@ class NoneBot extends Service {
     )
     this.internal = new modules.NoneBot(this.ctx)
     this.python.registerJsModule('nonebot', this.internal)
-    for (const name of ['aiohttp', 'httpx']) {
+    for (const name of ['aiohttp', 'httpx', 'pydantic']) {
       this.mount(resolve(__dirname, `../python/${name}`))
     }
   }
 
   mount(pathModule: string) {
-    const name = basename(pathModule)
+    const name = basename(pathModule).replace(/-/g, '_')
     const pathVFSModule = `/pyodide/${name}/`
     this.python.FS.mkdirTree(pathVFSModule)
     this.python.FS.mount(
