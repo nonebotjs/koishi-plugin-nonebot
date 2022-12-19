@@ -26,6 +26,7 @@ interface Dependency {
 class NoneBot extends Service {
   public python: PyodideInterface
   public internal: modules.NoneBot
+  private importTask: Promise<void> = Promise.resolve()
   private installed: Dict<Promise<void>> = Object.create(null)
 
   constructor(protected ctx: Context, protected config: NoneBot.Config) {
@@ -73,10 +74,12 @@ class NoneBot extends Service {
   }
 
   async import(pathModule: string, config = {}) {
-    const name = this.mount(pathModule)
-    this.internal.config = config
-    await this.python.runPythonAsync(`import ${name}`)
-    this.internal.config = {}
+    return this.importTask = this.importTask.then(async () => {
+      const name = this.mount(pathModule)
+      this.internal.config = config
+      await this.python.runPython(`import ${name}`)
+      this.internal.config = {}
+    })
   }
 
   private async loadPackage(pathDeps: string, dep: Dependency) {
