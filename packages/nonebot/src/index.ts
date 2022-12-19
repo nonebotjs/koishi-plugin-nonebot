@@ -25,6 +25,7 @@ interface Dependency {
 
 class NoneBot extends Service {
   public python: PyodideInterface
+  public internal: modules.NoneBot
   private installed: Dict<Promise<void>> = Object.create(null)
 
   constructor(protected ctx: Context, protected config: NoneBot.Config) {
@@ -46,7 +47,8 @@ class NoneBot extends Service {
       { root },
       '/lib/python3.10/site-packages/'
     )
-    this.python.registerJsModule('nonebot', new modules.NoneBot(this.ctx))
+    this.internal = new modules.NoneBot(this.ctx)
+    this.python.registerJsModule('nonebot', this.internal)
     for (const name of ['httpx', 'aiohttp']) {
       this.mount(resolve(__dirname, `../python/${name}`))
     }
@@ -64,19 +66,20 @@ class NoneBot extends Service {
     return name
   }
 
-  async installDeps(pathDeps: string) {
+  async install(pathDeps: string) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const deps: Dependency[] = require(join(pathDeps, 'deps.json'))
-    await Promise.all(deps.map(dep => this.install(pathDeps, dep)))
+    await Promise.all(deps.map(dep => this.loadPackage(pathDeps, dep)))
   }
 
-  async import(pathModule: string, pathDeps?: string) {
-    if (pathDeps) await this.installDeps(pathDeps)
+  async import(pathModule: string, config = {}) {
     const name = this.mount(pathModule)
+    this.internal.config = config
     await this.python.runPythonAsync(`import ${name}`)
+    this.internal.config = {}
   }
 
-  private async install(pathDeps: string, dep: Dependency) {
+  private async loadPackage(pathDeps: string, dep: Dependency) {
     return this.installed[dep.name] ||= this.python.loadPackage(
       join(pathDeps, dep.filename),
       logger.info,

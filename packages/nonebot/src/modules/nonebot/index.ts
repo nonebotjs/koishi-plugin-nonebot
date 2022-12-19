@@ -1,13 +1,15 @@
 import { Context, segment } from 'koishi'
-import { MessageMatcher } from './matcher'
+import { CommandMatcher, MessageMatcher } from './matcher'
 
 export class NoneBot {
+  public config: any
+
   constructor(protected ctx: Context) {}
 
   get_driver() {
     return {
       config: {
-        dict: () => new Map(),
+        dict: () => new Map(Object.entries(this.config)),
       },
     }
   }

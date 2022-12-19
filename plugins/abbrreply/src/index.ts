@@ -6,8 +6,5 @@ export const name = 'abbrreply'
 export const using = ['nonebot']
 
 export function apply(ctx: Context) {
-  ctx.nonebot.import(
-    resolve(__dirname, '../nonebot_plugin_abbrreply/nonebot_plugin_abbrreply'),
-    resolve(__dirname, '../dist')
-  )
+  ctx.nonebot.import(resolve(__dirname, '../nonebot_plugin_abbrreply/nonebot_plugin_abbrreply'))
 }
