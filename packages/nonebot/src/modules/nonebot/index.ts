@@ -12,6 +12,14 @@ export class NoneBot {
     }
   }
 
+  plugin = {
+    on_startswith: this.on_startswith.bind(this),
+    on_endswith: this.on_endswith.bind(this),
+    on_fullmatch: this.on_fullmatch.bind(this),
+    on_keyword: this.on_keyword.bind(this),
+    on_regex: this.on_regex.bind(this),
+  }
+
   on_startswith(text: string) {
     return new MessageMatcher(this.ctx, message => message.startsWith(text))
   }
@@ -44,7 +52,7 @@ export class NoneBot {
         Event() {},
         Message: {},
         MessageSegment: {
-          image: (t) => segment.image(t),
+          image: (t: string) => segment.image(t).toString(),
         },
       },
     },

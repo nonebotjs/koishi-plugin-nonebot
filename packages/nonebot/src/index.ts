@@ -5,6 +5,11 @@ import type { PyodideInterface } from 'pyodide'
 import { loadPyodide } from 'pyodide'
 import * as modules from './modules'
 
+if (!globalThis.fetch) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  globalThis.fetch = require('node-fetch')
+}
+
 const logger = new Logger('nonebot')
 
 declare module 'koishi' {

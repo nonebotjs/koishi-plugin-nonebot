@@ -5,7 +5,7 @@ class AsyncClient:
 		return self
 
 	async def __aexit__(self, exc_type, exc_value, traceback):
-		return self
+		return
 
 	async def get(self, url, headers):
 		r = await pyfetch(url, headers=headers)
