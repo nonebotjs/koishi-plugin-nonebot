@@ -1,7 +1,5 @@
 from pyodide.http import pyfetch
 
-print("httpx loaded")
-
 class AsyncClient:
 	async def __aenter__(self):
 		return self
