@@ -1,23 +1,24 @@
 {
-  "name": "@nonebot/koishi-plugin-abbrreply",
-  "description": "缩写查询器",
+  "name": "@nonebot/koishi-plugin-template",
+  "private": true,
+  "description": "",
   "version": "0.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_abbrreply/nonebot_plugin_abbrreply",
+    "nonebot_plugin_template/nonebot_plugin_template",
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/nonebot_plugin_abbrreply.git"
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_template.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/nonebot_plugin_abbrreply/issues"
+    "url": "https://github.com/nonebotjs/nonebot_plugin_template/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {
@@ -32,8 +33,7 @@
     "chatbot",
     "koishi",
     "plugin",
-    "nonebot",
-    "abbreviation"
+    "nonebot"
   ],
   "peerDependencies": {
     "koishi": "^4.10.6",

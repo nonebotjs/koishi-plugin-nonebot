@@ -1,6 +1,6 @@
 {
   "name": "@nonebot/koishi-plugin-biliav",
-  "description": "nonebot_plugin_biliav",
+  "description": "biliav小程序转换器",
   "version": "0.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -14,11 +14,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/koishi-plugin-nonebot.git",
-    "directory": "plugins/biliav"
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_biliav.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/koishi-plugin-nonebot/issues"
+    "url": "https://github.com/nonebotjs/nonebot_plugin_biliav/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {

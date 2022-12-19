@@ -5,7 +5,7 @@ import { resolve } from 'path'
 export const name = 'songpicker2'
 export const using = ['nonebot']
 
-interface Config {}
+export interface Config {}
 
 export const Config: Schema<Config> = Schema.object({})
 

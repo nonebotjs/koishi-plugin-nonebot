@@ -1,6 +1,6 @@
 {
   "name": "@nonebot/koishi-plugin-songpicker2",
-  "description": "nonebot_plugin_songpicker2",
+  "description": "适用于nonebot2的点歌插件，数据源为网易云音乐",
   "version": "0.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -14,11 +14,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/koishi-plugin-nonebot.git",
-    "directory": "plugins/songpicker2"
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_songpicker2.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/koishi-plugin-nonebot/issues"
+    "url": "https://github.com/nonebotjs/nonebot_plugin_songpicker2/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {
