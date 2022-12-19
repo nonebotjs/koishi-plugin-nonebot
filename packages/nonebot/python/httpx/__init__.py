@@ -11,7 +11,7 @@ class AsyncClient:
 
 	async def get(self, url, headers):
 		r = await pyfetch(url, headers=headers)
-		text = await r.text()
+		text = await r.string()
 		return Response(text)
 
 class Response:
