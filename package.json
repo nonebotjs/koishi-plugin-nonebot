@@ -10,6 +10,7 @@
   "packageManager": "yarn@1.22.19",
   "license": "MIT",
   "scripts": {
+    "setup": "node -r esbuild-register scripts/setup",
     "build": "yakumo build",
     "nbp:build": "yakumo nbp",
     "nbp:pack": "yakumo nbp-pack",
