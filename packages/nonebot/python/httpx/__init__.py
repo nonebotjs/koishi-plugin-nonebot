@@ -4,7 +4,6 @@ print("httpx loaded")
 
 class AsyncClient:
 	async def __aenter__(self):
-		await self.client.__aenter__()
 		return self
 
 	async def __aexit__(self, exc_type, exc_value, traceback):
