@@ -59,7 +59,11 @@ export class NoneBot {
         Event() {},
         Message: {},
         MessageSegment: {
-          image: (t: string) => segment.image(t).toString(),
+          text: (text: string) => text,
+          at: (id: string) => segment.at(id).toString(),
+          reply: (id: string) => segment.quote(id).toString(),
+          image: (url: string) => segment.image(url).toString(),
+          music: (type: string, id: number) => segment('onebot:music', { type, id }).toString(),
         },
       },
     },

@@ -50,7 +50,7 @@ class NoneBot extends Service {
     )
     this.internal = new modules.NoneBot(this.ctx)
     this.python.registerJsModule('nonebot', this.internal)
-    for (const name of ['httpx', 'aiohttp']) {
+    for (const name of ['aiohttp', 'httpx']) {
       this.mount(resolve(__dirname, `../python/${name}`))
     }
   }
