@@ -1,4 +1,5 @@
 from pyodide.http import pyfetch
+import json
 
 
 class ClientSession:
@@ -9,10 +10,12 @@ class ClientSession:
 		return
 
 	def get(self, url, headers, data):
-		return ResponseWrapper(pyfetch(url, headers=headers, data=data, method="GET"))
+		headers["Content-Type"] = "application/json"
+		return ResponseWrapper(pyfetch(url, headers=headers, body=json.dumps(data), method="GET"))
 
 	def post(self, url, headers, data):
-		return ResponseWrapper(pyfetch(url, headers=headers, data=data, method="POST"))
+		headers["Content-Type"] = "application/json"
+		return ResponseWrapper(pyfetch(url, headers=headers, body=json.dumps(data), method="POST"))
 
 
 class ResponseWrapper:
