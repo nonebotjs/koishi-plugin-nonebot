@@ -41,18 +41,13 @@ class NoneBot extends Service {
       { root },
       '/lib/python3.10/site-packages/'
     )
-
+    this.mount(resolve(__dirname, '../python/httpx'))
     this.python.registerJsModule('nonebot', new modules.NoneBot(this.ctx))
     this.python.pyimport('nonebot')
   }
 
-  async import(pathModule: string, pathDeps: string) {
+  mount(pathModule: string) {
     const name = basename(pathModule)
-
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const deps: Dependency[] = require(join(pathDeps, 'deps.json'))
-    await Promise.all(deps.map(dep => this.install(pathDeps, dep)))
-
     const pathVFSModule = `/pyodide/${name}/`
     this.python.FS.mkdirTree(pathVFSModule)
     this.python.FS.mount(
@@ -61,6 +56,13 @@ class NoneBot extends Service {
       pathVFSModule
     )
     this.python.pyimport(name)
+  }
+
+  async import(pathModule: string, pathDeps: string) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const deps: Dependency[] = require(join(pathDeps, 'deps.json'))
+    await Promise.all(deps.map(dep => this.install(pathDeps, dep)))
+    this.mount(pathModule)
   }
 
   private async install(pathDeps: string, dep: Dependency) {

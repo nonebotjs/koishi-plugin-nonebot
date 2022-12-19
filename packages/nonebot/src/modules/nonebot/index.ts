@@ -1,6 +1,5 @@
 import { Context, segment } from 'koishi'
 import { MessageMatcher } from './matcher'
-import { extractText } from './utils'
 
 export class NoneBot {
   constructor(protected ctx: Context) {}

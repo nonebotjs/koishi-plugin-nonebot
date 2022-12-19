@@ -5,5 +5,3 @@
 *.ico -text
 *.gif -text
 *.webp -text
-
-plugins/* linguist-vendored

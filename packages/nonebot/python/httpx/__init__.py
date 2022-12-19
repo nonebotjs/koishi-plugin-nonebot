@@ -1,0 +1,20 @@
+from pyodide.http import pyfetch
+
+print("httpx loaded")
+
+class AsyncClient:
+	async def __aenter__(self):
+		await self.client.__aenter__()
+		return self
+
+	async def __aexit__(self, exc_type, exc_value, traceback):
+		return self
+
+	async def get(self, url, headers):
+		r = await pyfetch(url, headers=headers)
+		text = await r.text()
+		return Response(text)
+
+class Response:
+	def __init__(self, text):
+		self.text = text
