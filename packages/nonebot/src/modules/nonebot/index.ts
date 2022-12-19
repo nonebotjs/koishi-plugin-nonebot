@@ -36,8 +36,8 @@ export class NoneBot {
     return new MessageMatcher(this.ctx, message => message.includes(text))
   }
 
-  on_regex(pattern: string) {
-    const regexp = new RegExp(pattern)
+  on_regex(arg: string | { pattern: string }) {
+    const regexp = new RegExp(typeof arg === 'string' ? arg : arg.pattern)
     return new MessageMatcher(this.ctx, message => regexp.test(message))
   }
 

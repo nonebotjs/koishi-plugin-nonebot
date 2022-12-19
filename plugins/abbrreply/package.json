@@ -1,0 +1,50 @@
+{
+  "name": "@nonebot/koishi-plugin-abbrreply",
+  "description": "nonebot_plugin_abbrreply",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_abbrreply/nonebot_plugin_abbrreply",
+    "nbp.json"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/koishi-plugin-nonebot.git",
+    "directory": "plugins/abbrreply"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/koishi-plugin-nonebot/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "abbreviation"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.6",
+    "koishi-plugin-nonebot": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "atsc": "^1.2.2",
+    "koishi": "^4.10.6",
+    "koishi-plugin-nonebot": "^0.1.0",
+    "typescript": "^4.9.4"
+  }
+}

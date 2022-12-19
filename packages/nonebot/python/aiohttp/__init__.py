@@ -7,10 +7,10 @@ class ClientSession:
 	async def __aexit__(self, exc_type, exc_value, traceback):
 		return
 
-	def post(url, headers, data):
-		return Response(pyfetch(url, headers=headers, data=data))
+	def post(self, url, headers, data):
+		return ResponseWrapper(pyfetch(url, headers=headers, data=data, method="POST"))
 
-class Response:
+class ResponseWrapper:
 	def __init__(self, response):
 		self._response = response
 
@@ -21,4 +21,5 @@ class Response:
 		return
 
 	async def json(self):
-		return await self._response.json()
+		r = await self._response
+		return await r.json()
