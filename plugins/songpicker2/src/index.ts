@@ -9,7 +9,7 @@ export interface Config {}
 
 export const Config: Schema<Config> = Schema.object({})
 
-export async function apply(ctx: Context) {
+export async function apply(ctx: Context, config: Config) {
   await ctx.nonebot.install(resolve(__dirname, '../dist'))
-  await ctx.nonebot.import(resolve(__dirname, '../nonebot_plugin_songpicker2/nonebot_plugin_songpicker2'))
+  await ctx.nonebot.import(resolve(__dirname, '../nonebot_plugin_songpicker2/nonebot_plugin_songpicker2'), config)
 }

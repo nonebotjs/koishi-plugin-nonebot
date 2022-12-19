@@ -1,3 +1,6 @@
+from pyodide.ffi import JsProxy
+
+
 class BaseModel:
 	@classmethod
 	def parse_obj(cls, obj: dict):
@@ -11,11 +14,12 @@ class Object(dict):
 	def __getattr__(self, key):
 		if key not in self:
 			return None
-		else:
-			value = self[key]
-			if isinstance(value, dict):
-				value = Object(value)
-			return value
+		value = self[key]
+		if isinstance(value, JsProxy):
+			value = value.to_py()
+		if isinstance(value, dict):
+			value = Object(value)
+		return value
 
 
 class Extra:

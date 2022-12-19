@@ -23,6 +23,7 @@ export class NoneBot {
     on_fullmatch: this.on_fullmatch.bind(this),
     on_keyword: this.on_keyword.bind(this),
     on_regex: this.on_regex.bind(this),
+    PluginMetadata() {},
   }
 
   on_startswith(text: string) {
