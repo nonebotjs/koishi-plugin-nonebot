@@ -4,3 +4,6 @@
 [submodule "plugins/abbrreply/nonebot_plugin_abbrreply"]
 	path = plugins/abbrreply/nonebot_plugin_abbrreply
 	url = https://github.com/nonebotjs/nonebot_plugin_abbrreply.git
+[submodule "plugins/songpicker2/nonebot_plugin_songpicker2"]
+	path = plugins/songpicker2/nonebot_plugin_songpicker2
+	url = https://github.com/nonebotjs/nonebot_plugin_songpicker2.git
