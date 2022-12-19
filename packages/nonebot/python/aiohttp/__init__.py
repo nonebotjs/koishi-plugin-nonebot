@@ -9,9 +9,9 @@ class ClientSession:
 	async def __aexit__(self, exc_type, exc_value, traceback):
 		return
 
-	def get(self, url, headers, data):
+	def get(self, url, headers):
 		headers["Content-Type"] = "application/json"
-		return ResponseWrapper(pyfetch(url, headers=headers, body=json.dumps(data), method="GET"))
+		return ResponseWrapper(pyfetch(url, headers=headers, method="GET"))
 
 	def post(self, url, headers, data):
 		headers["Content-Type"] = "application/json"
