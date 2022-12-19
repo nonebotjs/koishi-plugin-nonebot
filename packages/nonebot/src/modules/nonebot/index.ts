@@ -1,5 +1,6 @@
 import { Context, segment } from 'koishi'
 import { CommandMatcher, MessageMatcher } from './matcher'
+import { kwarg } from './utils'
 
 export class NoneBot {
   public config: any
@@ -38,9 +39,13 @@ export class NoneBot {
     return new MessageMatcher(this.ctx, message => message.includes(text))
   }
 
-  on_regex(arg: string | { pattern: string }) {
-    const regexp = new RegExp(typeof arg === 'string' ? arg : arg.pattern)
+  on_regex(...args: any[]) {
+    const regexp = new RegExp(kwarg('pattern', args))
     return new MessageMatcher(this.ctx, message => regexp.test(message))
+  }
+
+  on_command(name: string) {
+    return new CommandMatcher(this.ctx, name)
   }
 
   typing = {
@@ -70,6 +75,9 @@ export class NoneBot {
       return {
         T_State: {},
       }
+    },
+    CommandArg() {
+      return {}
     },
   }
 }

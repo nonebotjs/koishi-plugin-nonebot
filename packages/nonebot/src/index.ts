@@ -74,10 +74,10 @@ class NoneBot extends Service {
   }
 
   async import(pathModule: string, config = {}) {
+    const name = this.mount(pathModule)
     return this.importTask = this.importTask.then(async () => {
-      const name = this.mount(pathModule)
       this.internal.config = config
-      await this.python.runPython(`import ${name}`)
+      await this.python.runPythonAsync(`import ${name}`)
       this.internal.config = {}
     })
   }

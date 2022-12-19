@@ -6,3 +6,7 @@ export function extractText(elements: h[]) {
     text: true,
   }).join('')
 }
+
+export function kwarg(name: string, args: any[]) {
+  return typeof args[0] === 'string' ? args[0] : args[0][name]
+}
