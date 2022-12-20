@@ -22,6 +22,10 @@ class Object(dict):
 		return value
 
 
+class BaseSettings(Object):
+	pass
+
+
 class Extra:
 	ignore = 0
 
