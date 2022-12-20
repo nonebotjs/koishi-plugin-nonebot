@@ -3,7 +3,7 @@ import { Context, Dict, Logger, Schema, Service } from 'koishi'
 import { basename, join, resolve } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
 import { loadPyodide } from 'pyodide'
-import * as modules from './modules'
+import { Internal } from './internal'
 
 if (!globalThis.fetch) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -25,7 +25,7 @@ interface Dependency {
 
 class NoneBot extends Service {
   public python: PyodideInterface
-  public internal: modules.NoneBot
+  public internal: Internal
   private importTask: Promise<void> = Promise.resolve()
   private installed: Dict<Promise<void>> = Object.create(null)
 
@@ -48,9 +48,9 @@ class NoneBot extends Service {
       { root },
       '/lib/python3.10/site-packages/'
     )
-    this.internal = new modules.NoneBot(this.ctx)
-    this.python.registerJsModule('nonebot', this.internal)
-    for (const name of ['aiohttp', 'httpx', 'pydantic']) {
+    this.internal = new Internal(this.ctx)
+    this.python.registerJsModule('internal', this.internal)
+    for (const name of ['aiohttp', 'httpx', 'nonebot', 'pydantic']) {
       this.mount(resolve(__dirname, `../python/${name}`))
     }
   }
