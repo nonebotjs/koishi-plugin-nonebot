@@ -68,7 +68,7 @@ export class NoneBot {
           text: (text: string) => text,
           at: (id: string) => segment.at(id).toString(),
           reply: (id: string) => segment.quote(id).toString(),
-          image: (url: string) => segment.image(url).toString(),
+          image: (...args: any[]) => segment.image(kwarg('file', args)).toString(),
           music: (type: string, id: number) => segment('onebot:music', { type, id }).toString(),
         },
       },

@@ -1,12 +1,22 @@
-import { Context, Dict, Session } from 'koishi'
+import { Context, Dict, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
 import { NoneBotBot } from './bot'
 import { NoneBotEvent } from './event'
 import { extractText, kwarg } from './utils'
 
+const logger = new Logger('nonebot')
+
 export class NoneBotException extends Error {
   constructor(message: string) {
     super('[NBE] ' + message)
+  }
+
+  static check(e: any) {
+    if (!(e instanceof Error)) return
+    if (e.name !== 'PythonError') return
+    if (!e.message.includes('JsException:')) return
+    if (!e.message.includes('[NBE] ')) return
+    return true
   }
 }
 
@@ -38,16 +48,14 @@ export class BaseMatcher {
   }
 
   protected async execute(...args: any[]) {
+    const bot = new NoneBotBot(this.session.bot)
+    const event = new NoneBotEvent(this.session)
     try {
       for (const callback of this.callbacks) {
-        await callback(...args)
+        await callback(bot, event, ...args)
       }
     } catch (e) {
-      console.log(e)
-      if (!(e instanceof Error)) throw e
-      if (e.name !== 'PythonError') throw e
-      if (!e.message.includes('JsException:')) throw e
-      if (!e.message.includes('[NBE] ')) throw e
+      if (!NoneBotException.check(e)) logger.warn(e)
     }
   }
 }
@@ -58,7 +66,7 @@ export class MessageMatcher extends BaseMatcher {
     this.ctx.middleware(async (session, next) => {
       if (!predicate(extractText(session.elements))) return next()
       this.session = session
-      await this.execute(new NoneBotBot(session.bot), new NoneBotEvent(session))
+      await this.execute()
     })
   }
 }
@@ -70,7 +78,11 @@ export class CommandMatcher extends BaseMatcher {
     super(ctx)
     this.ctx.command(this.name).action(async({ session }, ...args) => {
       this.session = session
-      await this.execute(args.join(' '), this.state)
+      await this.execute()
+      // await this.execute({
+      //   args: args.join(' '),
+      //   state: this.state,
+      // })
     })
   }
 

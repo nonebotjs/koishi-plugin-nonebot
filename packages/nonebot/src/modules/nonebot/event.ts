@@ -7,6 +7,10 @@ export class NoneBotEvent {
     this.#session = session
   }
 
+  get group_id() {
+    return this.#session.guildId
+  }
+
   get_event_name() {
     return this.#session.subtype
   }
