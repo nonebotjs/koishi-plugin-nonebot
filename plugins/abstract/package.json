@@ -1,0 +1,51 @@
+{
+  "name": "@nonebot/koishi-plugin-abstract",
+  "description": "语句抽象化",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-abstract/nonebot_plugin_abstract",
+    "nbp.json"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-abstract.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-abstract/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "meme",
+    "abstract",
+    "translate"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.6",
+    "koishi-plugin-nonebot": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "atsc": "^1.2.2",
+    "koishi": "^4.10.6",
+    "koishi-plugin-nonebot": "^0.1.0",
+    "typescript": "^4.9.4"
+  }
+}

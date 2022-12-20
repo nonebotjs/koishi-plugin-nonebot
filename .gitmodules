@@ -10,6 +10,9 @@
 [submodule "plugins/person/nonebot-plugin-person"]
 	path = plugins/person/nonebot-plugin-person
 	url = https://github.com/nonebotjs/nonebot-plugin-person
+[submodule "plugins/abstract/nonebot-plugin-abstract"]
+	path = plugins/abstract/nonebot-plugin-abstract
+	url = https://github.com/nonebotjs/nonebot-plugin-abstract
 [submodule "plugins/acc-calculate/nonebot-plugin-acc-calculate"]
 	path = plugins/acc-calculate/nonebot-plugin-acc-calculate
 	url = https://github.com/nonebotjs/nonebot-plugin-acc-calculate
