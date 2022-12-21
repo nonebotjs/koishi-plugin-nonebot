@@ -1,6 +1,5 @@
 import { Context, Dict, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
-import { NoneBotBot } from './bot'
 import { NoneBotEvent } from './event'
 import { extractText, kwarg, Parameter } from './utils'
 
@@ -23,13 +22,14 @@ export class NoneBotException extends Error {
 export class BaseMatcher {
   protected session: Session
   protected state = new Map()
-  protected callbacks: any[] = []
+  protected callbacks: (() => Promise<void>)[] = []
   protected message: string
 
   constructor(protected ctx: Context) {}
 
   protected factory(action: (callback: () => Promise<void>) => Promise<void> = callback => callback()) {
     return (fn: PyProxy) => {
+      const { Bot } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       const params: Parameter[] = this.ctx.nonebot.python.pyimport('nonebot.helpers').get_params(fn).toJs()
       const callback = fn.toJs()
       this.callbacks.push(() => {
@@ -37,7 +37,7 @@ export class BaseMatcher {
           if (index === 0) param.key ??= 'bot'
           if (index === 1) param.key ??= 'event'
           switch (param.key) {
-            case 'bot': return new NoneBotBot(this.session.bot)
+            case 'bot': return Bot(this.session.bot)
             case 'event': return new NoneBotEvent(this.session)
             case 'state': return this.state
             case 'message': return this.message
@@ -67,11 +67,9 @@ export class BaseMatcher {
   }
 
   protected async execute(...args: any[]) {
-    const bot = new NoneBotBot(this.session.bot)
-    const event = new NoneBotEvent(this.session)
     try {
       for (const callback of this.callbacks) {
-        await callback(bot, event, ...args)
+        await callback()
       }
     } catch (e) {
       if (!NoneBotException.check(e)) logger.warn(e)
