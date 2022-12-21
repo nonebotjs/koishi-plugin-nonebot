@@ -37,3 +37,6 @@
 [submodule "plugins/weather-lite/nonebot_plugin_weather_lite"]
 	path = plugins/weather-lite/nonebot_plugin_weather_lite
 	url = https://github.com/nonebotjs/nonebot_plugin_weather_lite
+[submodule "plugins/warframe/nonebot-plugin-warframe"]
+	path = plugins/warframe/nonebot-plugin-warframe
+	url = https://github.com/nonebotjs/nonebot-plugin-warframe
