@@ -25,23 +25,28 @@ export class BaseMatcher {
   protected callbacks: (() => Promise<void>)[] = []
   protected message: string
 
+  protected getters = {
+    bot: () => {
+      const { Bot } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
+      return Bot(this.session.bot)
+    },
+    event: () => new NoneBotEvent(this.session),
+    state: () => this.state,
+    message: () => this.message,
+  }
+
   constructor(protected ctx: Context) {}
 
   protected factory(action: (callback: () => Promise<void>) => Promise<void> = callback => callback()) {
     return (fn: PyProxy) => {
-      const { Bot } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       const params: Parameter[] = this.ctx.nonebot.python.pyimport('nonebot.helpers').get_params(fn).toJs()
       const callback = fn.toJs()
       this.callbacks.push(() => {
-        const args = params.map((param, index) => {
-          if (index === 0) param.key ??= 'bot'
-          if (index === 1) param.key ??= 'event'
-          switch (param.key) {
-            case 'bot': return Bot(this.session.bot)
-            case 'event': return new NoneBotEvent(this.session)
-            case 'state': return this.state
-            case 'message': return this.message
+        const args = params.map((param) => {
+          if (param.name in this.getters) {
+            param.type ??= param.name
           }
+          return this.getters[param.name]?.()
         })
         return action(() => callback(...args))
       })

@@ -40,21 +40,29 @@ class Bot:
 class Event:
 	def __init__(self, *args, **kwargs) -> None:
 		self.type = 'event'
+		self.args = args
+		self.kwargs = kwargs
 
 
 class MessageEvent:
 	def __init__(self, *args, **kwargs) -> None:
 		self.type = 'event'
+		self.args = args
+		self.kwargs = kwargs
 
 
 class GroupMessageEvent:
 	def __init__(self, *args, **kwargs) -> None:
 		self.type = 'event'
+		self.args = args
+		self.kwargs = kwargs
 
 
 class PrivateMessageEvent:
 	def __init__(self, *args, **kwargs) -> None:
 		self.type = 'event'
+		self.args = args
+		self.kwargs = kwargs
 
 
 class MessageSegment:

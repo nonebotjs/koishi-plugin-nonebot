@@ -14,7 +14,9 @@ export function kwarg(name: string, args: any[]) {
 export interface Parameter {
   name: string
   kind: Parameter.Kind
-  key: string
+  type: string
+  args: any[]
+  kwargs: any
 }
 
 export namespace Parameter {
