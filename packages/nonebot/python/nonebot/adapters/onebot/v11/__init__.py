@@ -130,10 +130,10 @@ class Message(list):
 	def append(self, obj):
 		if isinstance(obj, MessageSegment):
 			super().append(obj)
-		elif isinstance(obj, Iterable):
-			self.extend(obj)
 		elif isinstance(obj, str):
 			self.extend(self._construct(obj))
+		elif isinstance(obj, Iterable):
+			self.extend(obj)
 		elif isinstance(obj, JsProxy):
 			super().append(MessageSegment(obj))
 		else:

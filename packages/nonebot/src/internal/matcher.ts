@@ -92,7 +92,11 @@ export class BaseMatcher {
   }
 
   public async send(...args: any[]) {
-    await this.session.send(kwarg('message', args))
+    const message = h.normalize(kwarg('message', args))
+    if (kwarg('at_sender', args, 1)) {
+      message.unshift(h.at(this.session.userId))
+    }
+    await this.session.send(message)
   }
 
   public async reject(...args: any[]) {

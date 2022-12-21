@@ -9,7 +9,7 @@ export function extractText(elements: h[]) {
 }
 
 export function isPyProxy(obj: any): obj is PyProxy {
-  return !!obj.toJs
+  return !!obj?.toJs
 }
 
 export function unwrap(obj: any) {
@@ -22,11 +22,12 @@ export function unwrap(obj: any) {
   return obj.toJs()
 }
 
-export function kwarg(name: string, args: any[]) {
-  if (!args[0]) return args[0]
-  if (typeof args[0] !== 'object') return args[0]
-  if (isPyProxy(args[0])) return unwrap(args[0])
-  return args[0][name]
+export function kwarg(name: string, args: any[], index = 0) {
+  if (args.length > index + 1) return unwrap(args[index])
+  if (args.length <= index) return unwrap(args[args.length - 1]?.[name])
+  if (typeof args[index] !== 'object') return args[index]
+  if (isPyProxy(args[index])) return unwrap(args[index])
+  return unwrap(args[index][name])
 }
 
 export interface Parameter {

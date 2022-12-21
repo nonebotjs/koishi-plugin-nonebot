@@ -1,4 +1,4 @@
-import json
+from json import dumps, loads
 from pyodide.http import pyfetch
 
 
@@ -16,17 +16,18 @@ class AsyncClient:
 		text = await r.string()
 		return Response(text)
 
-	async def post(self, url, headers={}, data={}, cookies={}):
+	async def post(self, url, headers={}, data=None, json=None, cookies={}):
 		if cookies:
 			headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
-		r = await pyfetch(url, method="POST", body=json.dumps(data), headers=headers)
+		r = await pyfetch(url, method="POST", body=dumps(data or json), headers=headers)
 		text = await r.string()
-		return Response(text)
+		return Response(r, text)
 
 
 class Response:
-	def __init__(self, text):
+	def __init__(self, r, text):
+		self.status_code = int(r.status)
 		self.text = text
 
 	def json(self):
-		return json.loads(self.text)
+		return loads(self.text)
