@@ -5,11 +5,13 @@ import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
 const blacklist = [
-  'nonebot-adapter-',
+  'nonebot-adapter-onebot',
   'nonebot2',
   'httpx',
   'aiohttp',
   'pydantic',
+  'build',
+  'twine',
 ]
 
 const buildNonebot = async () => {
