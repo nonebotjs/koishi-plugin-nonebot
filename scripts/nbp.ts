@@ -5,11 +5,13 @@ import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
 const blacklist = [
-  'nonebot-adapter-',
+  'nonebot-adapter-onebot',
   'nonebot2',
   'httpx',
   'aiohttp',
   'pydantic',
+  'build',
+  'twine',
 ]
 
 const buildNonebot = async () => {
@@ -41,7 +43,12 @@ const buildPlugin = async (path: string) => {
       '--no-deps',
       `${nbp.name}==${nbp.version}`,
     ])
-  )[0].requires.filter((x: string) => !blacklist.some((y) => x.startsWith(y)))
+  )[0].requires.filter(
+    (x: string) =>
+      !blacklist.some(
+        (y) => x.split('<')[0].split('>')[0].split('=')[0].split('!')[0] === y
+      )
+  )
 
   if (!directDeps.length) {
     await writeFile(join(pathDist, 'deps.json'), '[]')
