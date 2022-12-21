@@ -2,6 +2,10 @@ from pyodide.http import pyfetch
 import json
 
 
+def request(method, url, data={}, headers={}, timeout=60000):
+	return ClientSession().request(method, url, data, headers, timeout)
+
+
 class ClientSession:
 	async def __aenter__(self):
 		return self
@@ -9,13 +13,18 @@ class ClientSession:
 	async def __aexit__(self, exc_type, exc_value, traceback):
 		return
 
-	def get(self, url, headers):
+	def request(self, method, url, data={}, headers={}, timeout=60000):
 		headers["Content-Type"] = "application/json"
-		return ResponseWrapper(pyfetch(url, headers=headers, method="GET"))
+		kwargs = {"method": method, "headers": headers}
+		if method != "GET" and method != "HEAD":
+			kwargs["body"] = json.dumps(data)
+		return ResponseWrapper(pyfetch(url, **kwargs))
 
-	def post(self, url, headers, data):
-		headers["Content-Type"] = "application/json"
-		return ResponseWrapper(pyfetch(url, headers=headers, body=json.dumps(data), method="POST"))
+	def get(self, url, headers={}, timeout=60000):
+		return self.request("GET", url, headers=headers, timeout=timeout)
+
+	def post(self, url, headers={}, data={}, timeout=60000):
+		return self.request("POST", url, headers=headers, data=data, timeout=timeout)
 
 
 class ResponseWrapper:
@@ -31,3 +40,11 @@ class ResponseWrapper:
 	async def json(self):
 		r = await self._response
 		return await r.json()
+
+
+class Client:
+	def ClientTimeout(self, timeout: int):
+		return timeout
+
+
+client = Client()
