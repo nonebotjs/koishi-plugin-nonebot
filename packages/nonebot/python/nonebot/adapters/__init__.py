@@ -1,4 +1,7 @@
-class Event:
+from nonebot.params import Dependent
+
+
+class Event(Dependent):
 	def __init__(self, *args, **kwargs) -> None:
 		self.type = 'event'
 		self.args = args

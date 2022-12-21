@@ -1,13 +1,16 @@
+from pyodide.ffi import JsProxy
 from internal import h
+from nonebot.params import Dependent
 from nonebot.adapters import Event as Event
 import re
 from typing import Iterable, Tuple
 
 
-class Bot:
+class Bot(Dependent):
 	def __init__(self, *args, **kwargs) -> None:
-		self.type = 'bot'
 		self.internal = args[0]
+		self.args = args
+		self.kwargs = kwargs
 
 	async def send(self, event: Event, message, at_sender = False):
 		if at_sender:
@@ -73,6 +76,10 @@ def unescape(s: str) -> str:
 	)
 
 
+def create_message(list):
+	return Message(list)
+
+
 class Message(list):
 	def __init__(self, message) -> None:
 		super().__init__()
@@ -120,6 +127,8 @@ class Message(list):
 	def append(self, obj):
 		if isinstance(obj, MessageSegment):
 			super().append(obj)
+		elif isinstance(obj, JsProxy):
+			super().append(MessageSegment(obj))
 		elif isinstance(obj, str):
 			self.extend(self._construct(obj))
 		else:
@@ -136,13 +145,13 @@ class Message(list):
 
 
 class MessageSegment:
-	def __init__(self, el) -> None:
-		self.internal = el
-		self.type = el.type
-		self.data = el.attrs
+	def __init__(self, element) -> None:
+		self.internal = element
+		self._type = element.type
+		self._data = element.attrs
 
 	def is_text(self) -> bool:
-		return self.type == "text"
+		return self._type == "text"
 
 	@staticmethod
 	def text(text: str):
@@ -154,11 +163,11 @@ class MessageSegment:
 
 	@staticmethod
 	def reply(id: str):
-		return MessageSegment(h.quote(id))()
+		return MessageSegment(h.quote(id))
 
 	@staticmethod
-	def image(file: str):
-		return MessageSegment(h.image(file))()
+	def image(file: str, cache: bool):
+		return MessageSegment(h.image(file, {"cache": cache}))
 
 	@staticmethod
 	def music(type: str, id: int):

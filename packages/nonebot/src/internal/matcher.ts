@@ -1,6 +1,6 @@
 import { Context, Dict, h, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
-import { extractText, kwarg, Parameter } from './utils'
+import { extractText, isPyProxy, kwarg, Parameter, unwrap } from './utils'
 
 const logger = new Logger('nonebot')
 
@@ -18,6 +18,14 @@ export class NoneBotException extends Error {
   }
 }
 
+const fallbackMap = {
+  'MessageEvent': 'Event',
+  'GroupMessageEvent': 'MessageEvent',
+  'PrivateMessageEvent': 'MessageEvent',
+  'T_State': 'State',
+  'ArgPlainText': 'ArgStr',
+}
+
 export class BaseMatcher {
   protected session: Session
   protected state = new Map()
@@ -25,37 +33,56 @@ export class BaseMatcher {
   protected message: string
 
   protected getters = {
-    bot: () => {
+    Bot: () => {
       const { Bot } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       return Bot(this.session.bot)
     },
-    event: () => {
+    Event: () => {
       const module = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       const constructor = this.session.type === 'message'
         ? this.session.guildId ? module.GroupMessageEvent : module.PrivateMessageEvent
         : module.Event
       return constructor(this.session)
     },
-    state: () => this.state,
-    message: () => this.message,
+    State: () => this.state,
+    Matcher: (): BaseMatcher => this,
+    ArgStr: ([name]: string[]) => this.state.get(name),
+    CommandArg: () => {
+      const { create_message } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
+      return create_message(h.parse(this.message))
+    },
   }
 
   constructor(protected ctx: Context) {}
 
+  protected getParams(fn: PyProxy): Parameter[] {
+    const helpers = this.ctx.nonebot.python.pyimport('nonebot.helpers')
+    const params = helpers.get_params(fn).toJs()
+    return params.map((param) => ({
+      kind: param.kind,
+      name: param.name,
+      args: param.args.toJs(),
+      kwargs: param.kwargs.toJs(),
+    }))
+  }
+
   protected factory(action: (callback: () => Promise<void>) => Promise<void> = callback => callback()) {
     return (fn: PyProxy) => {
-      const params: Parameter[] = this.ctx.nonebot.python.pyimport('nonebot.helpers').get_params(fn).toJs()
+      const params: Parameter[] = this.getParams(fn)
       const callback = fn.toJs()
       this.callbacks.push(() => {
         const args = params.map((param) => {
-          if (param.name in this.getters) {
-            param.type ??= param.name
-          }
-          return this.getters[param.name]?.()
+          const key = fallbackMap[param.name] || param.name
+          return this.getters[key]?.(param.args, param.kwargs)
         })
         return action(() => callback(...args))
       })
     }
+  }
+
+  public set_arg(key: string, value: any) {
+    const raw = unwrap(value)
+    this.state.set(key, Array.isArray(raw) ? raw.join('') : raw)
   }
 
   public handle() {
@@ -63,11 +90,7 @@ export class BaseMatcher {
   }
 
   public async send(...args: any[]) {
-    let raw = kwarg('message', args)
-    if (Array.isArray(raw)) {
-      raw = raw.map(item => item.internal)
-    }
-    await this.session.send(raw)
+    await this.session.send(kwarg('message', args))
   }
 
   public async reject(...args: any[]) {

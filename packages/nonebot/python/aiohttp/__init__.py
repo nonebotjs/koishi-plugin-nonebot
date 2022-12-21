@@ -30,6 +30,10 @@ class ClientSession:
 class ResponseWrapper:
 	def __init__(self, response):
 		self._response = response
+		self.content = self
+
+	async def __await__(self):
+		return self
 
 	async def __aenter__(self):
 		return self
@@ -37,9 +41,21 @@ class ResponseWrapper:
 	async def __aexit__(self, exc_type, exc_value, traceback):
 		return
 
+	async def read(self):
+		r = await self._response
+		return ResponseText(await r.string())
+
 	async def json(self):
 		r = await self._response
 		return await r.json()
+
+
+class ResponseText:
+	def __init__(self, text):
+		self.text = text
+
+	def decode(self):
+		return self.text
 
 
 class Client:
