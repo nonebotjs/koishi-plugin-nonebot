@@ -31,3 +31,6 @@
 [submodule "plugins/ygo-trade/nonebot_plugin_ygo_trade"]
 	path = plugins/ygo-trade/nonebot_plugin_ygo_trade
 	url = https://github.com/nonebotjs/nonebot_plugin_ygo_trade
+[submodule "plugins/code/nonebot_plugin_code"]
+	path = plugins/code/nonebot_plugin_code
+	url = https://github.com/nonebotjs/nonebot_plugin_code
