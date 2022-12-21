@@ -19,3 +19,6 @@
 [submodule "plugins/analysis-bilibili/nonebot_plugin_analysis_bilibili"]
 	path = plugins/analysis-bilibili/nonebot_plugin_analysis_bilibili
 	url = https://github.com/nonebotjs/nonebot_plugin_analysis_bilibili
+[submodule "plugins/trace-moe/nonebot_plugin_trace_moe"]
+	path = plugins/trace-moe/nonebot_plugin_trace_moe
+	url = https://github.com/nonebotjs/nonebot_plugin_trace_moe
