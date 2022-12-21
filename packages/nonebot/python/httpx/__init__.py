@@ -14,7 +14,7 @@ class AsyncClient:
 			headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
 		r = await pyfetch(url, method="GET", headers=headers)
 		text = await r.string()
-		return Response(text)
+		return Response(r, text)
 
 	async def post(self, url, headers={}, data=None, json=None, cookies={}):
 		if cookies:
@@ -31,3 +31,25 @@ class Response:
 
 	def json(self):
 		return loads(self.text)
+
+
+def get(url, headers={}, cookies={}):
+	if cookies:
+		headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
+	return AsyncResponse(pyfetch(url, method="GET", headers=headers))
+
+
+def post(url, headers={}, data=None, json=None, cookies={}):
+	if cookies:
+		headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
+	return AsyncResponse(pyfetch(url, method="POST", body=dumps(data or json), headers=headers))
+
+
+class AsyncResponse:
+	def __init__(self, ar):
+		self.ar = ar
+
+	async def json(self):
+		r = await self.ar
+		text = await r.string()
+		return loads(text)
