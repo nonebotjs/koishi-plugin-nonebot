@@ -1,4 +1,5 @@
 import { h } from 'koishi'
+import { PyProxy } from 'pyodide'
 
 export function extractText(elements: h[]) {
   return h.transform(elements, {
@@ -7,8 +8,15 @@ export function extractText(elements: h[]) {
   }).join('')
 }
 
+export function isPyProxy(obj: any): obj is PyProxy {
+  return !!obj.toJs
+}
+
 export function kwarg(name: string, args: any[]) {
-  return typeof args[0] === 'string' ? args[0] : args[0][name]
+  if (!args[0]) return args[0]
+  if (typeof args[0] !== 'object') return args[0]
+  if (isPyProxy(args[0])) return args[0].toJs()
+  return args[0][name]
 }
 
 export interface Parameter {

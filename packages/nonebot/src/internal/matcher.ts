@@ -1,4 +1,4 @@
-import { Context, Dict, Logger, Session } from 'koishi'
+import { Context, Dict, h, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
 import { extractText, kwarg, Parameter } from './utils'
 
@@ -63,7 +63,11 @@ export class BaseMatcher {
   }
 
   public async send(...args: any[]) {
-    await this.session.send(kwarg('message', args))
+    let raw = kwarg('message', args)
+    if (Array.isArray(raw)) {
+      raw = raw.map(item => item.internal)
+    }
+    await this.session.send(raw)
   }
 
   public async reject(...args: any[]) {
