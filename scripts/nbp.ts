@@ -4,7 +4,7 @@ import { register } from 'yakumo'
 import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
-const blacklist = ['nonebot-adapter-', 'nonebot2', 'httpx']
+const blacklist = ['nonebot-adapter-', 'nonebot2', 'httpx', 'aiohttp', 'pydantic']
 
 const buildNonebot = async () => {
   const pathPackage = resolve(__dirname, '../packages/nonebot')
