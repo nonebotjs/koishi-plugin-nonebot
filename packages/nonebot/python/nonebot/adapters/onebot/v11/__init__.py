@@ -3,25 +3,32 @@ from internal import h
 from nonebot.params import Dependent
 from nonebot.adapters import Event as Event
 import re
-from typing import Iterable, Tuple
+from typing import Iterable, Tuple, Union
+
+from .event import MessageEvent as MessageEvent
+from .event import GroupMessageEvent as GroupMessageEvent
+from .event import PrivateMessageEvent as PrivateMessageEvent
 
 
 class Bot(Dependent):
 	def __init__(self, *args, **kwargs) -> None:
 		self.internal = args[0]
+		self.unwrap = args[1]
 		self.args = args
 		self.kwargs = kwargs
 
 	async def send(self, event: Event, message, at_sender = False):
 		if at_sender:
-			message = h.at(event.get_user_id()).toString() + message
-		print(message)
-		print(isinstance(message, str))
+			message = MessageSegment(h('at', {'id': event.get_user_id()})) + message
 		if not isinstance(message, str):
-			message = ''.join([h(item.type, item.attrs).toString() for item in message])
-		print(message)
-		print(isinstance(message, str))
+			message = ''.join([item.internal.toString() for item in message])
 		return event.internal.send(message)
+
+	async def send_group_forward_msg(self, group_id, messages):
+		return self.internal.sendMessage(group_id, h('message', {'forward': True}, [self.unwrap(item) for item in messages]))
+
+	async def send_private_forward_msg(self, user_id, messages):
+		return self.internal.sendPrivateMessage(user_id, h('message', {'forward': True}, [self.unwrap(item) for item in messages]))
 
 	async def call_api(self, api, *args, **kwargs):
 		return getattr(self, api)(*args, **kwargs)
@@ -46,18 +53,6 @@ class Bot(Dependent):
 			'nickname': member.nickname,
 			'last_sent_time': 0,
 		} for member in raw]
-
-
-class MessageEvent(Event):
-	pass
-
-
-class GroupMessageEvent(Event):
-	pass
-
-
-class PrivateMessageEvent(Event):
-	pass
 
 
 def escape(s: str, *, escape_comma: bool = True) -> str:
@@ -85,14 +80,22 @@ class Message(list):
 		super().__init__()
 		if message is None:
 			return
-		elif isinstance(message, str):
-			self.extend(self._construct(message))
-		elif isinstance(message, MessageSegment):
-			self.append(message)
-		elif isinstance(message, Iterable):
-			self.extend(message)
-		else:
-			raise ValueError(f"Unexpected type: {type(message)} {message}")
+		self.append(message)
+
+	def copy(self):
+		return Message(self)
+
+	def __add__(self, other: Union[str, 'MessageSegment', Iterable['MessageSegment']]):
+		result = self.copy()
+		result.append(other)
+		return result
+
+	def __radd__(self, other: Union[str, 'MessageSegment', Iterable['MessageSegment']]):
+		result = self.__class__(other)
+		return result + self
+
+	def __iadd__(self, other: Union[str, 'MessageSegment', Iterable['MessageSegment']]):
+		return self.append(other)
 
 	def _construct(self, msg):
 		def _iter_message(msg: str) -> Iterable[Tuple[str, str]]:
@@ -127,10 +130,12 @@ class Message(list):
 	def append(self, obj):
 		if isinstance(obj, MessageSegment):
 			super().append(obj)
-		elif isinstance(obj, JsProxy):
-			super().append(MessageSegment(obj))
+		elif isinstance(obj, Iterable):
+			self.extend(obj)
 		elif isinstance(obj, str):
 			self.extend(self._construct(obj))
+		elif isinstance(obj, JsProxy):
+			super().append(MessageSegment(obj))
 		else:
 			raise ValueError(f"Unexpected type: {type(obj)} {obj}")
 		return self
@@ -153,22 +158,43 @@ class MessageSegment:
 	def is_text(self) -> bool:
 		return self._type == "text"
 
+	def __repr__(self) -> str:
+		return self.internal.toString()
+
+	# def __str__(self) -> str:
+	# 	return self.internal.toString()
+
+	def __add__(self, other: Union[str, "MessageSegment", Iterable["MessageSegment"]]) -> "Message":
+		return Message(self) + (MessageSegment.text(other) if isinstance(other, str) else other)
+
+	def __radd__(self, other: Union[str, "MessageSegment", Iterable["MessageSegment"]]) -> "Message":
+		return (MessageSegment.text(other) if isinstance(other, str) else Message(other)) + self
+
 	@staticmethod
 	def text(text: str):
-		return MessageSegment(h.text(text))
+		return MessageSegment(h('text', {"content": text}))
 
 	@staticmethod
 	def at(id: str):
-		return MessageSegment(h.at(id))
+		return MessageSegment(h('at', {"id": id}))
 
 	@staticmethod
 	def reply(id: str):
-		return MessageSegment(h.quote(id))
+		return MessageSegment(h('quote', {"id": id}))
 
 	@staticmethod
-	def image(file: str, cache: bool):
-		return MessageSegment(h.image(file, {"cache": cache}))
+	def image(file: str, cache: bool = False):
+		return MessageSegment(h('image', {"url": file, "cache": cache}))
 
 	@staticmethod
 	def music(type: str, id: int):
-		return MessageSegment(h('onebot:music', type=type, id=id))
+		return MessageSegment(h('onebot:music', {"type": type, "id": id}))
+
+	@staticmethod
+	def node_custom(
+		user_id: int, nickname: str, content: Union[str, "Message"]
+	) -> "MessageSegment":
+		# return MessageSegment(h("node", {"user_id": str(user_id), "nickname": nickname, "content": content}))
+		children = Message(content)
+		children = [MessageSegment(h('author', {'userId': str(user_id), 'nickname': nickname}))] + children
+		return MessageSegment(h('message', {}, children))

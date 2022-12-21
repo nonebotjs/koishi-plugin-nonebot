@@ -1,6 +1,6 @@
 import { Context, Dict, h, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
-import { extractText, isPyProxy, kwarg, Parameter, unwrap } from './utils'
+import { extractText, kwarg, Parameter, unwrap } from './utils'
 
 const logger = new Logger('nonebot')
 
@@ -20,8 +20,8 @@ export class NoneBotException extends Error {
 
 const fallbackMap = {
   'MessageEvent': 'Event',
-  'GroupMessageEvent': 'MessageEvent',
-  'PrivateMessageEvent': 'MessageEvent',
+  'GroupMessageEvent': 'Event',
+  'PrivateMessageEvent': 'Event',
   'T_State': 'State',
   'ArgPlainText': 'ArgStr',
 }
@@ -35,7 +35,9 @@ export class BaseMatcher {
   protected getters = {
     Bot: () => {
       const { Bot } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
-      return Bot(this.session.bot)
+      return Bot(this.session.bot, (data) => {
+        return unwrap(data)
+      })
     },
     Event: () => {
       const module = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
@@ -70,13 +72,13 @@ export class BaseMatcher {
     return (fn: PyProxy) => {
       const params: Parameter[] = this.getParams(fn)
       const callback = fn.toJs()
-      this.callbacks.push(() => {
+      this.callbacks.push(() => action(() => {
         const args = params.map((param) => {
           const key = fallbackMap[param.name] || param.name
           return this.getters[key]?.(param.args, param.kwargs)
         })
-        return action(() => callback(...args))
-      })
+        return callback(...args)
+      }))
     }
   }
 
@@ -119,6 +121,7 @@ export class EventMatcher extends BaseMatcher {
     super(ctx)
     this.ctx.on(event as any, async (session: any) => {
       this.session = session
+      this.state = new Map()
       await this.execute()
     })
   }
@@ -130,6 +133,7 @@ export class MessageMatcher extends BaseMatcher {
     this.ctx.middleware(async (session, next) => {
       if (!predicate(extractText(session.elements))) return next()
       this.session = session
+      this.state = new Map()
       await this.execute()
     })
   }
@@ -142,6 +146,7 @@ export class CommandMatcher extends BaseMatcher {
     super(ctx)
     this.ctx.command(this.name).action(async({ session }, ...args) => {
       this.session = session
+      this.state = new Map()
       this.message = args.join(' ')
       await this.execute()
     })

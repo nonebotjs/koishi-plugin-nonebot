@@ -1,10 +1,10 @@
 import { Context, Logger, segment } from 'koishi'
+import { PyProxy } from 'pyodide'
 import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
-import { kwarg } from './utils'
+import { kwarg, unwrap } from './utils'
 
 export class Internal {
   public config: any
-  public h = segment
   public logger = Object.assign(Object.create(new Logger('nonebot')), {
     warning(...args: any[]) {
       return this.warn(...args)
@@ -12,6 +12,10 @@ export class Internal {
   })
 
   constructor(protected ctx: Context) {}
+
+  h(type: string, attrs?: PyProxy, children?: PyProxy) {
+    return segment(type, Object.fromEntries(attrs?.toJs().entries() ?? []), children?.toJs().map(unwrap))
+  }
 
   get_driver() {
     return {
