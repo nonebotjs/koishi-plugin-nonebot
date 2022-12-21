@@ -16,7 +16,7 @@ export const spawnOutput = async (
     execa.SyncOptions,
     execa.SyncOptions,
     execa.SyncOptions | undefined
-  >({}, { stderr: 'ignore', stdout: 'pipe', shell: false }, options)
+  >({}, { stderr: 'inherit', stdout: 'pipe', shell: false }, options)
   const child = execa(command, args, parsedOptions)
   let stdout = ''
   child.stdout.on('data', (x) => (stdout += x))
