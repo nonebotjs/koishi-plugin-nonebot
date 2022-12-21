@@ -19,6 +19,13 @@ class CommandArg:
 		self.kwargs = kwargs
 
 
+class ShellCommandArgv:
+	def __init__(self, *args, **kwargs):
+		self.type = 'message'
+		self.args = args
+		self.kwargs = kwargs
+
+
 class ArgStr:
 	def __init__(self, *args, **kwargs):
 		self.type = 'arg'

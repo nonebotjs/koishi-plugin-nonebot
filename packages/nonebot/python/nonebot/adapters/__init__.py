@@ -6,6 +6,7 @@ class Event:
 		if len(args) > 0:
 			self.internal = args[0]
 			self.group_id = self.internal.guildId
+			self.reply = None
 
 	def get_type(self):
 		return self.internal.type

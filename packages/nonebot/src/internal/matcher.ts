@@ -87,6 +87,16 @@ export class BaseMatcher {
   }
 }
 
+export class EventMatcher extends BaseMatcher {
+  constructor(protected ctx: Context, event: string) {
+    super(ctx)
+    this.ctx.on(event as any, async (session: any) => {
+      this.session = session
+      await this.execute()
+    })
+  }
+}
+
 export class MessageMatcher extends BaseMatcher {
   constructor(protected ctx: Context, predicate: (text: string) => boolean) {
     super(ctx)

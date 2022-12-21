@@ -1,5 +1,5 @@
 import { Context, Logger, segment } from 'koishi'
-import { CommandMatcher, MessageMatcher } from './matcher'
+import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
 import { kwarg } from './utils'
 
 export class Internal {
@@ -17,6 +17,22 @@ export class Internal {
         dict: () => new Map(Object.entries(this.config)),
       },
     }
+  }
+
+  on_message() {
+    return new MessageMatcher(this.ctx, () => true)
+  }
+
+  on_metaevent() {
+    return new BaseMatcher(this.ctx)
+  }
+
+  on_notice() {
+    return new BaseMatcher(this.ctx)
+  }
+
+  on_request() {
+    return new BaseMatcher(this.ctx)
   }
 
   on_startswith(text: string) {
@@ -42,5 +58,9 @@ export class Internal {
 
   on_command(name: string) {
     return new CommandMatcher(this.ctx, name)
+  }
+
+  on_shell_command(name: string) {
+    return new BaseMatcher(this.ctx)
   }
 }
