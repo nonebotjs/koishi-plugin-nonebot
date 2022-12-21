@@ -10,7 +10,9 @@ register('nbp-pack', async (project) => {
 
   await Promise.all(
     Object.keys(project.targets)
-      .filter((path) => path.startsWith('/plugins'))
+      .filter(
+        (path) => path.startsWith('/plugins') || path === '/packages/nonebot'
+      )
       .map((path) => project.targets[path])
       .map((pkgJson) =>
         spawnAsync([
@@ -19,7 +21,12 @@ register('nbp-pack', async (project) => {
           pkgJson.name,
           'pack',
           '-f',
-          join(pathDist, `${pkgJson.name.slice(9)}-${pkgJson.version}.tgz`),
+          join(
+            pathDist,
+            `${pkgJson.name
+              .replace('@nonebot/', '')
+              .replace('koishi-plugin-', '')}-${pkgJson.version}.tgz`
+          ),
         ])
       )
   )
