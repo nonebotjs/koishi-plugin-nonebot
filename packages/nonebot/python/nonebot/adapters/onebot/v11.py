@@ -1,10 +1,30 @@
-from internal import noop as Bot
-from internal import noop as Event
-from internal import noop as MessageEvent
-from internal import noop as GroupMessageEvent
-from internal import noop as PrivateMessageEvent
 from internal import noop as Message
 from internal import Element
+
+
+class Bot:
+	def __init__(self, *args, **kwargs) -> None:
+		self.type = 'bot'
+
+
+class Event:
+	def __init__(self, *args, **kwargs) -> None:
+		self.type = 'event'
+
+
+class MessageEvent:
+	def __init__(self, *args, **kwargs) -> None:
+		self.type = 'event'
+
+
+class GroupMessageEvent:
+	def __init__(self, *args, **kwargs) -> None:
+		self.type = 'event'
+
+
+class PrivateMessageEvent:
+	def __init__(self, *args, **kwargs) -> None:
+		self.type = 'event'
 
 
 class MessageSegment:
