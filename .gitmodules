@@ -16,3 +16,6 @@
 [submodule "plugins/acc-calculate/nonebot-plugin-acc-calculate"]
 	path = plugins/acc-calculate/nonebot-plugin-acc-calculate
 	url = https://github.com/nonebotjs/nonebot-plugin-acc-calculate
+[submodule "plugins/analysis-bilibili/nonebot_plugin_analysis_bilibili"]
+	path = plugins/analysis-bilibili/nonebot_plugin_analysis_bilibili
+	url = https://github.com/nonebotjs/nonebot_plugin_analysis_bilibili
