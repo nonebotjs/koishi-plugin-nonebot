@@ -4,7 +4,13 @@ import { register } from 'yakumo'
 import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
-const blacklist = ['nonebot-adapter-', 'nonebot2', 'httpx', 'aiohttp', 'pydantic']
+const blacklist = [
+  'nonebot-adapter-',
+  'nonebot2',
+  'httpx',
+  'aiohttp',
+  'pydantic',
+]
 
 const buildNonebot = async () => {
   const pathPackage = resolve(__dirname, '../packages/nonebot')
@@ -42,22 +48,29 @@ const buildPlugin = async (path: string) => {
     return
   }
 
-  const deps = await JSON.parse(
-    await spawnOutput('python3', [
-      '-m',
-      'johnnydep',
-      '-f',
-      'ALL',
-      '-o',
-      'json',
-      ...directDeps,
-    ])
-  ).map((x) => ({
-    name: x.name,
-    version: x.version_latest_in_spec,
-    filename: basename(x.download_link),
-    url: x.download_link,
-  }))
+  let deps = []
+
+  for (const d of directDeps)
+    deps.push(
+      JSON.parse(
+        await spawnOutput('python3', [
+          '-m',
+          'johnnydep',
+          '-f',
+          'ALL',
+          '-o',
+          'json',
+          d,
+        ])
+      ).map((x) => ({
+        name: x.name,
+        version: x.version_latest_in_spec,
+        filename: basename(x.download_link),
+        url: x.download_link,
+      }))
+    )
+
+  deps = deps.flat()
 
   await Promise.all(deps.map((x) => download(x.url, pathDist, x.filename)))
 
