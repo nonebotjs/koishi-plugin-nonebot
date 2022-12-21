@@ -34,3 +34,6 @@
 [submodule "plugins/code/nonebot_plugin_code"]
 	path = plugins/code/nonebot_plugin_code
 	url = https://github.com/nonebotjs/nonebot_plugin_code
+[submodule "plugins/weather-lite/nonebot_plugin_weather_lite"]
+	path = plugins/weather-lite/nonebot_plugin_weather_lite
+	url = https://github.com/nonebotjs/nonebot_plugin_weather_lite
