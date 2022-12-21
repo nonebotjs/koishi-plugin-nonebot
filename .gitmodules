@@ -40,3 +40,6 @@
 [submodule "plugins/warframe/nonebot-plugin-warframe"]
 	path = plugins/warframe/nonebot-plugin-warframe
 	url = https://github.com/nonebotjs/nonebot-plugin-warframe
+[submodule "plugins/bottle/nonebot_plugin_bottle"]
+	path = plugins/bottle/nonebot_plugin_bottle
+	url = https://github.com/nonebotjs/nonebot_plugin_bottle
