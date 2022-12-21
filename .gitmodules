@@ -25,3 +25,6 @@
 [submodule "plugins/trace-moe/nonebot_plugin_trace_moe"]
 	path = plugins/trace-moe/nonebot_plugin_trace_moe
 	url = https://github.com/nonebotjs/nonebot_plugin_trace_moe
+[submodule "plugins/ygo/nonebot_plugin_ygo"]
+	path = plugins/ygo/nonebot_plugin_ygo
+	url = https://github.com/nonebotjs/nonebot_plugin_ygo
