@@ -1,6 +1,5 @@
 import { Context, Dict, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
-import { NoneBotEvent } from './event'
 import { extractText, kwarg, Parameter } from './utils'
 
 const logger = new Logger('nonebot')
@@ -30,7 +29,13 @@ export class BaseMatcher {
       const { Bot } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       return Bot(this.session.bot)
     },
-    event: () => new NoneBotEvent(this.session),
+    event: () => {
+      const module = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
+      const constructor = this.session.type === 'message'
+        ? this.session.guildId ? module.GroupMessageEvent : module.PrivateMessageEvent
+        : module.Event
+      return constructor(this.session)
+    },
     state: () => this.state,
     message: () => this.message,
   }

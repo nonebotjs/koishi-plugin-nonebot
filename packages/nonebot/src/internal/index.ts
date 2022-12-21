@@ -13,6 +13,7 @@ export class Internal {
   get_driver() {
     return {
       config: {
+        ...this.config,
         dict: () => new Map(Object.entries(this.config)),
       },
     }

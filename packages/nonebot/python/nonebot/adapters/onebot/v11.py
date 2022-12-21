@@ -1,5 +1,6 @@
 from internal import noop as Message
 from internal import Element
+from nonebot.adapters import Event as Event
 
 
 class Bot:
@@ -7,10 +8,10 @@ class Bot:
 		self.type = 'bot'
 		self.internal = args[0]
 
-	async def send(self, event, message, at_sender = False):
+	async def send(self, event: Event, message, at_sender = False):
 		if at_sender:
 			message = Element.at(event.get_user_id()).toString() + message
-		return event.to_koishi().send(message)
+		return event.internal.send(message)
 
 	async def call_api(self, api, *args, **kwargs):
 		return getattr(self, api)(*args, **kwargs)
@@ -37,32 +38,16 @@ class Bot:
 		} for member in raw]
 
 
-class Event:
-	def __init__(self, *args, **kwargs) -> None:
-		self.type = 'event'
-		self.args = args
-		self.kwargs = kwargs
+class MessageEvent(Event):
+	pass
 
 
-class MessageEvent:
-	def __init__(self, *args, **kwargs) -> None:
-		self.type = 'event'
-		self.args = args
-		self.kwargs = kwargs
+class GroupMessageEvent(Event):
+	pass
 
 
-class GroupMessageEvent:
-	def __init__(self, *args, **kwargs) -> None:
-		self.type = 'event'
-		self.args = args
-		self.kwargs = kwargs
-
-
-class PrivateMessageEvent:
-	def __init__(self, *args, **kwargs) -> None:
-		self.type = 'event'
-		self.args = args
-		self.kwargs = kwargs
+class PrivateMessageEvent(Event):
+	pass
 
 
 class MessageSegment:
