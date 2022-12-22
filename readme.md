@@ -1,0 +1,1 @@
+./packages/nonebot/readme.md
