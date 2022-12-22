@@ -68,8 +68,13 @@ export class BaseMatcher {
     }))
   }
 
-  protected factory(action: (callback: () => Promise<void>) => Promise<void> = callback => callback()) {
-    return (fn: PyProxy) => {
+  protected factory(action: (callback: () => Promise<void>) => Promise<void>) {
+    const decorate = (fn: PyProxy) => {
+      if (!fn.toJs) {
+        const callback = this.callbacks.pop()
+        this.callbacks.push(() => action(callback))
+        return decorate
+      }
       const params: Parameter[] = this.getParams(fn)
       const callback = fn.toJs()
       this.callbacks.push(() => action(() => {
@@ -79,7 +84,9 @@ export class BaseMatcher {
         })
         return callback(...args)
       }))
+      return decorate
     }
+    return decorate
   }
 
   public set_arg(key: string, value: any) {
@@ -88,7 +95,7 @@ export class BaseMatcher {
   }
 
   public handle() {
-    return this.factory()
+    return this.factory(callback => callback())
   }
 
   public async send(...args: any[]) {
