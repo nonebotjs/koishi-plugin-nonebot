@@ -6,7 +6,8 @@
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "python"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "license": "MIT",

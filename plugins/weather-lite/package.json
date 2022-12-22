@@ -1,6 +1,6 @@
 {
   "name": "@nonebot/koishi-plugin-weather-lite",
-  "description": "使用 wttr.in 的天气查询",
+  "description": "使用 [wttr.in](https://wttr.in/) 的天气查询",
   "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

@@ -12,5 +12,5 @@
 - [gscode](https://github.com/monsterxcn/nonebot-plugin-gscode)：查询原神前瞻直播兑换码
 - [person](https://github.com/jcjrobert/nonebot-plugin-person)：随个群友当幸运观众
 - [warframe](https://github.com/17TheWord/nonebot-plugin-warframe)：星际战甲事件查询插件
-- [weather-lite](https://github.com/zjkwdy/nonebot_plugin_weather_lite)：使用 wttr.in 的天气查询
+- [weather-lite](https://github.com/zjkwdy/nonebot_plugin_weather_lite)：使用 [wttr.in](https://wttr.in/) 的天气查询
 - [ygo](https://github.com/anlen123/nonebot_plugin_ygo)：游戏王卡查插件
