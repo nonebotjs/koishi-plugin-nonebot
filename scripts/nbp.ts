@@ -14,6 +14,18 @@ const blacklist = [
   'twine',
 ]
 
+interface JohnnydepItem {
+  name: string
+  version_latest_in_spec: string
+  download_link: string
+  requires: string[]
+}
+
+const blacklisted = (x: string) =>
+  !blacklist.some(
+    (y) => x.split('<')[0].split('>')[0].split('=')[0].split('!')[0] === y
+  )
+
 const buildNonebot = async () => {
   const pathPackage = resolve(__dirname, '../packages/nonebot')
   const pathDist = join(pathPackage, 'dist')
@@ -32,58 +44,57 @@ const buildPlugin = async (path: string) => {
   if (await exists(pathDist)) return
   await mkdir(pathDist, { recursive: true })
 
-  const directDeps = JSON.parse(
-    await spawnOutput('python3', [
-      '-m',
-      'johnnydep',
-      '-f',
-      'requires',
-      '-o',
-      'json',
-      '--no-deps',
-      `${nbp.name}==${nbp.version}`,
-    ])
-  )[0].requires.filter(
-    (x: string) =>
-      !blacklist.some(
-        (y) => x.split('<')[0].split('>')[0].split('=')[0].split('!')[0] === y
-      )
-  )
+  // Parents of each cycle
+  let parents: string[] = [`${nbp.name}==${nbp.version}`]
+  // Finally collected deps
+  const deps: JohnnydepItem[] = []
 
-  if (!directDeps.length) {
-    await writeFile(join(pathDist, 'deps.json'), '[]')
-    return
+  while (parents.length) {
+    // Collected results
+    const results: JohnnydepItem[][] = []
+
+    // Collect
+    for (const parent of parents)
+      results.push(
+        JSON.parse(
+          await spawnOutput('python3', [
+            '-m',
+            'johnnydep',
+            '-f',
+            'ALL',
+            '-o',
+            'json',
+            '--no-deps',
+            parent,
+          ])
+        )
+      )
+
+    // Filter requirements of results info parents of next cycle
+    parents = results
+      .map((result) => result[0].requires.filter(blacklisted))
+      .flat()
+
+    // Push deps
+    results.flat().forEach((x) => deps.push(x))
   }
 
-  let deps = []
+  const resultDeps = deps.slice(1).map((x) => ({
+    name: x.name,
+    version: x.version_latest_in_spec,
+    filename: basename(x.download_link),
+    url: x.download_link,
+  }))
 
-  for (const d of directDeps)
-    deps.push(
-      JSON.parse(
-        await spawnOutput('python3', [
-          '-m',
-          'johnnydep',
-          '-f',
-          'ALL',
-          '-o',
-          'json',
-          d,
-        ])
-      ).map((x) => ({
-        name: x.name,
-        version: x.version_latest_in_spec,
-        filename: basename(x.download_link),
-        url: x.download_link,
-      }))
-    )
-
-  deps = deps.flat()
-
-  await Promise.all(deps.map((x) => download(x.url, pathDist, x.filename)))
+  await Promise.all(
+    resultDeps.map((x) => download(x.url, pathDist, x.filename))
+  )
 
   await writeFile(
     join(pathDist, 'deps.json'),
-    JSON.stringify(deps.map((x) => ({ name: x.name, filename: x.filename })))
+    JSON.stringify(
+      resultDeps.map((x) => ({ name: x.name, filename: x.filename }))
+    )
   )
 }
 
