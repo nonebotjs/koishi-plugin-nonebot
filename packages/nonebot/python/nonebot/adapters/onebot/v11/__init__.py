@@ -17,6 +17,8 @@ class Bot(Dependent):
 		self.unwrap = args[1]
 		self.args = args
 		self.kwargs = kwargs
+		if self.internal is not None:
+			self.self_id = self.internal.selfId
 
 	async def send(self, event: Event, message, at_sender = False):
 		if at_sender:
@@ -32,7 +34,7 @@ class Bot(Dependent):
 		return self.internal.sendPrivateMessage(user_id, h('message', {'forward': True}, [self.unwrap(item) for item in messages]))
 
 	async def call_api(self, api, *args, **kwargs):
-		return getattr(self, api)(*args, **kwargs)
+		return await getattr(self, api)(*args, **kwargs)
 
 	async def get_friend_list(self):
 		return self.internal.getFriendList()

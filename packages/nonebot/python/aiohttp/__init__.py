@@ -32,7 +32,8 @@ class ResponseWrapper:
 		self._response = response
 		self.content = self
 
-	async def __await__(self):
+	def __await__(self):
+		yield
 		return self
 
 	async def __aenter__(self):

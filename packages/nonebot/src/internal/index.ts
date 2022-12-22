@@ -1,5 +1,4 @@
 import { Context, Logger, segment } from 'koishi'
-import { PyProxy } from 'pyodide'
 import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
 import { kwarg, unwrap } from './utils'
 
@@ -13,8 +12,28 @@ export class Internal {
 
   constructor(protected ctx: Context) {}
 
-  h(type: string, attrs?: PyProxy, children?: PyProxy) {
-    return segment(type, Object.fromEntries(attrs?.toJs().entries() ?? []), children?.toJs().map(unwrap))
+  h(type: string, attrs?: any, children?: any) {
+    attrs = Object.fromEntries(attrs?.toJs().entries() ?? [])
+    children = children?.toJs().map(item => {
+      if (!(item instanceof Map)) return unwrap(item)
+      if (item.get('type') === 'node') {
+        const element = segment('message', unwrap(item.get('data').get('content')))
+        element.children.forEach((item) => {
+          if (item.type === 'image' && item.attrs.file) {
+            item.attrs.url = item.attrs.file
+            delete item.attrs.file
+          }
+        })
+        element.children.unshift(segment('author', {
+          userId: item.get('data').get('uin'),
+          nickname: item.get('data').get('name'),
+        }))
+        return element
+      } else {
+        throw new Error('invalid content:' + item)
+      }
+    })
+    return segment(type, attrs, children)
   }
 
   get_driver() {
