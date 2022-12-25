@@ -52,3 +52,6 @@
 [submodule "plugins/today-in-history/nonebot-plugin-today-in-history"]
 	path = plugins/today-in-history/nonebot-plugin-today-in-history
 	url = https://github.com/nonebotjs/nonebot-plugin-today-in-history
+[submodule "plugins/simplemusic/nonebot-plugin-simplemusic"]
+	path = plugins/simplemusic/nonebot-plugin-simplemusic
+	url = https://github.com/nonebotjs/nonebot-plugin-simplemusic
