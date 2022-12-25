@@ -49,3 +49,6 @@
 [submodule "plugins/bnhhsh/nonebot-plugin-bnhhsh"]
 	path = plugins/bnhhsh/nonebot-plugin-bnhhsh
 	url = https://github.com/nonebotjs/nonebot-plugin-bnhhsh
+[submodule "plugins/today-in-history/nonebot-plugin-today-in-history"]
+	path = plugins/today-in-history/nonebot-plugin-today-in-history
+	url = https://github.com/nonebotjs/nonebot-plugin-today-in-history

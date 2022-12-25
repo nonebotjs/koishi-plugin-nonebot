@@ -1,0 +1,48 @@
+{
+  "name": "@nonebot/koishi-plugin-today-in-history",
+  "description": "",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-today-in-history/nonebot_plugin_today_in_history",
+    "nbp.json"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-today-in-history.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-today-in-history/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "atsc": "^1.2.2",
+    "koishi": "^4.10.10",
+    "koishi-plugin-nonebot": "^0.1.0",
+    "typescript": "^4.9.4"
+  }
+}
