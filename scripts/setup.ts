@@ -5,7 +5,7 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs'
 const fullname = process.argv[2]
 const name = fullname.replace(/_/g, '-').slice(15)
 
-const srcDir = resolve(__dirname, 'template')
+const srcDir = resolve(__dirname, '../plugins/_template')
 const destDir = resolve(__dirname, '..', 'plugins', name)
 
 function copyFiles(path: string) {
@@ -20,7 +20,8 @@ function copyFiles(path: string) {
       const content = readFileSync(src, 'utf-8')
       writeFileSync(dest, content
         .replace(/nonebot_plugin_template/g, fullname)
-        .replace(/template/g, name))
+        .replace(/template/g, name)
+        .replace(/  "private": true,\r?\n/g, ''))
     }
   }
 }
