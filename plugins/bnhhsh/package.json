@@ -1,0 +1,51 @@
+{
+  "name": "@nonebot/koishi-plugin-bnhhsh",
+  "description": "不能好好说话！",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-bnhhsh/nonebot_plugin_bnhhsh",
+    "nbp.json"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "maintainers": [
+    "student_2333 <lgc2333@126.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-bnhhsh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-bnhhsh/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "atsc": "^1.2.2",
+    "koishi": "^4.10.10",
+    "koishi-plugin-nonebot": "^0.1.0",
+    "typescript": "^4.9.4"
+  }
+}

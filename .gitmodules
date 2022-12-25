@@ -46,3 +46,6 @@
 [submodule "plugins/crazy-thursday/nonebot_plugin_crazy_thursday"]
 	path = plugins/crazy-thursday/nonebot_plugin_crazy_thursday
 	url = https://github.com/nonebotjs/nonebot_plugin_crazy_thursday
+[submodule "plugins/bnhhsh/nonebot-plugin-bnhhsh"]
+	path = plugins/bnhhsh/nonebot-plugin-bnhhsh
+	url = https://github.com/nonebotjs/nonebot-plugin-bnhhsh
