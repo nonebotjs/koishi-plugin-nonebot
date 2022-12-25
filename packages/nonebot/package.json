@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-nonebot",
   "description": "NoneBot runtime for Koishi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -10,6 +10,17 @@
     "python"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "maintainers": [
+    {
+      "name": "shigma",
+      "email": "shigma10826@gmail.com"
+    },
+    {
+      "name": "Il Harper",
+      "email": "hi@ilharper.com",
+      "url": "https://ilharper.com"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -46,11 +57,11 @@
   "devDependencies": {
     "@types/node": "^17.0.45",
     "atsc": "^1.2.2",
-    "koishi": "^4.10.6",
+    "koishi": "^4.10.10",
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "node-fetch": "^2",
+    "node-fetch": "^2.6.7",
     "pyodide": "^0.21.3"
   }
 }
