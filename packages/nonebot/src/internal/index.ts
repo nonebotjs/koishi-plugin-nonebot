@@ -1,4 +1,4 @@
-import { Context, Logger, segment } from 'koishi'
+import { Context, Logger, makeArray, segment } from 'koishi'
 import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
 import { kwarg, unwrap } from './utils'
 
@@ -73,8 +73,9 @@ export class Internal {
     return new MessageMatcher(this.ctx, message => message === text)
   }
 
-  on_keyword(text: string) {
-    return new MessageMatcher(this.ctx, message => message.includes(text))
+  on_keyword(text: string | string[]) {
+    const words = makeArray(unwrap(text))
+    return new MessageMatcher(this.ctx, message => words.some(word => message.includes(word)))
   }
 
   on_regex(...args: any[]) {

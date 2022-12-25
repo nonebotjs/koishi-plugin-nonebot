@@ -142,7 +142,13 @@ export class MessageMatcher extends BaseMatcher {
   constructor(protected ctx: Context, predicate: (text: string) => boolean) {
     super(ctx)
     this.ctx.middleware(async (session, next) => {
-      if (!predicate(extractText(session.elements))) return next()
+      let result = false
+      try {
+        result = predicate(extractText(session.elements))
+      } catch (err) {
+        logger.warn(err)
+      }
+      if (!result) return next()
       this.session = session
       this.state = new Map()
       await this.execute()
