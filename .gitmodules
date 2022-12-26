@@ -58,3 +58,6 @@
 [submodule "plugins/workscore/nonebot_plugin_workscore"]
 	path = plugins/workscore/nonebot_plugin_workscore
 	url = https://github.com/nonebotjs/nonebot_plugin_workscore
+[submodule "plugins/yulu/nonebot-plugin-yulu"]
+	path = plugins/yulu/nonebot-plugin-yulu
+	url = https://github.com/nonebotjs/nonebot-plugin-yulu
