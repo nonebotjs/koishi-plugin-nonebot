@@ -33,7 +33,8 @@
     "koishi",
     "plugin",
     "nonebot",
-    "abbreviation"
+    "abbreviation",
+    "nbnhhsh"
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",

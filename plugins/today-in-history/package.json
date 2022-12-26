@@ -32,7 +32,9 @@
     "chatbot",
     "koishi",
     "plugin",
-    "nonebot"
+    "nonebot",
+    "history",
+    "calendar"
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
