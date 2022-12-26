@@ -101,7 +101,7 @@ const buildPlugin = async (path: string) => {
 register('nbp', (project) =>
   Promise.all([
     ...Object.keys(project.targets)
-      .filter((path) => path.startsWith('/plugins'))
+      .filter((path) => path.startsWith('/plugins') && !path.includes('_template'))
       .map(buildPlugin),
     buildNonebot(),
   ])

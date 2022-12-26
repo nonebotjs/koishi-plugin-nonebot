@@ -55,3 +55,6 @@
 [submodule "plugins/simplemusic/nonebot-plugin-simplemusic"]
 	path = plugins/simplemusic/nonebot-plugin-simplemusic
 	url = https://github.com/nonebotjs/nonebot-plugin-simplemusic
+[submodule "plugins/workscore/nonebot_plugin_workscore"]
+	path = plugins/workscore/nonebot_plugin_workscore
+	url = https://github.com/nonebotjs/nonebot_plugin_workscore
