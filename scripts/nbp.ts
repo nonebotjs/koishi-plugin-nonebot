@@ -18,6 +18,7 @@ const blacklist = [
   'pydantic',
   'build',
   'twine',
+  'jieba',
 ]
 
 interface JohnnydepItem {
