@@ -48,8 +48,13 @@ class NoneBot extends Service {
       { root },
       '/lib/python3.10/site-packages/'
     )
+
+    await this.install(resolve(__dirname, '../dist'))
+    await this.import(resolve(__dirname, '../dist/jieba'))
+
     this.internal = new Internal(this.ctx)
     this.python.registerJsModule('internal', this.internal)
+
     for (const name of ['aiohttp', 'httpx', 'nonebot', 'pydantic']) {
       this.mount(resolve(__dirname, `../python/${name}`))
     }

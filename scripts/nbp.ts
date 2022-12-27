@@ -1,6 +1,12 @@
-import { mkdir, writeFile } from 'node:fs/promises'
+import { createReadStream } from 'node:fs'
+import { cp, mkdir, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
+import stream from 'node:stream'
+import { promisify } from 'node:util'
+import { extract } from 'tar'
+import bz2 from 'unbzip2-stream'
 import { register } from 'yakumo'
+import { jiebaSource, namePil, namePyyaml, pyodideSource } from './config'
 import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
@@ -26,12 +32,77 @@ const blacklisted = (x: string) =>
     (y) => x.split('<')[0].split('>')[0].split('=')[0].split('!')[0] === y
   )
 
+const preparePyodide = async () => {
+  const pathCache = resolve(__dirname, '../build/cache')
+  const pathFile = join(pathCache, 'pyodide.tar.bz2')
+  await mkdir(pathCache, { recursive: true })
+
+  if (!(await exists(pathFile)))
+    await download(pyodideSource, pathCache, 'pyodide.tar.bz2')
+
+  const pathExtracted = join(pathCache, 'pyodide')
+  await mkdir(pathExtracted, { recursive: true })
+  if (!(await exists(join(pathExtracted, 'pyodide.js'))))
+    await promisify(stream.finished)(
+      createReadStream(pathFile)
+        .pipe(bz2())
+        .pipe(extract({ cwd: pathExtracted, strip: 1 }))
+    )
+
+  return pathExtracted
+}
+
+const prepareJieba = async () => {
+  const pathCache = resolve(__dirname, '../build/cache')
+  const pathFile = join(pathCache, 'jieba.tar.gz')
+  await mkdir(pathCache, { recursive: true })
+
+  if (!(await exists(pathFile)))
+    await download(jiebaSource, pathCache, 'jieba.tar.gz')
+
+  const pathExtracted = join(pathCache, 'jieba')
+  await mkdir(pathExtracted, { recursive: true })
+  if (!(await exists(join(pathExtracted, 'setup.py'))))
+    await promisify(stream.finished)(
+      createReadStream(pathFile).pipe(extract({ cwd: pathExtracted, strip: 1 }))
+    )
+
+  return join(pathExtracted, 'jieba')
+}
+
 const buildNonebot = async () => {
+  const pathPyodide = await preparePyodide()
+  const pathJieba = await prepareJieba()
+
   const pathPackage = resolve(__dirname, '../packages/nonebot')
   const pathDist = join(pathPackage, 'dist')
 
   if (await exists(pathDist)) return
   await mkdir(pathDist, { recursive: true })
+
+  await Promise.all(
+    [namePyyaml, namePil].map((x) =>
+      cp(join(pathPyodide, x), join(pathDist, x))
+    )
+  )
+
+  await writeFile(
+    join(pathDist, 'deps.json'),
+    JSON.stringify([
+      {
+        name: 'yaml',
+        filename: namePyyaml,
+      },
+      {
+        name: 'PIL',
+        filename: namePil,
+      },
+    ])
+  )
+
+  const pathDistJieba = join(pathDist, 'jieba')
+  await mkdir(pathDistJieba, { recursive: true })
+  await cp(pathJieba, pathDistJieba, { recursive: true })
 }
 
 const buildPlugin = async (path: string) => {
@@ -101,7 +172,9 @@ const buildPlugin = async (path: string) => {
 register('nbp', (project) =>
   Promise.all([
     ...Object.keys(project.targets)
-      .filter((path) => path.startsWith('/plugins') && !path.includes('_template'))
+      .filter(
+        (path) => path.startsWith('/plugins') && !path.includes('_template')
+      )
       .map(buildPlugin),
     buildNonebot(),
   ])
