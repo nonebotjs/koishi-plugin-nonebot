@@ -12,6 +12,8 @@ import { download, exists, spawnOutput } from './utils'
 
 const blacklist = [
   'nonebot-adapter-onebot',
+  'nonebot-plugin-apscheduler',
+  'nonebot-plugin-htmlrender',
   'nonebot2',
   'httpx',
   'aiohttp',
