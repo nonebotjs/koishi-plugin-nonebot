@@ -6,7 +6,7 @@ import { promisify } from 'node:util'
 import { extract } from 'tar'
 import bz2 from 'unbzip2-stream'
 import { register } from 'yakumo'
-import { jiebaSource, namePil, namePyyaml, pyodideSource } from './config'
+import { jiebaSource, namePil, pyodideSource } from './config'
 import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
@@ -82,18 +82,19 @@ const buildNonebot = async () => {
   await mkdir(pathDist, { recursive: true })
 
   await Promise.all(
-    [namePyyaml, namePil].map((x) =>
-      cp(join(pathPyodide, x), join(pathDist, x))
-    )
+    [
+      //namePyyaml,
+      namePil,
+    ].map((x) => cp(join(pathPyodide, x), join(pathDist, x)))
   )
 
   await writeFile(
     join(pathDist, 'deps.json'),
     JSON.stringify([
-      {
-        name: 'yaml',
-        filename: namePyyaml,
-      },
+      // {
+      //   name: 'yaml',
+      //   filename: namePyyaml,
+      // },
       {
         name: 'PIL',
         filename: namePil,
