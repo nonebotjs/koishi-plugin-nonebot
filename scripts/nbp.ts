@@ -19,6 +19,8 @@ const blacklist = [
   'build',
   'twine',
   'jieba',
+  'PIL',
+  'Pillow',
 ]
 
 interface JohnnydepItem {
