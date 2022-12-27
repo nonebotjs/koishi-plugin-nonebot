@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-nonebot",
   "description": "NoneBot runtime for Koishi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -10,11 +10,8 @@
     "python"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
-  "maintainers": [
-    {
-      "name": "shigma",
-      "email": "shigma10826@gmail.com"
-    },
+  "contributors": [
+    "Shigma <shigma10826@gmail.com>",
     {
       "name": "Il Harper",
       "email": "hi@ilharper.com",
