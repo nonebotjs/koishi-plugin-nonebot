@@ -5,3 +5,5 @@ export const jiebaSource = 'https://files.pythonhosted.org/packages/c6/cb/18eeb2
 export const namePyyaml = 'PyYAML-6.0-cp310-cp310-emscripten_3_1_14_wasm32.whl'
 
 export const namePil = 'PIL-9.1.1-cp310-cp310-emscripten_3_1_14_wasm32.whl'
+
+export const nameNumpy = 'numpy-1.22.4-cp310-cp310-emscripten_3_1_14_wasm32.whl'

@@ -6,7 +6,7 @@ import { promisify } from 'node:util'
 import { extract } from 'tar'
 import bz2 from 'unbzip2-stream'
 import { register } from 'yakumo'
-import { jiebaSource, namePil, pyodideSource } from './config'
+import { jiebaSource, nameNumpy, namePil, pyodideSource } from './config'
 import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
@@ -23,6 +23,7 @@ const blacklist = [
   'jieba',
   'PIL',
   'Pillow',
+  'numpy',
 ]
 
 interface JohnnydepItem {
@@ -89,6 +90,7 @@ const buildNonebot = async () => {
     [
       //namePyyaml,
       namePil,
+      nameNumpy,
     ].map((x) => cp(join(pathPyodide, x), join(pathDist, x)))
   )
 
@@ -102,6 +104,10 @@ const buildNonebot = async () => {
       {
         name: 'PIL',
         filename: namePil,
+      },
+      {
+        name: 'numpy',
+        filename: nameNumpy,
       },
     ])
   )
