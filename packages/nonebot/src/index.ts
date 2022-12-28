@@ -78,13 +78,15 @@ class NoneBot extends Service {
     await Promise.all(deps.map(dep => this.loadPackage(pathDeps, dep)))
   }
 
-  async import(pathModule: string, config = {}) {
+  async import(pathModule: string, config?: {}) {
     const name = this.mount(pathModule)
     const caller = this.caller
     return this.importTask = this.importTask.then(async () => {
       this.internal.caller = caller
+      this.internal.config = config
       await this.python.runPythonAsync(`import ${name}`)
       this.internal.caller = null
+      this.internal.config = null
     })
   }
 

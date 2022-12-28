@@ -4,10 +4,10 @@ import { PyProxy } from 'pyodide'
 export class Driver {
   public config: any
 
-  constructor(protected caller: Context) {
+  constructor(protected caller: Context, config = caller.config) {
     this.config = {
-      ...caller.config,
-      dict: () => new Map(Object.entries(caller.config)),
+      ...config,
+      dict: () => new Map(Object.entries(config)),
     }
   }
 

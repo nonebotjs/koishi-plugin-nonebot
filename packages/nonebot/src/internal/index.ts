@@ -5,6 +5,8 @@ import { kwarg, unwrap } from './utils'
 
 export class Internal {
   public caller: Context
+  public config: {}
+
   public logger = Object.assign(Object.create(new Logger('nonebot')), {
     warning(...args: any[]) {
       return this.warn(...args)
@@ -38,7 +40,7 @@ export class Internal {
   }
 
   get_driver() {
-    return new Driver(this.caller)
+    return new Driver(this.caller, this.config)
   }
 
   on_message() {
