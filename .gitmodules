@@ -61,3 +61,6 @@
 [submodule "plugins/yulu/nonebot-plugin-yulu"]
 	path = plugins/yulu/nonebot-plugin-yulu
 	url = https://github.com/nonebotjs/nonebot-plugin-yulu
+[submodule "plugins/alipayvoice/nonebot-plugin-alipayvoice"]
+	path = plugins/alipayvoice/nonebot-plugin-alipayvoice
+	url = https://github.com/nonebotjs/nonebot-plugin-alipayvoice
