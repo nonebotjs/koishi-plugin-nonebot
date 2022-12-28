@@ -34,6 +34,7 @@ class NoneBot extends Service {
   }
 
   async start() {
+    this.internal = new Internal(this.ctx)
     this.python = await loadPyodide({
       stdout: logger.info,
       stderr: logger.warn,
@@ -52,7 +53,6 @@ class NoneBot extends Service {
     await this.install(resolve(__dirname, '../dist'))
     await this.import(resolve(__dirname, '../dist/jieba'))
 
-    this.internal = new Internal(this.ctx)
     this.python.registerJsModule('internal', this.internal)
 
     for (const name of ['aiohttp', 'httpx', 'nonebot', 'pydantic']) {
@@ -80,10 +80,11 @@ class NoneBot extends Service {
 
   async import(pathModule: string, config = {}) {
     const name = this.mount(pathModule)
+    const caller = this.caller
     return this.importTask = this.importTask.then(async () => {
-      this.internal.config = config
+      this.internal.caller = caller
       await this.python.runPythonAsync(`import ${name}`)
-      this.internal.config = {}
+      this.internal.caller = null
     })
   }
 

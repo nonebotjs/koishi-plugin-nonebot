@@ -1,9 +1,10 @@
 import { Context, Logger, makeArray, segment } from 'koishi'
+import { Driver } from './driver'
 import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
 import { kwarg, unwrap } from './utils'
 
 export class Internal {
-  public config: any
+  public caller: Context
   public logger = Object.assign(Object.create(new Logger('nonebot')), {
     warning(...args: any[]) {
       return this.warn(...args)
@@ -37,12 +38,7 @@ export class Internal {
   }
 
   get_driver() {
-    return {
-      config: {
-        ...this.config,
-        dict: () => new Map(Object.entries(this.config)),
-      },
-    }
+    return new Driver(this.caller)
   }
 
   on_message() {
