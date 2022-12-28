@@ -56,19 +56,30 @@ class NoneBot extends Service {
     this.python.registerJsModule('internal', this.internal)
 
     for (const name of ['aiohttp', 'httpx', 'nonebot', 'pydantic']) {
-      this.mount(resolve(__dirname, `../python/${name}`))
+      this.mountModule(resolve(__dirname, `../python/${name}`))
     }
   }
 
-  mount(pathModule: string) {
-    const name = basename(pathModule).replace(/-/g, '_')
-    const pathVFSModule = `/pyodide/${name}/`
-    this.python.FS.mkdirTree(pathVFSModule)
+  mountTree(path: string, pathVFS: string) {
+    this.python.FS.mkdirTree(pathVFS)
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
-      { root: pathModule },
-      pathVFSModule
+      { root: path },
+      pathVFS
     )
+  }
+
+  mountTemp(path: string) {
+    const id = Math.random().toString(36).slice(2)
+    const pathVFS = `/tmp/${id}/`
+    this.mountTree(path, pathVFS)
+    return pathVFS
+  }
+
+  mountModule(pathModule: string) {
+    const name = basename(pathModule).replace(/-/g, '_')
+    const pathVFSModule = `/pyodide/${name}/`
+    this.mountTree(pathModule, pathVFSModule)
     return name
   }
 
@@ -79,7 +90,7 @@ class NoneBot extends Service {
   }
 
   async import(pathModule: string, config?: {}) {
-    const name = this.mount(pathModule)
+    const name = this.mountModule(pathModule)
     const caller = this.caller
     return this.importTask = this.importTask.then(async () => {
       this.internal.caller = caller
