@@ -11,6 +11,10 @@
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "KafCoppelia <k740677208@gmail.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

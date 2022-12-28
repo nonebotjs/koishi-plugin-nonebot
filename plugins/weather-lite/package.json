@@ -1,7 +1,7 @@
 {
   "name": "@nonebot/koishi-plugin-weather-lite",
   "description": "使用 [wttr.in](https://wttr.in/) 的天气查询",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -11,6 +11,10 @@
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "zjkwdy <3377911508@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

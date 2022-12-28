@@ -11,6 +11,13 @@
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    {
+      "name": "Maximilian Wu",
+      "email": "me@maxng.cc"
+    },
+    "NoneBot.js <nonebot@proton.me>"
+  ],
   "license": "GPL-3.0",
   "repository": {
     "type": "git",

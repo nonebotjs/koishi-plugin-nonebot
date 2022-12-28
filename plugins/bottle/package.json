@@ -11,6 +11,10 @@
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "Todysheep <todysheep@163.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
   "license": "GPL-3.0",
   "repository": {
     "type": "git",

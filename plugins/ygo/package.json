@@ -1,7 +1,7 @@
 {
   "name": "@nonebot/koishi-plugin-ygo",
   "description": "游戏王卡查插件",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -11,6 +11,10 @@
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "anlen123 <1761512493@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

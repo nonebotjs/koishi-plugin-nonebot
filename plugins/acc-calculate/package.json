@@ -1,7 +1,7 @@
 {
   "name": "@nonebot/koishi-plugin-acc-calculate",
   "description": "malody 段位计算单曲 acc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -11,6 +11,10 @@
     "nbp.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "ohdmire <1750011571@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
