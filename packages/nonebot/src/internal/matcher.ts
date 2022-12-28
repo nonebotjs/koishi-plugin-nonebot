@@ -53,6 +53,8 @@ export class BaseMatcher {
       const { create_message } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       return create_message(h.parse(this.message))
     },
+    RegexMatched: () => this.session.content,
+    Depends: ([callback]) => callback(),
   }
 
   constructor(protected ctx: Context) {}
@@ -60,12 +62,30 @@ export class BaseMatcher {
   protected getParams(fn: PyProxy): Parameter[] {
     const helpers = this.ctx.nonebot.python.pyimport('nonebot.helpers')
     const params = helpers.get_params(fn).toJs()
-    return params.map((param) => ({
-      kind: param.kind,
-      name: param.name,
-      args: param.args.toJs(),
-      kwargs: param.kwargs.toJs(),
-    }))
+    return params.map((param) => {
+      const result = {
+        kind: param.kind,
+        name: param.name,
+        args: param.args.toJs(),
+        kwargs: param.kwargs.toJs(),
+      }
+      if (param.name === 'Depends') {
+        result.args = [this.parseFn(result.args[0])]
+      }
+      return result
+    })
+  }
+
+  protected parseFn(fn: PyProxy) {
+    const params: Parameter[] = this.getParams(fn)
+    const callback = fn.toJs()
+    return () => {
+      const args = params.map((param) => {
+        const key = fallbackMap[param.name] || param.name
+        return this.getters[key]?.(param.args, param.kwargs)
+      })
+      return callback(...args)
+    }
   }
 
   protected factory(action: (callback: () => Promise<void>) => Promise<void>) {
@@ -75,15 +95,8 @@ export class BaseMatcher {
         this.callbacks.push(() => action(callback))
         return decorate
       }
-      const params: Parameter[] = this.getParams(fn)
-      const callback = fn.toJs()
-      this.callbacks.push(() => action(() => {
-        const args = params.map((param) => {
-          const key = fallbackMap[param.name] || param.name
-          return this.getters[key]?.(param.args, param.kwargs)
-        })
-        return callback(...args)
-      }))
+      const callback = this.parseFn(fn)
+      this.callbacks.push(() => action(() => callback()))
       return decorate
     }
     return decorate

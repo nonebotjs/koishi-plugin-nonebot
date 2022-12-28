@@ -26,3 +26,11 @@ class ArgStr(Dependent):
 
 class ArgPlainText(Dependent):
 	pass
+
+
+class RegexMatched(Dependent):
+	pass
+
+
+class Depends(Dependent):
+	pass
