@@ -1,0 +1,57 @@
+{
+  "name": "@nonebot/koishi-plugin-idiom",
+  "description": "成语接龙",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_idiom/nonebot_plugin_idiom",
+    "nbp.json"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    {
+      "name": "Your dxn",
+      "email": "1684193123@qq.com"
+    },
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_idiom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_idiom/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "idiom",
+    "word"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "atsc": "^1.2.2",
+    "koishi": "^4.10.10",
+    "koishi-plugin-nonebot": "^1.0.2",
+    "typescript": "^4.9.4"
+  }
+}

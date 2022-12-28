@@ -64,3 +64,6 @@
 [submodule "plugins/alipayvoice/nonebot-plugin-alipayvoice"]
 	path = plugins/alipayvoice/nonebot-plugin-alipayvoice
 	url = https://github.com/nonebotjs/nonebot-plugin-alipayvoice
+[submodule "plugins/idiom/nonebot_plugin_idiom"]
+	path = plugins/idiom/nonebot_plugin_idiom
+	url = https://github.com/nonebotjs/nonebot_plugin_idiom
