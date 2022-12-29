@@ -1,5 +1,5 @@
 import { mkdir } from 'node:fs/promises'
-import { Context, Dict, Logger, Schema, Service } from 'koishi'
+import { Context, Dict, Logger, Schema, Service, sleep } from 'koishi'
 import { basename, join, resolve } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
 import { loadPyodide } from 'pyodide'
@@ -58,6 +58,9 @@ class NoneBot extends Service {
     for (const name of ['aiohttp', 'httpx', 'nonebot', 'pydantic']) {
       this.mountModule(resolve(__dirname, `../python/${name}`))
     }
+
+    // workaround ModuleNotFoundError: No module named 'nonebot_plugin_xxx'
+    await sleep(1000)
   }
 
   mountTree(path: string, pathVFS: string) {
