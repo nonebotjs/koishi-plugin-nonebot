@@ -132,6 +132,14 @@ class MessageSegment:
 		return MessageSegment(h('image', {"url": file, "cache": cache}))
 
 	@staticmethod
+	def record(file: str, cache: bool = False):
+		return MessageSegment(h('audio', {"url": file, "cache": cache}))
+
+	@staticmethod
+	def video(file: str, cache: bool = False):
+		return MessageSegment(h('video', {"url": file, "cache": cache}))
+
+	@staticmethod
 	def music(type: str, id: int):
 		return MessageSegment(h('onebot:music', {"type": type, "id": id}))
 

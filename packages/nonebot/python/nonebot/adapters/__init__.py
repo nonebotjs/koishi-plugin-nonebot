@@ -1,3 +1,4 @@
+from nonebot.internal.adapter import Message
 from nonebot.params import Dependent
 
 
@@ -11,7 +12,8 @@ class Event(Dependent):
 			self.reply = None
 			self.user_id = self.internal.userId
 			self.group_id = self.internal.guildId
-			self.message = self.internal.content
+			self.message_id = self.internal.messageId
+			self.message = Message(self.internal.elements)
 
 	def get_type(self):
 		return self.internal.type
