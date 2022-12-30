@@ -67,3 +67,6 @@
 [submodule "plugins/idiom/nonebot_plugin_idiom"]
 	path = plugins/idiom/nonebot_plugin_idiom
 	url = https://github.com/nonebotjs/nonebot_plugin_idiom
+[submodule "plugins/jrrp/nonebot_plugin_jrrp"]
+	path = plugins/jrrp/nonebot_plugin_jrrp
+	url = https://github.com/nonebotjs/nonebot_plugin_jrrp
