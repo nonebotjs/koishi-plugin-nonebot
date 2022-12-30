@@ -159,7 +159,34 @@ const buildPlugin = async (path: string) => {
       .flat()
 
     // Push deps
-    results.flat().forEach((x) => deps.push(x))
+    for (const result of results.flat()) {
+      const conflictedIndex = deps.findIndex((x) => x.name === result.name)
+      if (conflictedIndex === -1) {
+        deps.push(result)
+        continue
+      }
+
+      const confilcted = deps[conflictedIndex]
+      const versions_available: string[] = JSON.parse(
+        await spawnOutput('python3', [
+          '-m',
+          'johnnydep',
+          '-f',
+          'versions_available',
+          '-o',
+          'json',
+          '--no-deps',
+          result.name,
+        ])
+      ).versions_available
+
+      const selected =
+        versions_available.indexOf(confilcted.version_latest_in_spec) >
+        versions_available.indexOf(result.version_latest_in_spec)
+          ? confilcted
+          : result
+      deps.splice(conflictedIndex, 1, selected)
+    }
   }
 
   const resultDeps = deps.slice(1).map((x) => ({
