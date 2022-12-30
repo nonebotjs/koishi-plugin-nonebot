@@ -24,6 +24,7 @@ const blacklist = [
   'PIL',
   'Pillow',
   'numpy',
+  'setuptools',
 ]
 
 interface JohnnydepItem {
