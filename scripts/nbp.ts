@@ -140,7 +140,7 @@ const buildPlugin = async (path: string) => {
     for (const parent of parents)
       results.push(
         JSON.parse(
-          await spawnOutput('python3', [
+          await spawnOutput('python', [
             '-m',
             'johnnydep',
             '-f',
@@ -168,7 +168,7 @@ const buildPlugin = async (path: string) => {
 
       const confilcted = deps[conflictedIndex]
       const versions_available: string[] = JSON.parse(
-        await spawnOutput('python3', [
+        await spawnOutput('python', [
           '-m',
           'johnnydep',
           '-f',
