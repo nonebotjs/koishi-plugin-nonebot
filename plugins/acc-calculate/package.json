@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-acc-calculate/nonebot_plugin_acc_calculate",
-    "nbp.json"
+    "nonebot-plugin-acc-calculate/nonebot_plugin_acc_calculate"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

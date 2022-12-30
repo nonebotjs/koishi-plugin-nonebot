@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-today-in-history/nonebot_plugin_today_in_history",
-    "nbp.json"
+    "nonebot-plugin-today-in-history/nonebot_plugin_today_in_history"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

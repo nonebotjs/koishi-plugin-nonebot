@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_trace_moe/nonebot_plugin_trace_moe",
-    "nbp.json"
+    "nonebot_plugin_trace_moe/nonebot_plugin_trace_moe"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

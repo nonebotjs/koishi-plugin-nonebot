@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-yulu/nonebot_plugin_yulu",
-    "nbp.json"
+    "nonebot-plugin-yulu/nonebot_plugin_yulu"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_songpicker2/nonebot_plugin_songpicker2",
-    "nbp.json"
+    "nonebot_plugin_songpicker2/nonebot_plugin_songpicker2"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_weather_lite/nonebot_plugin_weather_lite",
-    "nbp.json"
+    "nonebot_plugin_weather_lite/nonebot_plugin_weather_lite"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

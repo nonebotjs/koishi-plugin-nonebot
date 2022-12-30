@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_ygo_trade/nonebot_plugin_ygo_trade",
-    "nbp.json"
+    "nonebot_plugin_ygo_trade/nonebot_plugin_ygo_trade"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

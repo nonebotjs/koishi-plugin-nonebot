@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-alipayvoice/nonebot_plugin_alipayvoice",
-    "nbp.json"
+    "nonebot-plugin-alipayvoice/nonebot_plugin_alipayvoice"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

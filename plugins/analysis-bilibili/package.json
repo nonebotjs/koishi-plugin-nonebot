@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_analysis_bilibili/nonebot_plugin_analysis_bilibili",
-    "nbp.json"
+    "nonebot_plugin_analysis_bilibili/nonebot_plugin_analysis_bilibili"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

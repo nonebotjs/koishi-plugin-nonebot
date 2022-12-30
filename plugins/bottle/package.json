@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_bottle/nonebot_plugin_bottle",
-    "nbp.json"
+    "nonebot_plugin_bottle/nonebot_plugin_bottle"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_workscore/nonebot_plugin_workscore",
-    "nbp.json"
+    "nonebot_plugin_workscore/nonebot_plugin_workscore"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

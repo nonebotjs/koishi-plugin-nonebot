@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-warframe/nonebot_plugin_warframe",
-    "nbp.json"
+    "nonebot-plugin-warframe/nonebot_plugin_warframe"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

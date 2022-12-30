@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_code/nonebot_plugin_code",
-    "nbp.json"
+    "nonebot_plugin_code/nonebot_plugin_code"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

@@ -7,8 +7,7 @@
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-simplemusic/nonebot_plugin_simplemusic",
-    "nbp.json"
+    "nonebot-plugin-simplemusic/nonebot_plugin_simplemusic"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
