@@ -178,7 +178,7 @@ const buildPlugin = async (path: string) => {
           '--no-deps',
           result.name,
         ])
-      ).versions_available
+      )[0].versions_available
 
       const selected =
         versions_available.indexOf(confilcted.version_latest_in_spec) >
