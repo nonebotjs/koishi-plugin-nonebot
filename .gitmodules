@@ -73,3 +73,6 @@
 [submodule "plugins/reborn/nonebot_plugin_reborn"]
 	path = plugins/reborn/nonebot_plugin_reborn
 	url = https://github.com/nonebotjs/nonebot_plugin_reborn
+[submodule "plugins/maze/nonebot_plugin_maze"]
+	path = plugins/maze/nonebot_plugin_maze
+	url = https://github.com/nonebotjs/nonebot_plugin_maze

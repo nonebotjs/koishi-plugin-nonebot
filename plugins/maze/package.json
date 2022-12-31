@@ -1,0 +1,54 @@
+{
+  "name": "@nonebot/koishi-plugin-maze",
+  "description": "交互式解迷宫插件",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_maze/nonebot_plugin_maze"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "T_EtherLeaF <thetapilla@gmail.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_maze.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_maze/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "game",
+    "maze",
+    "puzzle"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.45",
+    "atsc": "^1.2.2",
+    "koishi": "^4.10.10",
+    "koishi-plugin-nonebot": "^1.0.2",
+    "typescript": "^4.9.4"
+  }
+}
