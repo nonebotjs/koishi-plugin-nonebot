@@ -11,7 +11,9 @@ register('nbp-pack', async (project) => {
   await Promise.all(
     Object.keys(project.targets)
       .filter(
-        (path) => path.startsWith('/plugins') || path === '/packages/nonebot'
+        (path) =>
+          (path.startsWith('/plugins') && !path.includes('_template')) ||
+          path === '/packages/nonebot'
       )
       .map((path) => project.targets[path])
       .map((pkgJson) =>
