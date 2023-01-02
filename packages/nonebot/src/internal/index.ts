@@ -81,8 +81,8 @@ export class Internal {
     return new MessageMatcher(this.ctx, message => regexp.test(message))
   }
 
-  on_command(name: string) {
-    return new CommandMatcher(this.ctx, name)
+  on_command(name: string, kwargs?: any) {
+    return new CommandMatcher(this.ctx, name, kwargs)
   }
 
   on_shell_command(name: string) {

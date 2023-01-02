@@ -172,9 +172,15 @@ export class MessageMatcher extends BaseMatcher {
 export class CommandMatcher extends BaseMatcher {
   protected args: Dict<any> = Object.create(null)
 
-  constructor(protected ctx: Context, protected name: string) {
+  constructor(protected ctx: Context, protected name: string, kwargs: any) {
     super(ctx)
-    this.ctx.command(this.name).action(async({ session }, ...args) => {
+    const cmd = this.ctx.command(this.name)
+    if (kwargs.aliases) {
+      for (const name of kwargs.aliases.toJs()) {
+        cmd.alias(name)
+      }
+    }
+    cmd.action(async({ session }, ...args) => {
       this.session = session
       this.state = new Map()
       this.message = args.join(' ')
