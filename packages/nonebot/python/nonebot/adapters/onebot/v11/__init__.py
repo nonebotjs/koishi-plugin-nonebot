@@ -10,6 +10,9 @@ from .event import MessageEvent as MessageEvent
 from .event import GroupMessageEvent as GroupMessageEvent
 from .event import PrivateMessageEvent as PrivateMessageEvent
 
+from .permission import GROUP as GROUP
+from .permission import PRIVATE as PRIVATE
+
 
 class Bot(Dependent):
 	def __init__(self, *args, **kwargs) -> None:

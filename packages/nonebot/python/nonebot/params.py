@@ -1,36 +1,10 @@
-class Dependent:
-	def __init__(self, *args, **kwargs):
-		self.args = args
-		self.kwargs = kwargs
-
-
-class T_State(Dependent):
-	pass
-
-
-class State(Dependent):
-	pass
-
-
-class CommandArg(Dependent):
-	pass
-
-
-class ShellCommandArgv(Dependent):
-	pass
-
-
-class ArgStr(Dependent):
-	pass
-
-
-class ArgPlainText(Dependent):
-	pass
-
-
-class RegexMatched(Dependent):
-	pass
-
-
-class Depends(Dependent):
-	pass
+from .internal.params import Dependent as Dependent
+from .internal.params import T_State as T_State
+from .internal.params import State as State
+from .internal.params import CommandArg as CommandArg
+from .internal.params import ShellCommandArgs as ShellCommandArgs
+from .internal.params import ShellCommandArgv as ShellCommandArgv
+from .internal.params import ArgStr as ArgStr
+from .internal.params import ArgPlainText as ArgPlainText
+from .internal.params import RegexMatched as RegexMatched
+from .internal.params import Depends as Depends
