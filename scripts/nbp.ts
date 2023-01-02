@@ -21,8 +21,8 @@ const blacklist = [
   'build',
   'twine',
   'jieba',
-  'PIL',
-  'Pillow',
+  'pil',
+  'pillow',
   'numpy',
   'setuptools',
 ]
@@ -34,9 +34,16 @@ interface JohnnydepItem {
   requires: string[]
 }
 
-const blacklisted = (x: string) =>
+const unblacklisted = (x: string) =>
   !blacklist.some(
-    (y) => x.split('<')[0].split('>')[0].split('=')[0].split('!')[0] === y
+    (y) =>
+      x
+        .split('<')[0]
+        .split('>')[0]
+        .split('=')[0]
+        .split('!')[0]
+        .toLowerCase()
+        .replace(/_/g, '-') === y.toLowerCase().replace(/_/g, '-')
   )
 
 const preparePyodide = async () => {
@@ -156,7 +163,7 @@ const buildPlugin = async (path: string) => {
 
     // Filter requirements of results info parents of next cycle
     parents = results
-      .map((result) => result[0].requires.filter(blacklisted))
+      .map((result) => result[0].requires.filter(unblacklisted))
       .flat()
 
     // Push deps
