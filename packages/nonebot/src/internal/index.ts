@@ -16,6 +16,7 @@ export class Internal {
   constructor(protected ctx: Context) {}
 
   h(type: string, attrs?: any, children?: any) {
+    if (type === 'music') type = 'onebot:music'
     attrs = Object.fromEntries(attrs?.toJs().entries() ?? [])
     children = children?.toJs().map(item => {
       if (!(item instanceof Map)) return unwrap(item)

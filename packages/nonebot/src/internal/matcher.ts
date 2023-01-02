@@ -111,6 +111,10 @@ export class BaseMatcher {
     return this.factory(callback => callback())
   }
 
+  public append_handler(fn: PyProxy) {
+    return this.handle()(fn)
+  }
+
   public async send(...args: any[]) {
     const message = h.normalize(kwarg('message', args))
     if (kwarg('at_sender', args, 1)) {

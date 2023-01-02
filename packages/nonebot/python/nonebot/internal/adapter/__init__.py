@@ -70,7 +70,7 @@ class Message(list):
 						filter(lambda x: x, (x.lstrip() for x in data.split(","))),
 					)
 				}
-				yield MessageSegment(h(type_, data))
+				yield MessageSegment(type_, data)
 
 	def append(self, obj):
 		if isinstance(obj, MessageSegment):
@@ -95,7 +95,9 @@ class Message(list):
 
 
 class MessageSegment:
-	def __init__(self, element) -> None:
+	def __init__(self, element, data = None) -> None:
+		if (isinstance(element, str)):
+			element = h(element, data)
 		self.internal = element
 		self._type = element.type
 		self._data = element.attrs
@@ -117,37 +119,37 @@ class MessageSegment:
 
 	@staticmethod
 	def text(text: str):
-		return MessageSegment(h('text', {"content": text}))
+		return MessageSegment('text', {"content": text})
 
 	@staticmethod
 	def at(id: str):
-		return MessageSegment(h('at', {"id": id}))
+		return MessageSegment('at', {"id": id})
 
 	@staticmethod
 	def reply(id: str):
-		return MessageSegment(h('quote', {"id": id}))
+		return MessageSegment('quote', {"id": id})
 
 	@staticmethod
 	def image(file: str, cache: bool = False):
-		return MessageSegment(h('image', {"url": file, "cache": cache}))
+		return MessageSegment('image', {"url": file, "cache": cache})
 
 	@staticmethod
 	def record(file: str, cache: bool = False):
-		return MessageSegment(h('audio', {"url": file, "cache": cache}))
+		return MessageSegment('audio', {"url": file, "cache": cache})
 
 	@staticmethod
 	def video(file: str, cache: bool = False):
-		return MessageSegment(h('video', {"url": file, "cache": cache}))
+		return MessageSegment('video', {"url": file, "cache": cache})
 
 	@staticmethod
 	def music(type: str, id: int):
-		return MessageSegment(h('onebot:music', {"type": type, "id": id}))
+		return MessageSegment('onebot:music', {"type": type, "id": id})
 
 	@staticmethod
 	def node_custom(
 		user_id: int, nickname: str, content: Union[str, "Message"]
 	) -> "MessageSegment":
-		# return MessageSegment(h("node", {"user_id": str(user_id), "nickname": nickname, "content": content}))
+		# return MessageSegment("node", {"user_id": str(user_id), "nickname": nickname, "content": content})
 		children = Message(content)
-		children = [MessageSegment(h('author', {'userId': str(user_id), 'nickname': nickname}))] + children
-		return MessageSegment(h('message', {}, children))
+		children = [MessageSegment('author', {'userId': str(user_id), 'nickname': nickname})] + children
+		return MessageSegment('message', {}, children)

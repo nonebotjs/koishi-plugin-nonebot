@@ -25,7 +25,7 @@ class Bot(Dependent):
 
 	async def send(self, event: Event, message, at_sender = False):
 		if at_sender:
-			message = MessageSegment(h('at', {'id': event.get_user_id()})) + message
+			message = MessageSegment('at', {'id': event.get_user_id()}) + message
 		if not isinstance(message, str):
 			message = ''.join([item.internal.toString() for item in message])
 		return event.internal.send(message)
