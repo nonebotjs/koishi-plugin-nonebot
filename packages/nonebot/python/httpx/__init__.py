@@ -1,4 +1,5 @@
 from json import dumps, loads
+from urllib.parse import urlencode
 from pyodide.http import pyfetch
 
 
@@ -9,14 +10,16 @@ class AsyncClient:
 	async def __aexit__(self, exc_type, exc_value, traceback):
 		return
 
-	async def get(self, url, headers={}, cookies={}):
+	async def get(self, url, params={}, headers={}, cookies={}):
+		url += '?' + urlencode(params)
 		if cookies:
 			headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
 		r = await pyfetch(url, method="GET", headers=headers)
 		text = await r.string()
 		return Response(r, text)
 
-	async def post(self, url, headers={}, data=None, json=None, cookies={}):
+	async def post(self, url, params={}, headers={}, data=None, json=None, cookies={}):
+		url += '?' + urlencode(params)
 		if cookies:
 			headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
 		r = await pyfetch(url, method="POST", body=dumps(data or json), headers=headers)
