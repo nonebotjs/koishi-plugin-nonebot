@@ -14,6 +14,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '起步', link: './usage' },
+      { text: '原理', link: './impl' },
       { text: '插件', link: './plugins' },
       { text: 'API', link: './api' },
       {
