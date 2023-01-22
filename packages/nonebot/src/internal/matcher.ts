@@ -133,6 +133,8 @@ export class BaseMatcher {
     throw new NoneBotException('finish')
   }
 
+  public stop_propagation() {}
+
   protected async execute(...args: any[]) {
     try {
       for (const callback of this.callbacks) {
