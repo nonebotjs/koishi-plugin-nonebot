@@ -42,7 +42,7 @@ class NoneBot extends Service {
       homedir: '/pyodide',
     })
 
-    const root = resolve(this.ctx.baseDir, this.config.packagesFolder)
+    const root = resolve(this.ctx.baseDir, this.config.siteFolder)
     await mkdir(root, { recursive: true })
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
@@ -119,11 +119,11 @@ class NoneBot extends Service {
 
 namespace NoneBot {
   export interface Config {
-    packagesFolder?: string
+    siteFolder?: string
   }
 
   export const Config: Schema<Config> = Schema.object({
-    packagesFolder: Schema.string()
+    siteFolder: Schema.string()
       .description('site-packages 目录。')
       .default('data/nonebot/site-packages'),
   })
