@@ -24,6 +24,10 @@ class ShellCommandArgv(Dependent):
 	pass
 
 
+class Arg(Dependent):
+	pass
+
+
 class ArgStr(Dependent):
 	pass
 

@@ -182,10 +182,10 @@ export class CommandMatcher extends BaseMatcher {
 
   constructor(protected ctx: Context, protected name: string, kwargs: any) {
     super(ctx)
-    const cmd = this.ctx.command(this.name)
+    const cmd = this.ctx.command(this.name.replace(/^[./]/, ''))
     if (kwargs.aliases) {
       for (const name of kwargs.aliases.toJs()) {
-        cmd.alias(name)
+        cmd.alias(name.replace(/^[./]/, ''))
       }
     }
     cmd.action(async({ session }, ...args) => {
