@@ -31,6 +31,7 @@ export class BaseMatcher {
   protected state = new Map()
   protected callbacks: (() => Promise<void>)[] = []
   protected message: string
+  protected capture: RegExpExecArray
 
   protected getters = {
     Bot: () => {
@@ -53,7 +54,9 @@ export class BaseMatcher {
       const { create_message } = this.ctx.nonebot.python.pyimport('nonebot.adapters.onebot.v11')
       return create_message(h.parse(this.message))
     },
-    RegexMatched: () => this.session.content,
+    RegexGroup: () => this.capture.slice(1),
+    RegexDict: () => this.capture.groups || {},
+    RegexMatched: () => this.capture[0],
     Depends: ([callback]) => callback(),
   }
 
@@ -158,16 +161,15 @@ export class EventMatcher extends BaseMatcher {
 }
 
 export class MessageMatcher extends BaseMatcher {
-  constructor(protected ctx: Context, predicate: (text: string) => boolean) {
+  constructor(protected ctx: Context, predicate: (text: string) => any) {
     super(ctx)
     this.ctx.middleware(async (session, next) => {
-      let result = false
       try {
-        result = predicate(extractText(session.elements))
+        this.capture = predicate(extractText(session.elements))
       } catch (err) {
         logger.warn(err)
       }
-      if (!result) return next()
+      if (!this.capture) return next()
       this.session = session
       this.state = new Map()
       await this.execute()

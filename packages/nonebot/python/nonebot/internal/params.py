@@ -32,6 +32,14 @@ class ArgPlainText(Dependent):
 	pass
 
 
+class RegexDict(Dependent):
+	pass
+
+
+class RegexGroup(Dependent):
+	pass
+
+
 class RegexMatched(Dependent):
 	pass
 

@@ -6,6 +6,9 @@ class BaseModel:
 	def parse_obj(cls, obj: dict):
 		return Object(obj)
 
+	def __init__(self, *args, **kwargs):
+		pass
+
 	def __init_subclass__(cls, extra = None) -> None:
 		pass
 

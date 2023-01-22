@@ -79,7 +79,7 @@ export class Internal {
 
   on_regex(...args: any[]) {
     const regexp = new RegExp(kwarg('pattern', args))
-    return new MessageMatcher(this.ctx, message => regexp.test(message))
+    return new MessageMatcher(this.ctx, message => regexp.exec(message))
   }
 
   on_command(name: string, kwargs?: any) {
