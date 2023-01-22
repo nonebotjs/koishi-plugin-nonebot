@@ -1,26 +1,26 @@
 {
-  "name": "@nonebot/koishi-plugin-cybersensoji",
-  "description": "还在抽传统主题的签？不如来试试赛博浅草寺吧！",
+  "name": "@nonebot/koishi-plugin-draw",
+  "description": "一个本地化的抽签小插件",
   "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_cybersensoji/nonebot_plugin_CyberSensoji"
+    "nonebot_plugin_draw/nonebot_plugin_draw"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
-    "Raidenneox <longahead@outlook.com>",
+    "bingganhe123 <3143799170@qq.com>",
     "NoneBot.js <nonebot@proton.me>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/nonebot_plugin_cybersensoji.git"
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_draw.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/nonebot_plugin_cybersensoji/issues"
+    "url": "https://github.com/nonebotjs/nonebot_plugin_draw/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {

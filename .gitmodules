@@ -88,3 +88,6 @@
 [submodule "plugins/cybersensoji/nonebot_plugin_cybersensoji"]
 	path = plugins/cybersensoji/nonebot_plugin_cybersensoji
 	url = https://github.com/nonebotjs/nonebot_plugin_cybersensoji
+[submodule "plugins/draw/nonebot_plugin_draw"]
+	path = plugins/draw/nonebot_plugin_draw
+	url = https://github.com/nonebotjs/nonebot_plugin_draw
