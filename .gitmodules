@@ -85,3 +85,6 @@
 [submodule "plugins/baidutranslate/nonebot_plugin_baidutranslate"]
 	path = plugins/baidutranslate/nonebot_plugin_baidutranslate
 	url = https://github.com/nonebotjs/nonebot_plugin_baidutranslate
+[submodule "plugins/cybersensoji/nonebot_plugin_cybersensoji"]
+	path = plugins/cybersensoji/nonebot_plugin_cybersensoji
+	url = https://github.com/nonebotjs/nonebot_plugin_cybersensoji
