@@ -1,0 +1,53 @@
+{
+  "name": "@nonebot/koishi-plugin-animeres",
+  "description": "动漫资源获取插件",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_animeres/nonebot_plugin_animeres"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "MelodyKnit <2711402357@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_animeres.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_animeres/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "anime",
+    "resource"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "atsc": "^1.2.2",
+    "koishi": "^4.11.2",
+    "koishi-plugin-nonebot": "^1.0.2",
+    "typescript": "^4.9.4"
+  }
+}

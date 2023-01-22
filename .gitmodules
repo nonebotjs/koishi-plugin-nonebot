@@ -79,3 +79,6 @@
 [submodule "plugins/antiinsult/nonebot-plugin-antiinsult"]
 	path = plugins/antiinsult/nonebot-plugin-antiinsult
 	url = https://github.com/nonebotjs/nonebot-plugin-antiinsult
+[submodule "plugins/animeres/nonebot_plugin_animeres"]
+	path = plugins/animeres/nonebot_plugin_animeres
+	url = https://github.com/nonebotjs/nonebot_plugin_animeres
