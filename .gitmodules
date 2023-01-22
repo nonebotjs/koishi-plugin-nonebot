@@ -82,3 +82,6 @@
 [submodule "plugins/animeres/nonebot_plugin_animeres"]
 	path = plugins/animeres/nonebot_plugin_animeres
 	url = https://github.com/nonebotjs/nonebot_plugin_animeres
+[submodule "plugins/baidutranslate/nonebot_plugin_baidutranslate"]
+	path = plugins/baidutranslate/nonebot_plugin_baidutranslate
+	url = https://github.com/nonebotjs/nonebot_plugin_baidutranslate
