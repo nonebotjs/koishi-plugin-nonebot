@@ -100,3 +100,6 @@
 [submodule "plugins/blackjack/nonebot-plugin-blackjack"]
 	path = plugins/blackjack/nonebot-plugin-blackjack
 	url = https://github.com/nonebotjs/nonebot-plugin-blackjack
+[submodule "plugins/cartoon/nonebot-plugin-cartoon"]
+	path = plugins/cartoon/nonebot-plugin-cartoon
+	url = https://github.com/nonebotjs/nonebot-plugin-cartoon
