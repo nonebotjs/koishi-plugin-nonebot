@@ -1,4 +1,4 @@
-import { mkdir } from 'node:fs/promises'
+import * as fs from 'node:fs/promises'
 import { Context, Dict, Logger, Schema, Service, sleep } from 'koishi'
 import { basename, join, resolve } from 'node:path'
 import type { PyodideInterface } from 'pyodide'
@@ -45,7 +45,7 @@ class NoneBot extends Service {
     })
 
     const root = resolve(this.ctx.baseDir, this.config.siteFolder)
-    await mkdir(root, { recursive: true })
+    await fs.mkdir(root, { recursive: true })
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
       { root },
@@ -53,7 +53,6 @@ class NoneBot extends Service {
     )
 
     await this.install(resolve(__dirname, '../dist'))
-    await this.import(resolve(__dirname, '../dist/jieba'))
 
     this.python.registerJsModule('internal', this.internal)
 
@@ -97,10 +96,12 @@ class NoneBot extends Service {
     return name
   }
 
-  async install(pathDeps: string) {
+  async install(base: string) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const deps: Dependency[] = require(join(pathDeps, 'deps.json'))
-    await Promise.all(deps.map(dep => this.loadPackage(pathDeps, dep)))
+    const deps: Dependency[] = require(join(base, 'deps.json'))
+    await Promise.all(deps.map((dep) => {
+      return this.installed[dep.name] ||= this.loadDep(base, dep)
+    }))
   }
 
   async import(pathModule: string, config?: {}) {
@@ -115,12 +116,14 @@ class NoneBot extends Service {
     })
   }
 
-  private async loadPackage(pathDeps: string, dep: Dependency) {
-    return this.installed[dep.name] ||= this.python.loadPackage(
-      join(pathDeps, dep.filename),
-      logger.info,
-      logger.warn,
-    )
+  private async loadDep(base: string, dep: Dependency) {
+    const filename = join(base, dep.filename)
+    const stats = await fs.stat(filename)
+    if (stats.isDirectory()) {
+      this.mountModule(filename)
+    } else {
+      await this.python.loadPackage(filename, logger.info, logger.warn)
+    }
   }
 
   async stop() {
