@@ -1,7 +1,7 @@
-import { createReadStream } from 'node:fs'
+import { createReadStream, createWriteStream } from 'node:fs'
 import { cp, mkdir, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
-import stream from 'node:stream'
+import { finished } from 'node:stream'
 import { promisify } from 'node:util'
 import { extract } from 'tar'
 import bz2 from 'unbzip2-stream'
@@ -47,20 +47,15 @@ const unblacklisted = (x: string) =>
 
 const preparePyodide = async () => {
   const pathCache = resolve(__dirname, '../build/cache')
-  const pathFile = join(pathCache, 'pyodide.tar.bz2')
   await mkdir(pathCache, { recursive: true })
-
-  if (!(await exists(pathFile)))
-    await download(pyodideSource, pathCache, 'pyodide.tar.bz2')
 
   const pathExtracted = join(pathCache, 'pyodide')
   await mkdir(pathExtracted, { recursive: true })
-  if (!(await exists(join(pathExtracted, 'pyodide.js'))))
-    await promisify(stream.finished)(
-      createReadStream(pathFile)
-        .pipe(bz2())
-        .pipe(extract({ cwd: pathExtracted, strip: 1 }))
-    )
+
+  if (!await exists(join(pathExtracted, 'pyodide.js'))) {
+    const stream = await download(pyodideSource, pathCache, 'pyodide.tar.bz2')
+    await promisify(finished)(stream.pipe(bz2()).pipe(extract({ cwd: pathExtracted, strip: 1 })))
+  }
 
   return pathExtracted
 }
@@ -176,13 +171,19 @@ const buildPlugin = async (path: string) => {
   const resultDeps = deps.slice(1).map((x) => ({
     name: x.name,
     version: x.version_latest_in_spec,
-    filename: basename(x.download_link),
+    filename: x.download_link.endsWith('.tar.gz') ? x.name : basename(x.download_link),
     url: x.download_link,
   }))
 
-  await Promise.all(
-    resultDeps.map((x) => download(x.url, pathDist, x.filename))
-  )
+  await Promise.all(resultDeps.map(async (x) => {
+    const stream = await download(x.url, pathDist, x.filename)
+    if (!x.url.endsWith('.tar.gz')) {
+      return promisify(finished)(stream.pipe(createWriteStream(join(pathDist, x.filename))))
+    }
+    const cwd = join(pathDist, x.name)
+    await mkdir(cwd, { recursive: true })
+    await promisify(finished)(stream.pipe(extract({ cwd, newer: true, strip: 1 })))
+  }))
 
   await writeFile(
     join(pathDist, 'deps.json'),

@@ -9,5 +9,5 @@ koishi-plugin-nonebot 主要由三个部分组成：
 对于插件所需的 Python 依赖，我们将其分为三种方式实现：
 
 - 由 koishi-plugin-nonebot 模拟，包括 aiohttp, httpx, nonebot, pydantic 等
-- 由 koishi-plugin-nonebot 自带，包括 numpy, pillow, jieba 等
+- 由 koishi-plugin-nonebot 自带，包括 numpy, pillow 等
 - 剩下的插件将打包在插件中，随插件安装

@@ -1,12 +1,8 @@
 import axios from 'axios'
 import execa from 'execa'
 import type { PathLike } from 'node:fs'
-import { createWriteStream } from 'node:fs'
 import fs from 'node:fs/promises'
-import { join } from 'node:path'
 import stream from 'node:stream'
-import { promisify } from 'node:util'
-import { extract } from 'tar'
 
 export const spawnOutput = async (
   command: string,
@@ -33,10 +29,7 @@ export async function download(src: string, dest: string, filename: string) {
   const { data } = await axios.get<stream.Readable>(src, {
     responseType: 'stream',
   })
-  const writable = filename.endsWith('.tar.gz')
-    ? extract({ cwd: dest, newer: true })
-    : createWriteStream(join(dest, filename))
-  await promisify(stream.finished)(data.pipe(writable))
+  return data
 }
 
 export async function exists(path: PathLike): Promise<boolean> {
