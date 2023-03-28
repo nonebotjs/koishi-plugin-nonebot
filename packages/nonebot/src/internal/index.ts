@@ -37,6 +37,10 @@ export class Internal {
         throw new Error('invalid content:' + item)
       }
     })
+    // resolve virtual path
+    if (attrs.url?.startsWith('file:///')) {
+      attrs.url = 'file:///' + this.ctx.nonebot.resolvePath(attrs.url.slice(8))
+    }
     return segment(type, attrs, children)
   }
 
@@ -82,7 +86,7 @@ export class Internal {
     return new MessageMatcher(this.ctx, message => regexp.exec(message))
   }
 
-  on_command(name: string, kwargs?: any) {
+  on_command(name: string, kwargs = {}) {
     return new CommandMatcher(this.ctx, name, kwargs)
   }
 

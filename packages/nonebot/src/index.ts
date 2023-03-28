@@ -26,6 +26,8 @@ interface Dependency {
 class NoneBot extends Service {
   public python: PyodideInterface
   public internal: Internal
+
+  private paths: Dict<string> = Object.create(null)
   private importTask: Promise<void> = Promise.resolve()
   private installed: Dict<Promise<void>> = Object.create(null)
 
@@ -63,11 +65,20 @@ class NoneBot extends Service {
     await sleep(1000)
   }
 
-  mountTree(path: string, pathVFS: string) {
+  resolvePath(path: string) {
+    for (const [prefix, root] of Object.entries(this.paths)) {
+      if (!path.startsWith(prefix)) continue
+      return join(root, path.slice(prefix.length))
+    }
+    return path
+  }
+
+  mountTree(root: string, pathVFS: string) {
+    this.paths[pathVFS] = root
     this.python.FS.mkdirTree(pathVFS)
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
-      { root: path },
+      { root },
       pathVFS
     )
   }
