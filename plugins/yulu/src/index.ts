@@ -5,9 +5,13 @@ import { resolve } from 'path'
 export const name = 'yulu'
 export const using = ['nonebot']
 
-export interface Config {}
+export interface Config {
+  yulu_on_group: string[]
+}
 
-export const Config: Schema<Config> = Schema.object({})
+export const Config: Schema<Config> = Schema.object({
+  yulu_on_group: Schema.array(String).description('配置开启群号。'),
+})
 
 export async function apply(ctx: Context, config: Config) {
   await ctx.nonebot.install(resolve(__dirname, '../dist'))
