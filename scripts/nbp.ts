@@ -180,6 +180,7 @@ const buildPlugin = async (path: string) => {
     if (!x.url.endsWith('.tar.gz')) {
       return promisify(finished)(stream.pipe(createWriteStream(join(pathDist, x.filename))))
     }
+    console.log(x.url)
     const cwd = join(pathDist, x.name)
     await mkdir(cwd, { recursive: true })
     await promisify(finished)(stream.pipe(extract({ cwd, newer: true, strip: 1 })))

@@ -27,8 +27,17 @@ class AsyncClient:
 		return Response(r, text)
 
 
+class Headers:
+	def __init__(self, internal):
+		self.internal = internal
+
+	def get(self, key):
+		return self.internal.get(key)
+
+
 class Response:
 	def __init__(self, r, text):
+		self.headers = Headers(r.js_response.headers)
 		self.status_code = int(r.status)
 		self.text = text
 
