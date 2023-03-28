@@ -97,3 +97,6 @@
 [submodule "plugins/bittorrent/nonebot_plugin_bittorrent"]
 	path = plugins/bittorrent/nonebot_plugin_bittorrent
 	url = https://github.com/nonebotjs/nonebot_plugin_bittorrent
+[submodule "plugins/blackjack/nonebot-plugin-blackjack"]
+	path = plugins/blackjack/nonebot-plugin-blackjack
+	url = https://github.com/nonebotjs/nonebot-plugin-blackjack
