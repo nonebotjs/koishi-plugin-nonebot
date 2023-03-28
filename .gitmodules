@@ -94,3 +94,6 @@
 [submodule "plugins/heisi/nonebot_plugin_heisi"]
 	path = plugins/heisi/nonebot_plugin_heisi
 	url = https://github.com/nonebotjs/nonebot_plugin_heisi
+[submodule "plugins/bittorrent/nonebot_plugin_bittorrent"]
+	path = plugins/bittorrent/nonebot_plugin_bittorrent
+	url = https://github.com/nonebotjs/nonebot_plugin_bittorrent

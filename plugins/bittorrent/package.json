@@ -1,0 +1,56 @@
+{
+  "name": "@nonebot/koishi-plugin-bittorrent",
+  "description": "磁力搜索插件",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_bittorrent/nonebot_plugin_BitTorrent"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "Special-Week <2749903559@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_bittorrent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_bittorrent/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "bittorrent",
+    "search",
+    "magnet",
+    "download",
+    "resource"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "atsc": "^1.2.2",
+    "koishi": "^4.11.3",
+    "koishi-plugin-nonebot": "^1.1.2",
+    "typescript": "^4.9.4"
+  }
+}
