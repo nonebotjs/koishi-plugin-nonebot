@@ -1,3 +1,5 @@
+from nonebot.internal.adapter import Message as Message
+
 from .internal.params import Dependent as Dependent
 from .internal.params import T_State as T_State
 from .internal.params import State as State

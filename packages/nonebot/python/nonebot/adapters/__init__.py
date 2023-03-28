@@ -2,6 +2,20 @@ from nonebot.internal.adapter import Message
 from nonebot.params import Dependent
 
 
+def get(internal, key):
+	try:
+		return internal[key]
+	except:
+		return None
+
+
+class Sender:
+	def __init__(self, internal):
+		self.user_id = internal.userId
+		self.card = get(internal, 'card')
+		self.nickname = get(internal, 'nickname')
+
+
 class Event(Dependent):
 	def __init__(self, *args, **kwargs) -> None:
 		self.type = 'event'
@@ -14,6 +28,7 @@ class Event(Dependent):
 			self.group_id = self.internal.guildId
 			self.message_id = self.internal.messageId
 			self.message = Message(self.internal.elements)
+			self.sender = Sender(self.internal)
 
 	def get_type(self):
 		return self.internal.type
