@@ -1,18 +1,19 @@
 root: true
 
-parser: '@typescript-eslint/parser'
-
 env:
   browser: true
   node: true
+  mocha: true
   es2020: true
 
+globals:
+  NodeJS: true
+
 extends:
-  - eslint:recommended
-  - plugin:@typescript-eslint/recommended
+  - '@koishijs/eslint-config'
 
 plugins:
-  - '@typescript-eslint'
+  - mocha
 
 rules:
-  '@typescript-eslint/no-namespace': 0
+  '@typescript-eslint/naming-convention': off

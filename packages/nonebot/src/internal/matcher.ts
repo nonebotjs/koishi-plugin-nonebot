@@ -188,7 +188,7 @@ export class CommandMatcher extends BaseMatcher {
         cmd.alias(name.replace(/^[./]/, ''))
       }
     }
-    cmd.action(async({ session }, ...args) => {
+    cmd.action(async ({ session }, ...args) => {
       this.session = session
       this.state = new Map()
       this.message = args.join(' ')

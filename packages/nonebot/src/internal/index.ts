@@ -10,7 +10,7 @@ export class Internal {
   public logger = Object.assign(Object.create(new Logger('nonebot')), {
     warning(...args: any[]) {
       return this.warn(...args)
-    }
+    },
   })
 
   constructor(protected ctx: Context) {}

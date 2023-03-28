@@ -49,7 +49,7 @@ class NoneBot extends Service {
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
       { root },
-      '/lib/python3.10/site-packages/'
+      '/lib/python3.10/site-packages/',
     )
 
     await this.install(resolve(__dirname, '../dist'))
@@ -79,7 +79,7 @@ class NoneBot extends Service {
     this.python.FS.mount(
       this.python.FS.filesystems.NODEFS,
       { root },
-      pathVFS
+      pathVFS,
     )
   }
 
@@ -119,7 +119,7 @@ class NoneBot extends Service {
     return this.installed[dep.name] ||= this.python.loadPackage(
       join(pathDeps, dep.filename),
       logger.info,
-      logger.warn
+      logger.warn,
     )
   }
 
