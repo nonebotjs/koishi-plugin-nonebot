@@ -1,0 +1,54 @@
+{
+  "name": "@nonebot/koishi-plugin-phlogo",
+  "description": "生成 ph 风格 logo",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-phlogo/nonebot_plugin_phlogo"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "kexue <x@kexue.io>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-phlogo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-phlogo/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "logo",
+    "meme",
+    "pornhub"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "atsc": "^1.2.2",
+    "koishi": "^4.11.3",
+    "koishi-plugin-nonebot": "^1.1.3",
+    "typescript": "^4.9.4"
+  }
+}

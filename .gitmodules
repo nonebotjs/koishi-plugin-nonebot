@@ -103,3 +103,6 @@
 [submodule "plugins/cartoon/nonebot-plugin-cartoon"]
 	path = plugins/cartoon/nonebot-plugin-cartoon
 	url = https://github.com/nonebotjs/nonebot-plugin-cartoon
+[submodule "plugins/phlogo/nonebot-plugin-phlogo"]
+	path = plugins/phlogo/nonebot-plugin-phlogo
+	url = https://github.com/nonebotjs/nonebot-plugin-phlogo
