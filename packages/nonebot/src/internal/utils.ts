@@ -1,4 +1,4 @@
-import { h } from 'koishi'
+import { h, valueMap } from 'koishi'
 import { PyProxy } from 'pyodide'
 
 export function extractText(elements: h[]) {
@@ -22,12 +22,19 @@ export function unwrap(obj: any) {
   return obj.toJs()
 }
 
-export function kwarg(name: string, args: any[], index = 0) {
+export function take(name: string, args: any[], index = 0) {
   if (args.length > index + 1) return unwrap(args[index])
   if (args.length <= index) return unwrap(args[args.length - 1]?.[name])
   if (typeof args[index] !== 'object') return args[index]
   if (isPyProxy(args[index])) return unwrap(args[index])
   return unwrap(args[index][name])
+}
+
+export function rest(args: any[]) {
+  const last = args[args.length - 1]
+  if (typeof last !== 'object') return {}
+  if (isPyProxy(last)) return {}
+  return valueMap(last, unwrap)
 }
 
 export interface Parameter {

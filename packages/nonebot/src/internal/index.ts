@@ -1,7 +1,7 @@
 import { Context, Logger, makeArray, segment } from 'koishi'
 import { Driver } from './driver'
 import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
-import { kwarg, unwrap } from './utils'
+import { take, rest, unwrap } from './utils'
 
 export class Internal {
   public caller: Context
@@ -48,10 +48,6 @@ export class Internal {
     return new Driver(this.caller, this.config)
   }
 
-  on_message() {
-    return new MessageMatcher(this.ctx, () => true)
-  }
-
   on_metaevent() {
     return new BaseMatcher(this.ctx)
   }
@@ -64,26 +60,30 @@ export class Internal {
     return new BaseMatcher(this.ctx)
   }
 
-  on_startswith(text: string) {
-    return new MessageMatcher(this.ctx, message => message.startsWith(text))
+  on_message(kwargs = {}) {
+    return new MessageMatcher(this.ctx, kwargs, () => true)
   }
 
-  on_endswith(text: string) {
-    return new MessageMatcher(this.ctx, message => message.endsWith(text))
+  on_startswith(text: string, kwargs = {}) {
+    return new MessageMatcher(this.ctx, kwargs, message => message.startsWith(text))
   }
 
-  on_fullmatch(text: string) {
-    return new MessageMatcher(this.ctx, message => message === text)
+  on_endswith(text: string, kwargs = {}) {
+    return new MessageMatcher(this.ctx, kwargs, message => message.endsWith(text))
   }
 
-  on_keyword(text: string | string[]) {
+  on_fullmatch(text: string, kwargs = {}) {
+    return new MessageMatcher(this.ctx, kwargs, message => message === text)
+  }
+
+  on_keyword(text: string | string[], kwargs = {}) {
     const words = makeArray(unwrap(text))
-    return new MessageMatcher(this.ctx, message => words.some(word => message.includes(word)))
+    return new MessageMatcher(this.ctx, kwargs, message => words.some(word => message.includes(word)))
   }
 
   on_regex(...args: any[]) {
-    const regexp = new RegExp(kwarg('pattern', args))
-    return new MessageMatcher(this.ctx, message => regexp.exec(message))
+    const regexp = new RegExp(take('pattern', args))
+    return new MessageMatcher(this.ctx, rest(args), message => regexp.exec(message))
   }
 
   on_command(name: string, kwargs = {}) {

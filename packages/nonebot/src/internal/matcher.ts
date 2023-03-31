@@ -1,6 +1,6 @@
 import { Context, Dict, h, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
-import { extractText, kwarg, Parameter, unwrap } from './utils'
+import { extractText, take, Parameter, unwrap } from './utils'
 
 const logger = new Logger('nonebot')
 
@@ -60,7 +60,13 @@ export class BaseMatcher {
     Depends: ([callback]) => callback(),
   }
 
-  constructor(protected ctx: Context) {}
+  constructor(protected ctx: Context, kwargs: any = {}) {
+    if (kwargs.handlers) {
+      for (const handler of kwargs.handlers.toJs()) {
+        this.append_handler(handler)
+      }
+    }
+  }
 
   protected getParams(fn: PyProxy): Parameter[] {
     const helpers = this.ctx.nonebot.python.pyimport('nonebot.helpers')
@@ -119,20 +125,20 @@ export class BaseMatcher {
   }
 
   public async send(...args: any[]) {
-    const message = h.normalize(kwarg('message', args))
-    if (kwarg('at_sender', args, 1)) {
+    const message = h.normalize(take('message', args))
+    if (take('at_sender', args, 1)) {
       message.unshift(h.at(this.session.userId))
     }
     await this.session.send(message)
   }
 
   public async reject(...args: any[]) {
-    await this.session.send(kwarg('prompt', args))
+    await this.session.send(take('prompt', args))
     throw new NoneBotException('reject')
   }
 
   public async finish(...args: any[]) {
-    await this.session.send(kwarg('message', args))
+    await this.session.send(take('message', args))
     throw new NoneBotException('finish')
   }
 
@@ -161,8 +167,8 @@ export class EventMatcher extends BaseMatcher {
 }
 
 export class MessageMatcher extends BaseMatcher {
-  constructor(protected ctx: Context, predicate: (text: string) => any) {
-    super(ctx)
+  constructor(protected ctx: Context, kwargs: {}, predicate: (text: string) => any) {
+    super(ctx, kwargs)
     this.ctx.middleware(async (session, next) => {
       try {
         this.capture = predicate(extractText(session.elements))
@@ -181,7 +187,7 @@ export class CommandMatcher extends BaseMatcher {
   protected args: Dict<any> = Object.create(null)
 
   constructor(protected ctx: Context, protected name: string, kwargs: any) {
-    super(ctx)
+    super(ctx, kwargs)
     const cmd = this.ctx.command(this.name.replace(/^[./]/, ''))
     if (kwargs.aliases) {
       for (const name of kwargs.aliases.toJs()) {
