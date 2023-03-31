@@ -1,8 +1,6 @@
+from nonebot.exception import ParserExit
+
 class ArgumentParser:
-	pass
-
-
-class ParserExit:
 	pass
 
 
