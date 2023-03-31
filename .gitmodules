@@ -106,3 +106,6 @@
 [submodule "plugins/phlogo/nonebot-plugin-phlogo"]
 	path = plugins/phlogo/nonebot-plugin-phlogo
 	url = https://github.com/nonebotjs/nonebot-plugin-phlogo
+[submodule "plugins/minesweeper/nonebot-plugin-minesweeper"]
+	path = plugins/minesweeper/nonebot-plugin-minesweeper
+	url = https://github.com/nonebotjs/nonebot-plugin-minesweeper
