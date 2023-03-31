@@ -3,7 +3,7 @@ import {} from 'koishi-plugin-nonebot'
 import { resolve } from 'path'
 
 export const name = 'reborn'
-export const using = ['nonebot']
+export const using = ['nonebot', 'nonebot.htmlrender']
 
 export interface Config {}
 
