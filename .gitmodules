@@ -109,3 +109,6 @@
 [submodule "plugins/minesweeper/nonebot-plugin-minesweeper"]
 	path = plugins/minesweeper/nonebot-plugin-minesweeper
 	url = https://github.com/nonebotjs/nonebot-plugin-minesweeper
+[submodule "plugins/russian-ban/nonebot_plugin_russian_ban"]
+	path = plugins/russian-ban/nonebot_plugin_russian_ban
+	url = https://github.com/nonebotjs/nonebot_plugin_russian_ban

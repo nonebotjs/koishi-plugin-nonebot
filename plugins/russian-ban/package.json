@@ -1,0 +1,56 @@
+{
+  "name": "@nonebot/koishi-plugin-russian-ban",
+  "description": "轮盘禁言小游戏",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_russian_ban"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "karisaya <1048827424@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_russian_ban.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_russian_ban/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "russian",
+    "ban",
+    "roulette",
+    "duel",
+    "game"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "atsc": "^1.2.2",
+    "koishi": "^4.12.2",
+    "koishi-plugin-nonebot": "^1.1.3",
+    "typescript": "^4.9.5"
+  }
+}
