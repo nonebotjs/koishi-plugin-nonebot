@@ -45,13 +45,13 @@
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
-    "koishi-plugin-nonebot": "^1.1.0"
+    "koishi-plugin-nonebot": "^1.1.4"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.15.11",
     "atsc": "^1.2.2",
-    "koishi": "^4.11.2",
-    "koishi-plugin-nonebot": "^1.1.0",
-    "typescript": "^4.9.4"
+    "koishi": "^4.12.2",
+    "koishi-plugin-nonebot": "^1.1.4",
+    "typescript": "^4.9.5"
   }
 }

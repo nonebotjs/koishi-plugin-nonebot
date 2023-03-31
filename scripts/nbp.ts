@@ -1,4 +1,4 @@
-import { createReadStream, createWriteStream } from 'node:fs'
+import { createWriteStream } from 'node:fs'
 import { cp, mkdir, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { finished } from 'node:stream'
