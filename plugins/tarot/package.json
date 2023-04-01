@@ -1,0 +1,54 @@
+{
+  "name": "@nonebot/koishi-plugin-tarot",
+  "description": "🔮 塔罗牌 🔮",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_tarot/nonebot_plugin_tarot"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "KafCoppelia <k740677208@gmail.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_tarot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_tarot/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "tarot",
+    "card",
+    "fortune"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "atsc": "^1.2.2",
+    "koishi": "^4.12.2",
+    "koishi-plugin-nonebot": "^1.1.4",
+    "typescript": "^4.9.5"
+  }
+}

@@ -115,3 +115,6 @@
 [submodule "plugins/randomtkk/nonebot_plugin_randomtkk"]
 	path = plugins/randomtkk/nonebot_plugin_randomtkk
 	url = https://github.com/nonebotjs/nonebot_plugin_randomtkk
+[submodule "plugins/tarot/nonebot_plugin_tarot"]
+	path = plugins/tarot/nonebot_plugin_tarot
+	url = https://github.com/nonebotjs/nonebot_plugin_tarot
