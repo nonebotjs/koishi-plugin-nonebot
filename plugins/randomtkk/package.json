@@ -1,26 +1,26 @@
 {
-  "name": "@nonebot/koishi-plugin-heisi",
-  "description": "发送色色图片",
-  "version": "1.0.2",
+  "name": "@nonebot/koishi-plugin-randomtkk",
+  "description": "随机唐可可",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_heisi/nonebot_plugin_heisi"
+    "nonebot_plugin_randomtkk/nonebot_plugin_randomtkk"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
-    "yzyyz1387 <youzyyz1384@qq.com>",
+    "KafCoppelia <k740677208@gmail.com>",
     "NoneBot.js <nonebot@proton.me>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/nonebot_plugin_heisi.git"
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_randomtkk.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/nonebot_plugin_heisi/issues"
+    "url": "https://github.com/nonebotjs/nonebot_plugin_randomtkk/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {
@@ -36,8 +36,12 @@
     "koishi",
     "plugin",
     "nonebot",
+    "random",
     "image",
-    "heisi"
+    "puzzle",
+    "game",
+    "tankuku",
+    "lovelive"
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",

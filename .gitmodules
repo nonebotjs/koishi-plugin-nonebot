@@ -112,3 +112,6 @@
 [submodule "plugins/russian-ban/nonebot_plugin_russian_ban"]
 	path = plugins/russian-ban/nonebot_plugin_russian_ban
 	url = https://github.com/nonebotjs/nonebot_plugin_russian_ban
+[submodule "plugins/randomtkk/nonebot_plugin_randomtkk"]
+	path = plugins/randomtkk/nonebot_plugin_randomtkk
+	url = https://github.com/nonebotjs/nonebot_plugin_randomtkk
