@@ -1,0 +1,1 @@
+nonebot_plugin_ygo==1.0.2

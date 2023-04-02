@@ -1,0 +1,1 @@
+nonebot-plugin-yulu==2.0

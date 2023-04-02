@@ -1,0 +1,1 @@
+nonebot_plugin_ygo_trade==1.0.0

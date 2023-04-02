@@ -1,0 +1,1 @@
+nonebot_plugin_trace_moe==0.0.4

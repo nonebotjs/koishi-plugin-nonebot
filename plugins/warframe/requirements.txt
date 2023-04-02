@@ -1,0 +1,1 @@
+nonebot-plugin-warframe==0.0.2

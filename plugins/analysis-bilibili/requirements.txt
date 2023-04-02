@@ -1,0 +1,1 @@
+nonebot_plugin_analysis_bilibili==2.4.4

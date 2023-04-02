@@ -1,5 +1,5 @@
 import { createWriteStream } from 'node:fs'
-import { cp, mkdir, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { basename, join, resolve } from 'node:path'
 import { finished } from 'node:stream'
 import { promisify } from 'node:util'
@@ -7,7 +7,6 @@ import { extract } from 'tar'
 import bz2 from 'unbzip2-stream'
 import { register } from 'yakumo'
 import { nameNumpy, namePil, pyodideSource } from './config'
-import type { Nbp } from './types'
 import { download, exists, spawnOutput } from './utils'
 
 const blacklist = [
@@ -100,14 +99,12 @@ const buildPlugin = async (path: string) => {
   const pathPackage = resolve(__dirname, `..${path}`)
   const pathDist = join(pathPackage, 'dist')
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const nbp: Nbp = require(join(pathPackage, 'nbp.json'))
-
   if (await exists(pathDist)) return
   await mkdir(pathDist, { recursive: true })
 
   // Parents of each cycle
-  let parents: string[] = [`${nbp.name}==${nbp.version}`]
+  const content = await readFile(join(pathPackage, 'requirements.txt'), 'base64')
+  let parents = content.split(/\r?\n/g).filter(Boolean)
   // Finally collected deps
   const deps: JohnnydepItem[] = []
 

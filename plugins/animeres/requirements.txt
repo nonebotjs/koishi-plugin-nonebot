@@ -1,0 +1,1 @@
+nonebot_plugin_animeres==0.1.5

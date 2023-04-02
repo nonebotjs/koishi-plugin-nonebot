@@ -1,0 +1,1 @@
+nonebot_plugin_jrrp-n==1.0.1a1

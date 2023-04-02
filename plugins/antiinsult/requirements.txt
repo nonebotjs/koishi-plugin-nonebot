@@ -1,0 +1,1 @@
+nonebot-plugin-antiinsult==0.3.0

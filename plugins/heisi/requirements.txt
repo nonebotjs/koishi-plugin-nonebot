@@ -1,0 +1,1 @@
+nonebot-plugin-heisi==0.3.1

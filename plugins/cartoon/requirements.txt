@@ -1,0 +1,1 @@
+nonebot-plugin-cartoon==0.1.0
