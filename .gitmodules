@@ -118,3 +118,6 @@
 [submodule "plugins/tarot/nonebot_plugin_tarot"]
 	path = plugins/tarot/nonebot_plugin_tarot
 	url = https://github.com/nonebotjs/nonebot_plugin_tarot
+[submodule "plugins/htmlrender/nonebot-plugin-htmlrender"]
+	path = plugins/htmlrender/nonebot-plugin-htmlrender
+	url = https://github.com/nonebotjs/nonebot-plugin-htmlrender

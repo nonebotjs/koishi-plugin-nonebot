@@ -103,7 +103,7 @@ const buildPlugin = async (path: string) => {
   await mkdir(pathDist, { recursive: true })
 
   // Parents of each cycle
-  const content = await readFile(join(pathPackage, 'requirements.txt'), 'base64')
+  const content = await readFile(join(pathPackage, 'requirements.txt'), 'utf-8')
   let parents = content.split(/\r?\n/g).filter(Boolean)
   // Finally collected deps
   const deps: JohnnydepItem[] = []

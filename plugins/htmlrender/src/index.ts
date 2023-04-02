@@ -17,7 +17,7 @@ class HTMLRender extends Service {
   async start() {
     await this.ctx.nonebot.install(resolve(__dirname, '../dist'))
     this.ctx.nonebot.python.registerJsModule('_htmlrender', this)
-    this.ctx.nonebot.mountModule(resolve(__dirname, '../nonebot_plugin_htmlrender'))
+    this.ctx.nonebot.mountModule(resolve(__dirname, '../nonebot-plugin-htmlrender/nonebot_plugin_htmlrender'))
   }
 }
 

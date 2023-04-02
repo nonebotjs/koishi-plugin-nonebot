@@ -6,31 +6,27 @@
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
-    "dist"
+    "dist",
+    "nonebot-plugin-htmlrender/nonebot_plugin_htmlrender"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
-    "Shigma <shigma10826@gmail.com>",
+    "kexue <xana278@foxmail.com>",
     "NoneBot.js <nonebot@proton.me>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/koishi-plugin-nonebot.git",
-    "directory": "packages/htmlrender"
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-htmlrender.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/koishi-plugin-nonebot/issues"
+    "url": "https://github.com/nonebotjs/nonebot-plugin-htmlrender/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {
     "service": {
       "required": [
-        "nonebot",
-        "puppeteer"
-      ],
-      "implements": [
-        "nonebot.htmlrender"
+        "nonebot"
       ]
     }
   },
@@ -43,19 +39,18 @@
     "render",
     "html",
     "puppeteer",
-    "browser"
+    "browser",
+    "playwright"
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
-    "koishi-plugin-nonebot": "^1.1.4",
-    "koishi-plugin-puppeteer": "^3.5.0"
+    "koishi-plugin-nonebot": "^1.1.4"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
     "atsc": "^1.2.2",
     "koishi": "^4.12.2",
     "koishi-plugin-nonebot": "^1.1.4",
-    "koishi-plugin-puppeteer": "^3.5.0",
     "typescript": "^4.9.5"
   }
 }
