@@ -29,6 +29,7 @@ const fallbackMap = {
 export class BaseMatcher {
   protected session: Session
   protected state = new Map()
+  protected checkers: (() => Promise<boolean>)[] = []
   protected callbacks: (() => Promise<void>)[] = []
   protected message: string
   protected capture: RegExpExecArray
@@ -62,8 +63,13 @@ export class BaseMatcher {
 
   constructor(protected ctx: Context, kwargs: any = {}) {
     if (kwargs.handlers) {
-      for (const handler of kwargs.handlers.toJs()) {
+      for (const handler of unwrap(kwargs.handlers)) {
         this.append_handler(handler)
+      }
+    }
+    if (kwargs.rule) {
+      for (const checker of unwrap(kwargs.rule.checkers)) {
+        this.checkers.push(this.parseFn(checker))
       }
     }
   }
@@ -146,6 +152,10 @@ export class BaseMatcher {
 
   protected async execute(...args: any[]) {
     try {
+      for (const checker of this.checkers) {
+        const result = await checker()
+        if (!result) return
+      }
       for (const callback of this.callbacks) {
         await callback()
       }
