@@ -51,7 +51,7 @@ const preparePyodide = async () => {
   await mkdir(pathExtracted, { recursive: true })
 
   if (!await exists(join(pathExtracted, 'pyodide.js'))) {
-    const stream = await download(pyodideSource, pathCache, 'pyodide.tar.bz2')
+    const stream = await download(pyodideSource)
     await promisify(finished)(stream.pipe(bz2()).pipe(extract({ cwd: pathExtracted, strip: 1 })))
   }
 
@@ -169,14 +169,21 @@ const buildPlugin = async (path: string) => {
   }))
 
   await Promise.all(resultDeps.map(async (x) => {
-    const stream = await download(x.url, pathDist, x.filename)
+    const stream = await download(x.url)
     if (!x.url.endsWith('.tar.gz')) {
       return promisify(finished)(stream.pipe(createWriteStream(join(pathDist, x.filename))))
     }
-    console.log(x.url)
-    const cwd = join(pathDist, x.name)
-    await mkdir(cwd, { recursive: true })
-    await promisify(finished)(stream.pipe(extract({ cwd, newer: true, strip: 1 })))
+    await mkdir(pathDist, { recursive: true })
+    await promisify(finished)(stream.pipe(extract({
+      cwd: pathDist,
+      newer: true,
+      strip: 1,
+      filter(path, stat) {
+        if (!path.endsWith('/')) return true
+        const segments = path.split(/\//g)
+        return segments[1] === x.name
+      },
+    })))
   }))
 
   await writeFile(

@@ -6,8 +6,8 @@ import stream from 'node:stream'
 
 export const spawnOutput = async (
   command: string,
-  args?: ReadonlyArray<string>,
-  options?: execa.SyncOptions
+  args?: readonly string[],
+  options?: execa.SyncOptions,
 ): Promise<string> => {
   const parsedOptions: execa.SyncOptions = Object.assign<
     execa.SyncOptions,
@@ -25,8 +25,8 @@ export const spawnOutput = async (
   })
 }
 
-export async function download(src: string, dest: string, filename: string) {
-  const { data } = await axios.get<stream.Readable>(src, {
+export async function download(url: string) {
+  const { data } = await axios.get<stream.Readable>(url, {
     responseType: 'stream',
   })
   return data
