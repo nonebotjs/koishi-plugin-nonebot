@@ -34,7 +34,7 @@ koishi-plugin-nonebot 团队维护一份 NoneBot 商店的子集并发布到 Koi
 - [cybersensoji](https://github.com/Raidenneox/nonebot_plugin_CyberSensoji)：赛博浅草寺
 - [draw](https://github.com/bingganhe123/nonebot_plugin_draw)：本地化的抽签小插件
 - [gscode](https://github.com/monsterxcn/nonebot-plugin-gscode)：原神前瞻直播兑换码
-- [heisi](https://github.com/yzyyz1387/nonebot_plugin_heisi)：发送色色图片 (不可用)
+- [heisi](https://github.com/yzyyz1387/nonebot_plugin_heisi)：发送色色图片
 - [jrrp](https://github.com/SkyDynamic/nonebot_plugin_jrrp)：查询今日人品
 - [person](https://github.com/jcjrobert/nonebot-plugin-person)：随个群友当幸运观众
 - [simplemusic](https://github.com/noneplugin/nonebot-plugin-simplemusic)：点歌插件

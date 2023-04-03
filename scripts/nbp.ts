@@ -113,21 +113,18 @@ const buildPlugin = async (path: string) => {
     const results: JohnnydepItem[][] = []
 
     // Collect
-    for (const parent of parents)
-      results.push(
-        JSON.parse(
-          await spawnOutput('python', [
-            '-m',
-            'johnnydep',
-            '-f',
-            'ALL',
-            '-o',
-            'json',
-            '--no-deps',
-            parent,
-          ])
-        )
-      )
+    for (const parent of parents) {
+      results.push(JSON.parse(await spawnOutput('python', [
+        '-m',
+        'johnnydep',
+        '-f',
+        'ALL',
+        '-o',
+        'json',
+        '--no-deps',
+        parent,
+      ])))
+    }
 
     // Filter requirements of results info parents of next cycle
     parents = results

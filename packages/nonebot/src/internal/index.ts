@@ -1,7 +1,7 @@
 import { Context, Logger, makeArray, segment } from 'koishi'
 import { Driver } from './driver'
 import { BaseMatcher, CommandMatcher, MessageMatcher } from './matcher'
-import { take, rest, unwrap } from './utils'
+import { rest, take, unwrap } from './utils'
 
 export class Internal {
   public caller: Context
@@ -86,8 +86,8 @@ export class Internal {
     return new MessageMatcher(this.ctx, rest(args), message => regexp.exec(message))
   }
 
-  on_command(name: string, kwargs = {}) {
-    return new CommandMatcher(this.ctx, name, kwargs)
+  on_command(...args: any[]) {
+    return new CommandMatcher(this.ctx, take('cmd', args), rest(args))
   }
 
   on_shell_command(name: string) {

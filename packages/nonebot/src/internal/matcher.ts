@@ -1,6 +1,6 @@
 import { Context, Dict, h, Logger, Session } from 'koishi'
 import type { PyProxy } from 'pyodide'
-import { extractText, take, Parameter, unwrap } from './utils'
+import { extractText, Parameter, take, unwrap } from './utils'
 
 const logger = new Logger('nonebot')
 
