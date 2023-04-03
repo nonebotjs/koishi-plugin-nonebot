@@ -1,1 +1,0 @@
-nonebot-plugin-BitTorrent==0.0.6

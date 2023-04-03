@@ -32,17 +32,16 @@ interface JohnnydepItem {
   requires: string[]
 }
 
-const unblacklisted = (x: string) =>
-  !blacklist.some(
-    (y) =>
-      x
-        .split('<')[0]
-        .split('>')[0]
-        .split('=')[0]
-        .split('!')[0]
-        .toLowerCase()
-        .replace(/_/g, '-') === y.toLowerCase().replace(/_/g, '-')
-  )
+function skip(name: string, blacklist: string[]) {
+  name = name
+    .split('<')[0]
+    .split('>')[0]
+    .split('=')[0]
+    .split('!')[0]
+    .toLowerCase()
+    .replace(/_/g, '-')
+  return !blacklist.some((y) => name === y.toLowerCase().replace(/_/g, '-'))
+}
 
 const preparePyodide = async () => {
   const pathCache = resolve(__dirname, '../build/cache')
@@ -70,7 +69,7 @@ const buildNonebot = async () => {
 
   await Promise.all(
     [
-      //namePyyaml,
+      // namePyyaml,
       namePil,
       nameNumpy,
     ].map((x) => cp(join(pathPyodide, x), join(pathDist, x)))
@@ -103,8 +102,8 @@ const buildPlugin = async (path: string) => {
   await mkdir(pathDist, { recursive: true })
 
   // Parents of each cycle
-  const content = await readFile(join(pathPackage, 'requirements.txt'), 'utf-8')
-  let parents = content.split(/\r?\n/g).filter(Boolean)
+  const { name, version, exclude = [] } = JSON.parse(await readFile(join(pathPackage, 'nbp.json'), 'utf-8'))
+  let parents = [`${name}==${version}`]
   // Finally collected deps
   const deps: JohnnydepItem[] = []
 
@@ -128,7 +127,7 @@ const buildPlugin = async (path: string) => {
 
     // Filter requirements of results info parents of next cycle
     parents = results
-      .map((result) => result[0].requires.filter(unblacklisted))
+      .map((result) => result[0].requires.filter(x => skip(x, [...blacklist, ...exclude])))
       .flat()
 
     // Push deps

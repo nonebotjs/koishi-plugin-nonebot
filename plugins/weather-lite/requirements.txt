@@ -1,1 +1,0 @@
-nonebot_plugin_weather_lite==0.0.1

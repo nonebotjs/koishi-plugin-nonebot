@@ -1,1 +1,0 @@
-nonebot-plugin-russian-ban==1.0.6

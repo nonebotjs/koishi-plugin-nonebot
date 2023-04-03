@@ -1,1 +1,0 @@
-nonebot_plugin_idiom==0.1.4

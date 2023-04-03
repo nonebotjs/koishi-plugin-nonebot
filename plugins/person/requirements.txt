@@ -1,1 +1,0 @@
-nonebot-plugin-person==0.0.5

@@ -1,1 +1,0 @@
-nonebot-plugin-draw==0.1.2

@@ -1,1 +1,0 @@
-nonebot_plugin_songpicker2==0.2.1

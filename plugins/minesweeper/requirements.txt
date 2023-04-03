@@ -1,1 +1,0 @@
-nonebot-plugin-minesweeper==0.2.0
