@@ -38,7 +38,7 @@ export class Internal {
       }
     })
     // resolve virtual path
-    if (attrs.url?.startsWith('file:///')) {
+    if (typeof attrs.url === 'string' && attrs.url.startsWith('file:///')) {
       attrs.url = 'file:///' + this.ctx.nonebot.resolvePath(attrs.url.slice(8))
     }
     return segment(type, attrs, children)

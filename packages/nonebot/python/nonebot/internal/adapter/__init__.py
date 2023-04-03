@@ -1,4 +1,6 @@
 from pyodide.ffi import JsProxy
+from io import BytesIO
+from base64 import b64encode
 from typing import Union, Iterable, Tuple
 from internal import h
 import re
@@ -130,7 +132,11 @@ class MessageSegment:
 		return MessageSegment('quote', {"id": id})
 
 	@staticmethod
-	def image(file: str, cache: bool = False):
+	def image(file: Union[str, BytesIO], cache: bool = False):
+		if isinstance(file, BytesIO):
+			file = 'base64://' + b64encode(file.getvalue()).decode()
+		elif isinstance(file, bytes):
+			file = 'base64://' + b64encode(file).decode()
 		return MessageSegment('image', {"url": file, "cache": cache})
 
 	@staticmethod

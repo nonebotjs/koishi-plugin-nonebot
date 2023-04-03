@@ -190,7 +190,7 @@ export class CommandMatcher extends BaseMatcher {
     super(ctx, kwargs)
     const cmd = this.ctx.command(this.name.replace(/^[./]/, ''))
     if (kwargs.aliases) {
-      for (const name of kwargs.aliases.toJs()) {
+      for (const name of unwrap(kwargs.aliases)) {
         cmd.alias(name.replace(/^[./]/, ''))
       }
     }
