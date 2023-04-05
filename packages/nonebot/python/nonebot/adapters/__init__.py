@@ -1,5 +1,6 @@
 from nonebot.internal.adapter import Message
 from nonebot.params import Dependent
+from math import floor
 
 
 def get(internal, key):
@@ -27,6 +28,8 @@ class Event(Dependent):
 			self.user_id = self.internal.userId
 			self.group_id = self.internal.guildId
 			self.message_id = self.internal.messageId
+			self.time = floor(self.internal.timestamp / 1000)
+			self.raw_message = self.internal.content
 			self.message = Message(self.internal.elements)
 			self.sender = Sender(self.internal)
 
