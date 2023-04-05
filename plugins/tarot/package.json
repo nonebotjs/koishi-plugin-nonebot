@@ -7,7 +7,8 @@
   "files": [
     "lib",
     "dist",
-    "nonebot_plugin_tarot/nonebot_plugin_tarot"
+    "nonebot_plugin_tarot/nonebot_plugin_tarot/*.py",
+    "nonebot_plugin_tarot/nonebot_plugin_tarot/*.json"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [

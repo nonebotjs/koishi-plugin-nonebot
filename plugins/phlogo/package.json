@@ -1,6 +1,6 @@
 {
   "name": "@nonebot/koishi-plugin-phlogo",
-  "description": "生成 ph 风格 logo",
+  "description": "生成 PornHub 风格图标",
   "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
