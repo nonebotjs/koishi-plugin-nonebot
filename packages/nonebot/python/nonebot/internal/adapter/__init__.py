@@ -77,6 +77,8 @@ class Message(list):
 	def append(self, obj):
 		if isinstance(obj, MessageSegment):
 			super().append(obj)
+		elif isinstance(obj, dict):
+			super().append(MessageSegment(obj))
 		elif isinstance(obj, str):
 			self.extend(self._construct(obj))
 		elif isinstance(obj, Iterable):
@@ -98,8 +100,12 @@ class Message(list):
 
 class MessageSegment:
 	def __init__(self, element, data = None) -> None:
-		if (isinstance(element, str)):
+		if isinstance(element, str):
 			element = h(element, data)
+		elif isinstance(element, dict):
+			element = h(element['type'], element['data'])
+		if element.type == 'node':
+			element.attrs.content = Message(element.attrs.content)
 		self.internal = element
 		self._type = element.type
 		self._data = element.attrs

@@ -31,10 +31,10 @@ class Bot(Dependent):
 		return event.internal.send(message)
 
 	async def send_group_forward_msg(self, group_id, messages):
-		return self.internal.sendMessage(group_id, h('message', {'forward': True}, [self.unwrap(item) for item in messages]))
+		return self.internal.sendMessage(group_id, h('message', {'forward': True}, [self.unwrap(item) for item in Message(messages)]))
 
 	async def send_private_forward_msg(self, user_id, messages):
-		return self.internal.sendPrivateMessage(user_id, h('message', {'forward': True}, [self.unwrap(item) for item in messages]))
+		return self.internal.sendPrivateMessage(user_id, h('message', {'forward': True}, [self.unwrap(item) for item in Message(messages)]))
 
 	async def call_api(self, api, *args, **kwargs):
 		return await getattr(self, api)(*args, **kwargs)

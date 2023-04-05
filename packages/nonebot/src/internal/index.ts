@@ -17,11 +17,19 @@ export class Internal {
 
   h(type: string, attrs?: any, children?: any) {
     if (type === 'music') type = 'onebot:music'
-    attrs = Object.fromEntries(attrs?.toJs().entries() ?? [])
-    children = children?.toJs().map(item => {
-      if (!(item instanceof Map)) return unwrap(item)
-      if (item.get('type') === 'node') {
-        const element = segment('message', unwrap(item.get('data').get('content')))
+    attrs = Object.fromEntries(unwrap(attrs)?.entries() ?? [])
+    children = unwrap(children)?.map(item => {
+      let type, data
+      item = unwrap(item)
+      if (item instanceof Map) {
+        type = item.get('type')
+        data = Object.fromEntries(item.get('data').entries())
+      } else {
+        type = item.type
+        data = item.data
+      }
+      if (type === 'node') {
+        const element = segment('message', unwrap(data.content)?.map(unwrap))
         element.children.forEach((item) => {
           if (item.type === 'image' && item.attrs.file) {
             item.attrs.url = item.attrs.file
@@ -29,8 +37,8 @@ export class Internal {
           }
         })
         element.children.unshift(segment('author', {
-          userId: item.get('data').get('uin'),
-          nickname: item.get('data').get('name'),
+          userId: data.uin,
+          nickname: data.name,
         }))
         return element
       } else {
