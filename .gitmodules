@@ -121,3 +121,6 @@
 [submodule "plugins/htmlrender/nonebot-plugin-htmlrender"]
 	path = plugins/htmlrender/nonebot-plugin-htmlrender
 	url = https://github.com/nonebotjs/nonebot-plugin-htmlrender
+[submodule "plugins/vf/nonebot-plugin-vf"]
+	path = plugins/vf/nonebot-plugin-vf
+	url = https://github.com/nonebotjs/nonebot-plugin-vf
