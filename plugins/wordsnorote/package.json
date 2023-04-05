@@ -1,0 +1,54 @@
+{
+  "name": "@nonebot/koishi-plugin-wordsnorote",
+  "description": "哥们哥们，背单词么？哥们！",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot_plugin_wordsnorote/nonebot_plugin_wordsnorote"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "zhangshier <1310446718@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot_plugin_wordsnorote.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot_plugin_wordsnorote/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "words",
+    "study",
+    "remember"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "atsc": "^1.2.2",
+    "koishi": "^4.12.3",
+    "koishi-plugin-nonebot": "^1.1.4",
+    "typescript": "^4.9.5"
+  }
+}

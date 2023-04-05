@@ -124,3 +124,6 @@
 [submodule "plugins/vf/nonebot-plugin-vf"]
 	path = plugins/vf/nonebot-plugin-vf
 	url = https://github.com/nonebotjs/nonebot-plugin-vf
+[submodule "plugins/wordsnorote/nonebot_plugin_wordsnorote"]
+	path = plugins/wordsnorote/nonebot_plugin_wordsnorote
+	url = https://github.com/nonebotjs/nonebot_plugin_wordsnorote
