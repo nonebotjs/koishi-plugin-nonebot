@@ -1,7 +1,7 @@
 {
   "name": "@nonebot/koishi-plugin-htmlrender",
   "description": "通过浏览器渲染图片",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -11,6 +11,7 @@
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
+    "Shigma <shigma10826@gmail.com>",
     "kexue <xana278@foxmail.com>",
     "NoneBot.js <nonebot@proton.me>"
   ],
@@ -44,13 +45,13 @@
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
-    "koishi-plugin-nonebot": "^1.1.4"
+    "koishi-plugin-nonebot": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
     "atsc": "^1.2.2",
-    "koishi": "^4.12.2",
-    "koishi-plugin-nonebot": "^1.1.4",
+    "koishi": "^4.12.3",
+    "koishi-plugin-nonebot": "^1.2.0",
     "typescript": "^4.9.5"
   }
 }
