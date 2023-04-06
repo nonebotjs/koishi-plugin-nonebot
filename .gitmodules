@@ -136,3 +136,6 @@
 [submodule "plugins/bawiki/nonebot-plugin-bawiki"]
 	path = plugins/bawiki/nonebot-plugin-bawiki
 	url = https://github.com/nonebotjs/nonebot-plugin-bawiki
+[submodule "plugins/ddcheck/nonebot-plugin-ddcheck"]
+	path = plugins/ddcheck/nonebot-plugin-ddcheck
+	url = https://github.com/nonebotjs/nonebot-plugin-ddcheck
