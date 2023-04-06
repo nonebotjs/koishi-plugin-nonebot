@@ -139,3 +139,6 @@
 [submodule "plugins/ddcheck/nonebot-plugin-ddcheck"]
 	path = plugins/ddcheck/nonebot-plugin-ddcheck
 	url = https://github.com/nonebotjs/nonebot-plugin-ddcheck
+[submodule "plugins/epicfree/nonebot-plugin-epicfree"]
+	path = plugins/epicfree/nonebot-plugin-epicfree
+	url = https://github.com/nonebotjs/nonebot-plugin-epicfree

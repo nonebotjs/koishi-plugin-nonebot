@@ -1,34 +1,32 @@
 {
-  "name": "@nonebot/koishi-plugin-ddcheck",
-  "description": "成分姬插件",
+  "name": "@nonebot/koishi-plugin-epicfree",
+  "description": "Epic 限免游戏资讯",
   "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-ddcheck/nonebot_plugin_ddcheck"
+    "nonebot-plugin-epicfree/nonebot_plugin_epicfree"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
-    "meetwq <meetwq@gmail.com>",
+    "monsterxcn <monsterxcn@gmail.com>",
     "NoneBot.js <nonebot@proton.me>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/nonebot-plugin-ddcheck.git"
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-epicfree.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/nonebot-plugin-ddcheck/issues"
+    "url": "https://github.com/nonebotjs/nonebot-plugin-epicfree/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {
     "service": {
       "required": [
         "nonebot",
-        "nonebot.htmlrender",
-        "nonebot.localstore",
         "nonebot.apscheduler"
       ]
     }
@@ -39,9 +37,9 @@
     "koishi",
     "plugin",
     "nonebot",
-    "bilibili",
-    "vtuber",
-    "fans"
+    "epic",
+    "free",
+    "game"
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
