@@ -130,3 +130,6 @@
 [submodule "plugins/apscheduler/nonebot-plugin-apscheduler"]
 	path = plugins/apscheduler/nonebot-plugin-apscheduler
 	url = https://github.com/nonebotjs/nonebot-plugin-apscheduler
+[submodule "plugins/localstore/nonebot-plugin-localstore"]
+	path = plugins/localstore/nonebot-plugin-localstore
+	url = https://github.com/nonebotjs/nonebot-plugin-localstore

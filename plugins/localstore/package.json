@@ -1,0 +1,55 @@
+{
+  "name": "@nonebot/koishi-plugin-localstore",
+  "description": "本地数据存储服务",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-localstore/nonebot_plugin_localstore"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "yanyongyu <yyy@nonebot.dev>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-localstore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-localstore/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ],
+      "implements": [
+        "nonebot.localstore"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "storage"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "atsc": "^1.2.2",
+    "koishi": "^4.12.3",
+    "koishi-plugin-nonebot": "^1.2.0",
+    "typescript": "^4.9.5"
+  }
+}
