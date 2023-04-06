@@ -133,3 +133,6 @@
 [submodule "plugins/localstore/nonebot-plugin-localstore"]
 	path = plugins/localstore/nonebot-plugin-localstore
 	url = https://github.com/nonebotjs/nonebot-plugin-localstore
+[submodule "plugins/bawiki/nonebot-plugin-bawiki"]
+	path = plugins/bawiki/nonebot-plugin-bawiki
+	url = https://github.com/nonebotjs/nonebot-plugin-bawiki
