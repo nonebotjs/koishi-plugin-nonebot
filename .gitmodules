@@ -127,3 +127,6 @@
 [submodule "plugins/wordsnorote/nonebot_plugin_wordsnorote"]
 	path = plugins/wordsnorote/nonebot_plugin_wordsnorote
 	url = https://github.com/nonebotjs/nonebot_plugin_wordsnorote
+[submodule "plugins/apscheduler/nonebot-plugin-apscheduler"]
+	path = plugins/apscheduler/nonebot-plugin-apscheduler
+	url = https://github.com/nonebotjs/nonebot-plugin-apscheduler

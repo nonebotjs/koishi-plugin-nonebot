@@ -1,27 +1,26 @@
 {
-  "name": "@nonebot/koishi-plugin-htmlrender",
-  "description": "通过浏览器渲染图片",
-  "version": "1.1.0",
+  "name": "@nonebot/koishi-plugin-apscheduler",
+  "description": "定时任务服务",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist",
-    "nonebot-plugin-htmlrender/nonebot_plugin_htmlrender"
+    "nonebot-plugin-apscheduler/nonebot_plugin_apscheduler"
   ],
   "author": "NoneBot.js <nonebot@proton.me>",
   "contributors": [
-    "Shigma <shigma10826@gmail.com>",
-    "kexue <xana278@foxmail.com>",
+    "yanyongyu <yyy@nonebot.dev>",
     "NoneBot.js <nonebot@proton.me>"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nonebotjs/nonebot-plugin-htmlrender.git"
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-apscheduler.git"
   },
   "bugs": {
-    "url": "https://github.com/nonebotjs/nonebot-plugin-htmlrender/issues"
+    "url": "https://github.com/nonebotjs/nonebot-plugin-apscheduler/issues"
   },
   "homepage": "https://nonebot.koishi.chat",
   "koishi": {
@@ -30,7 +29,7 @@
         "nonebot"
       ],
       "implements": [
-        "nonebot.htmlrender"
+        "nonebot.apscheduler"
       ]
     }
   },
@@ -40,11 +39,9 @@
     "koishi",
     "plugin",
     "nonebot",
-    "render",
-    "html",
-    "puppeteer",
-    "browser",
-    "playwright"
+    "schedule",
+    "cron",
+    "task"
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
