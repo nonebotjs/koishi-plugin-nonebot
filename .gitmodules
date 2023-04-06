@@ -142,3 +142,6 @@
 [submodule "plugins/epicfree/nonebot-plugin-epicfree"]
 	path = plugins/epicfree/nonebot-plugin-epicfree
 	url = https://github.com/nonebotjs/nonebot-plugin-epicfree
+[submodule "plugins/what2eat/nonebot-plugin-what2eat"]
+	path = plugins/what2eat/nonebot-plugin-what2eat
+	url = https://github.com/nonebotjs/nonebot-plugin-what2eat
