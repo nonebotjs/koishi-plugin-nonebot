@@ -145,3 +145,6 @@
 [submodule "plugins/what2eat/nonebot-plugin-what2eat"]
 	path = plugins/what2eat/nonebot-plugin-what2eat
 	url = https://github.com/nonebotjs/nonebot-plugin-what2eat
+[submodule "plugins/sky/nonebot-plugin-sky"]
+	path = plugins/sky/nonebot-plugin-sky
+	url = https://github.com/nonebotjs/nonebot-plugin-sky
