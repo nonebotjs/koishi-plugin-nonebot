@@ -14,3 +14,7 @@ from internal import on_shell_command as on_shell_command
 
 from internal import get_driver as get_driver
 from internal import logger as logger
+
+
+def require(*args, **kwargs):
+  pass
