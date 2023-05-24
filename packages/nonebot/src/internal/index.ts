@@ -72,16 +72,19 @@ export class Internal {
     return new MessageMatcher(this.ctx, kwargs, () => true)
   }
 
-  on_startswith(text: string, kwargs = {}) {
-    return new MessageMatcher(this.ctx, kwargs, message => message.startsWith(text))
+  on_startswith(text: string | string[], kwargs = {}) {
+    const words = makeArray(unwrap(text))
+    return new MessageMatcher(this.ctx, kwargs, message => words.some(word => message.startsWith(word)))
   }
 
-  on_endswith(text: string, kwargs = {}) {
-    return new MessageMatcher(this.ctx, kwargs, message => message.endsWith(text))
+  on_endswith(text: string | string[], kwargs = {}) {
+    const words = makeArray(unwrap(text))
+    return new MessageMatcher(this.ctx, kwargs, message => words.some(word => message.endsWith(word)))
   }
 
-  on_fullmatch(text: string, kwargs = {}) {
-    return new MessageMatcher(this.ctx, kwargs, message => message === text)
+  on_fullmatch(text: string | string[], kwargs = {}) {
+    const words = makeArray(unwrap(text))
+    return new MessageMatcher(this.ctx, kwargs, message => words.some(word => message === word))
   }
 
   on_keyword(text: string | string[], kwargs = {}) {
