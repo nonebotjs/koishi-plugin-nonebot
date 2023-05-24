@@ -154,3 +154,6 @@
 [submodule "plugins/colormind/nonebot-plugin-colormind"]
 	path = plugins/colormind/nonebot-plugin-colormind
 	url = https://github.com/nonebotjs/nonebot-plugin-colormind
+[submodule "plugins/qrcode/nonebot-plugin-qrcode"]
+	path = plugins/qrcode/nonebot-plugin-qrcode
+	url = https://github.com/nonebotjs/nonebot-plugin-qrcode

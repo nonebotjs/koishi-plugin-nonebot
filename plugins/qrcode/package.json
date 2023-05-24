@@ -1,0 +1,53 @@
+{
+  "name": "@nonebot/koishi-plugin-qrcode",
+  "description": "二维码",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-qrcode/nonebot_plugin_qrcode"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "kexue <x@kexue.io.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-qrcode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-qrcode/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "qrcode",
+    "scan"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.14",
+    "atsc": "^1.2.2",
+    "koishi": "^4.13.0",
+    "koishi-plugin-nonebot": "^1.2.2",
+    "typescript": "^5.0.4"
+  }
+}
