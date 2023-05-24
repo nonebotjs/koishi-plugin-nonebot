@@ -163,3 +163,6 @@
 [submodule "plugins/trpglogger/nonebot-plugin-trpglogger"]
 	path = plugins/trpglogger/nonebot-plugin-trpglogger
 	url = https://github.com/nonebotjs/nonebot-plugin-trpglogger
+[submodule "plugins/txt2img/nonebot-plugin-txt2img"]
+	path = plugins/txt2img/nonebot-plugin-txt2img
+	url = https://github.com/nonebotjs/nonebot-plugin-txt2img
