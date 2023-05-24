@@ -160,3 +160,6 @@
 [submodule "plugins/r6s/nonebot-plugin-r6s"]
 	path = plugins/r6s/nonebot-plugin-r6s
 	url = https://github.com/nonebotjs/nonebot-plugin-r6s
+[submodule "plugins/trpglogger/nonebot-plugin-trpglogger"]
+	path = plugins/trpglogger/nonebot-plugin-trpglogger
+	url = https://github.com/nonebotjs/nonebot-plugin-trpglogger
