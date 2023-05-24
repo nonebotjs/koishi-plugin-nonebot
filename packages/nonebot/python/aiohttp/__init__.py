@@ -25,7 +25,7 @@ class ClientSession:
 		self.connector = connector
 		self.trust_env = trust_env
 
-	def request(self, method, url, data={}, headers={}, timeout=60000):
+	def request(self, method, url, data=None, headers={}, timeout=60000):
 		headers["Content-Type"] = "application/json"
 		kwargs = {"method": method, "headers": headers}
 		if method != "GET" and method != "HEAD":
@@ -35,14 +35,14 @@ class ClientSession:
 	def get(self, url, headers={}, timeout=60000):
 		return self.request("GET", self.base_url + url, headers=headers, timeout=timeout)
 
-	def post(self, url, headers={}, data={}, timeout=60000):
-		return self.request("POST", self.base_url + url, headers=headers, data=data, timeout=timeout)
+	def post(self, url, headers={}, json={}, data=None, timeout=60000):
+		return self.request("POST", self.base_url + url, headers=headers, data=json if json else data, timeout=timeout)
 
 
 class ResponseWrapper:
 	def __init__(self, response):
 		self._response = response
-		self.content = self
+		self.content = ResponseContent(response)
 
 	def __await__(self):
 		yield
@@ -54,17 +54,30 @@ class ResponseWrapper:
 	async def __aexit__(self, exc_type, exc_value, traceback):
 		return
 
+	async def text(self):
+		r = await self._response
+		return await r.string()
+
 	async def read(self):
 		r = await self._response
-		return ResponseText(await r.string())
+		return (await r.buffer()).to_bytes()
 
 	async def json(self):
 		r = await self._response
 		return await r.json()
 
 
+class ResponseContent:
+	def __init__(self, response) -> None:
+		self._response = response
+
+	async def read(self):
+		r = await self._response
+		return ResponseText(await r.string())
+
+
 class ResponseText:
-	def __init__(self, text):
+	def __init__(self, text: str):
 		self.text = text
 
 	def decode(self):
