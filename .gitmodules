@@ -151,3 +151,6 @@
 [submodule "plugins/bilicover/nonebot-plugin-bilicover"]
 	path = plugins/bilicover/nonebot-plugin-bilicover
 	url = https://github.com/nonebotjs/nonebot-plugin-bilicover
+[submodule "plugins/colormind/nonebot-plugin-colormind"]
+	path = plugins/colormind/nonebot-plugin-colormind
+	url = https://github.com/nonebotjs/nonebot-plugin-colormind

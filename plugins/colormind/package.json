@@ -1,0 +1,54 @@
+{
+  "name": "@nonebot/koishi-plugin-colormind",
+  "description": "随机获取一种配色方案",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nonebot-plugin-colormind/nonebot_plugin_colormind"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "Ikaros <327209194@qq.com>",
+    "NoneBot.js <nonebot@proton.me>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonebotjs/nonebot-plugin-colormind.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nonebotjs/nonebot-plugin-colormind/issues"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot",
+        "nonebot.htmlrender"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "colormind"
+  ],
+  "peerDependencies": {
+    "@nonebot/koishi-plugin-htmlrender": "^1.2.0",
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.14",
+    "atsc": "^1.2.2",
+    "koishi": "^4.13.0",
+    "koishi-plugin-nonebot": "^1.2.2",
+    "typescript": "^5.0.4"
+  }
+}
