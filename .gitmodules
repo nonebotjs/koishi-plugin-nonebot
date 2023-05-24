@@ -166,3 +166,6 @@
 [submodule "plugins/txt2img/nonebot-plugin-txt2img"]
 	path = plugins/txt2img/nonebot-plugin-txt2img
 	url = https://github.com/nonebotjs/nonebot-plugin-txt2img
+[submodule "plugins/wordle/nonebot-plugin-wordle"]
+	path = plugins/wordle/nonebot-plugin-wordle
+	url = https://github.com/nonebotjs/nonebot-plugin-wordle
