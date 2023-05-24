@@ -1,6 +1,7 @@
 from json import dumps, loads
 from urllib.parse import urlencode
 from pyodide.http import pyfetch
+from js import String, Uint8Array
 
 
 class AsyncClient:
@@ -15,16 +16,16 @@ class AsyncClient:
 		if cookies:
 			headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
 		r = await pyfetch(url, method="GET", headers=headers)
-		text = await r.string()
-		return Response(r, text)
+		buffer = await r.buffer()
+		return Response(r, buffer)
 
 	async def post(self, url, params={}, headers={}, data=None, json=None, cookies={}):
 		url += '?' + urlencode(params)
 		if cookies:
 			headers['Cookie'] = '; '.join([f'{k}={v}' for k, v in cookies.items()])
 		r = await pyfetch(url, method="POST", body=dumps(data or json), headers=headers)
-		text = await r.string()
-		return Response(r, text)
+		buffer = await r.buffer()
+		return Response(r, buffer)
 
 
 class Headers:
@@ -36,10 +37,16 @@ class Headers:
 
 
 class Response:
-	def __init__(self, r, text):
+	def __init__(self, r, buffer):
 		self.headers = Headers(r.js_response.headers)
 		self.status_code = int(r.status)
-		self.text = text
+		self.content_type = self.headers.get('Content-Type')
+		try:
+			self.text = String.fromCharCode.apply(None, Uint8Array.new(buffer))
+		except:
+			pass
+		self.content = buffer.to_bytes()
+		self.is_error = self.status_code >= 400
 
 	def json(self):
 		return loads(self.text)
