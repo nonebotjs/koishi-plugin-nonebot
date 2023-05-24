@@ -44,14 +44,14 @@
   "peerDependencies": {
     "@nonebot/koishi-plugin-htmlrender": "^1.1.0",
     "koishi": "^4.10.0",
-    "koishi-plugin-nonebot": "^1.2.0"
+    "koishi-plugin-nonebot": "^1.2.1"
   },
   "devDependencies": {
     "@nonebot/koishi-plugin-htmlrender": "^1.1.0",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.14",
     "atsc": "^1.2.2",
-    "koishi": "^4.12.3",
-    "koishi-plugin-nonebot": "^1.2.0",
-    "typescript": "^4.9.5"
+    "koishi": "^4.13.0",
+    "koishi-plugin-nonebot": "^1.2.1",
+    "typescript": "^5.0.4"
   }
 }
