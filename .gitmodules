@@ -157,3 +157,6 @@
 [submodule "plugins/qrcode/nonebot-plugin-qrcode"]
 	path = plugins/qrcode/nonebot-plugin-qrcode
 	url = https://github.com/nonebotjs/nonebot-plugin-qrcode
+[submodule "plugins/r6s/nonebot-plugin-r6s"]
+	path = plugins/r6s/nonebot-plugin-r6s
+	url = https://github.com/nonebotjs/nonebot-plugin-r6s
