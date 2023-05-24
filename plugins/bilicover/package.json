@@ -1,7 +1,7 @@
 {
   "name": "@nonebot/koishi-plugin-bilicover",
-  "description": "",
-  "version": "1.0.0",
+  "description": "B站视频封面提取",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -44,13 +44,13 @@
   ],
   "peerDependencies": {
     "koishi": "^4.10.0",
-    "koishi-plugin-nonebot": "^1.2.1"
+    "koishi-plugin-nonebot": "^1.2.2"
   },
   "devDependencies": {
     "@types/node": "^18.16.14",
     "atsc": "^1.2.2",
     "koishi": "^4.13.0",
-    "koishi-plugin-nonebot": "^1.2.1",
+    "koishi-plugin-nonebot": "^1.2.2",
     "typescript": "^5.0.4"
   }
 }
