@@ -34,6 +34,7 @@ interface JohnnydepItem {
 
 function skip(name: string, blacklist: string[]) {
   name = name
+    .split('[')[0]
     .split('<')[0]
     .split('>')[0]
     .split('=')[0]
