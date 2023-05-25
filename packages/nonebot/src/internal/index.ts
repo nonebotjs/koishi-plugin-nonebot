@@ -7,6 +7,8 @@ export class Internal {
   public caller: Context
   public config: {}
 
+  public unwrap = unwrap
+
   public logger = Object.assign(Object.create(new Logger('nonebot')), {
     warning(...args: any[]) {
       return this.warn(...args)

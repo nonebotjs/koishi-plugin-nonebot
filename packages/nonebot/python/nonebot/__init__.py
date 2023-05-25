@@ -15,6 +15,20 @@ from internal import on_shell_command as on_shell_command
 from internal import get_driver as get_driver
 from internal import logger as logger
 
+import internal
+from .adapters.onebot.v11 import Bot
+
 
 def require(*args, **kwargs):
   pass
+
+
+def get_bot(*args, **kwargs):
+  return Bot(internal.ctx.bots[0], internal.unwrap)
+
+
+def get_bots(*args, **kwargs):
+  dict = {}
+  for bot in internal.ctx.bots:
+    dict[bot.selfId] = Bot(bot, internal.unwrap)
+  return dict
