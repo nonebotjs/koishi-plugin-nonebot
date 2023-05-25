@@ -9,6 +9,7 @@ from nonebot.internal.adapter import MessageSegment as MessageSegment
 from .event import MessageEvent as MessageEvent
 from .event import GroupMessageEvent as GroupMessageEvent
 from .event import PrivateMessageEvent as PrivateMessageEvent
+from .event import LifecycleMetaEvent as LifecycleMetaEvent
 
 from .permission import GROUP as GROUP
 from .permission import PRIVATE as PRIVATE

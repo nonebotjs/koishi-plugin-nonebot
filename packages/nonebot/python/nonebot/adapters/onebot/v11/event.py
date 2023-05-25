@@ -13,3 +13,6 @@ class PrivateMessageEvent(Event):
 	pass
 
 
+class LifecycleMetaEvent(Event):
+	pass
+
