@@ -13,7 +13,8 @@ from internal import on_command as on_command
 from internal import on_shell_command as on_shell_command
 
 from internal import get_driver as get_driver
-from internal import logger as logger
+
+from .log import logger as logger
 
 import internal
 from .adapters.onebot.v11 import Bot
