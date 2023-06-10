@@ -15,7 +15,7 @@ export class Internal {
     },
   })
 
-  constructor(protected ctx: Context) {ctx.bots}
+  constructor(protected ctx: Context) {}
 
   h(type: string, attrs?: any, children?: any) {
     if (type === 'music') type = 'onebot:music'
