@@ -12,7 +12,7 @@ async def handle(message: "loguru.Message"):
 logger.remove()
 logger.add(
 	handle,
-	format="\b<green>:</><cyan>{name}</><green>:</><cyan>{function}</> {message}",
+	format="<cyan>{name}</><green>:</><cyan>{function}</> {message}",
 	colorize=True,
 	diagnose=True
 )
