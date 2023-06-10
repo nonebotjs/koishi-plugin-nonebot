@@ -25,68 +25,68 @@ NoneBotException
 
 
 class NoneBotException(Exception):
-  pass
+    pass
 
 
 class ParserExit(NoneBotException):
-	pass
+    pass
 
 
 class ProcessException(NoneBotException):
-  pass
+    pass
 
 
 class IgnoredException(ProcessException):
-  pass
+    pass
 
 
 class SkippedException(ProcessException):
-  pass
+    pass
 
 
 class TypeMisMatch(SkippedException):
-  pass
+    pass
 
 
 class MockApiException(ProcessException):
-  pass
+    pass
 
 
 class StopPropagation(ProcessException):
-  pass
+    pass
 
 
 class MatcherException(NoneBotException):
-  pass
+    pass
 
 
 class PausedException(MatcherException):
-  pass
+    pass
 
 
 class RejectedException(MatcherException):
-  pass
+    pass
 
 
 class FinishedException(MatcherException):
-  pass
+    pass
 
 
 class AdapterException(NoneBotException):
-  pass
+    pass
 
 
 class NoLogException(AdapterException):
-  pass
+    pass
 
 
 class ApiNotAvailable(AdapterException):
-  pass
+    pass
 
 
 class NetworkError(AdapterException):
-  pass
+    pass
 
 
 class ActionFailed(AdapterException):
-  pass
+    pass

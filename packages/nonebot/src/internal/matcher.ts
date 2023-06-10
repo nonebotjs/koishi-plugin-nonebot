@@ -93,7 +93,11 @@ export class BaseMatcher {
 
   protected parseFn(fn: PyProxy) {
     const params: Parameter[] = this.getParams(fn)
-    const callback = fn.toJs()
+    let wrapper = this.ctx.nonebot.python.runPython(`
+      from nonebot import logger
+      logger.opt(depth=-2).catch
+    `)
+    const callback = wrapper(fn).toJs()
     return async () => {
       const args = await Promise.all(params.map((param) => {
         const key = fallbackMap[param.name] || param.name

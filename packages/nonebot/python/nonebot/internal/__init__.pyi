@@ -1,35 +1,57 @@
-from typing import Protocol, Callable, Any, Dict, Sequence
+from typing import Any
 
-class Context(Protocol):
-    runtime: "Context"
-    scope: "Context"
-    bots: Sequence
-    nonebot: "Context"
-    root: "Context"
+from .jsobject import JSProxyObject, JSProxyCallable, JSObject
+from .types import *
 
-class Service(Protocol):
-    ctx: Context
 
-class ReggolLogger(Protocol):
-    def success(self, obj, *args):
-        pass
+def on_message(*args, **kwargs):  # real signature unknown
+    pass
 
-    def error(self, obj, *args):
-        pass
 
-    def info(self, obj, *args):
-        pass
+def on_metaevent(*args, **kwargs):  # real signature unknown
+    pass
 
-    def warn(self, obj, *args):
-        pass
 
-    def debug(self, obj, *args):
-        pass
+def on_notice(*args, **kwargs):  # real signature unknown
+    pass
 
-class NonebotJSLogger(ReggolLogger, Protocol):
-    warning = ReggolLogger.warn
 
-logger: NonebotJSLogger
-unwrap: Callable[[Any], Any]
-config: Dict | Any
-caller: "Context"
+def on_request(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_regex(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_keyword(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_endswith(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_fullmatch(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_startswith(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_command(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def on_shell_command(*args, **kwargs):  # real signature unknown
+    pass
+
+
+def get_driver(*args, **kwargs):  # real signature unknown
+    pass
+
+
+logger: JSObject[NonebotJSLogger]
+unwrap: JSProxyCallable[[Any], Any]
+ctx: JSObject[Context]
