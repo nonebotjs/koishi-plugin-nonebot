@@ -6,7 +6,7 @@ from internal import logger as internal_logger
 
 async def handle(message: "loguru.Message"):
 	func = getattr(internal_logger, message.record['level'].name.lower(), internal_logger.info)
-	func(message)
+	func(message.removesuffix('\n'))
 
 
 logger.remove()
