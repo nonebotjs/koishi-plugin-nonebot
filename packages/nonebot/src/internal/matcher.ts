@@ -95,7 +95,13 @@ export class BaseMatcher {
     const params: Parameter[] = this.getParams(fn)
     let wrapper = this.ctx.nonebot.python.runPython(`
       from nonebot import logger
-      logger.opt(depth=-2).catch
+      
+      def wrap_error_catch(func):
+        wrapped = logger.catch(func)
+        def error_catch_wrapper(*args, **kwargs):
+          wrapped(*args, **kwargs)
+        return error_catch_wrapper
+      wrap_error_catch
     `)
     const callback = wrapper(fn).toJs()
     return async () => {
