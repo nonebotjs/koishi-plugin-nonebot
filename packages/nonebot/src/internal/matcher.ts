@@ -33,7 +33,7 @@ export class BaseMatcher {
   protected callbacks: (() => Promise<void>)[] = []
   protected message: string
   protected capture: RegExpExecArray
-  protected errorCatch: PyProxy
+  protected errorCatch: ((func: PyProxy) => PyProxy) | any
 
   protected getters = {
     Bot: () => {
@@ -72,7 +72,7 @@ export class BaseMatcher {
           wrapped(*args, **kwargs)
         return error_catch_wrapper
       wrap_error_catch
-    `)
+    `).toJs()
 
     if (kwargs.handlers) {
       for (const handler of unwrap(kwargs.handlers)) {
