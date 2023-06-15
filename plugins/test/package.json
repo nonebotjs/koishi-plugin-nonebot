@@ -1,0 +1,50 @@
+{
+  "name": "@nonebot/koishi-plugin-nonebotjs-tester",
+  "private": true,
+  "description": "plugin test nonebotjs",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "nb-test"
+  ],
+  "author": "NoneBot.js <nonebot@proton.me>",
+  "contributors": [
+    "NoneBot.js <nonebot@proton.me>",
+    "Cyan <lc_shizuku@outlook.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chinese-Cyq20100313/koishi-plugin-nonebot.git"
+  },
+  "homepage": "https://nonebot.koishi.chat",
+  "koishi": {
+    "service": {
+      "required": [
+        "nonebot"
+      ]
+    }
+  },
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "nonebot",
+    "test"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.0",
+    "koishi-plugin-nonebot": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.14",
+    "atsc": "^1.2.2",
+    "koishi": "^4.13.0",
+    "koishi-plugin-nonebot": "^1.2.2",
+    "typescript": "^5.0.4"
+  }
+}

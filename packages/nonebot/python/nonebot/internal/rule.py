@@ -1,4 +1,4 @@
-from nonebot.internal.params import Dependent
+from .params import Dependent
 
 
 class Rule:
