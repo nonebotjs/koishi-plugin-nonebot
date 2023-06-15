@@ -6,7 +6,7 @@ import { promisify } from 'node:util'
 import { extract } from 'tar'
 import bz2 from 'unbzip2-stream'
 import { register } from 'yakumo'
-import { nameLoguru, nameNumpy, namePil, pyodideSource } from './config'
+import { loguruSource, nameLoguru, nameNumpy, namePil, pyodideSource } from './config'
 import { download, exists, spawnOutput } from './utils'
 
 const blacklist = [
@@ -55,6 +55,11 @@ const preparePyodide = async () => {
   if (!await exists(join(pathExtracted, 'pyodide.js'))) {
     const stream = await download(pyodideSource)
     await promisify(finished)(stream.pipe(bz2()).pipe(extract({ cwd: pathExtracted, strip: 1 })))
+  }
+
+  if (!await exists(join(pathExtracted, nameLoguru))) {
+    const stream = await download(loguruSource)
+    await promisify(finished)(stream.pipe(createWriteStream(join(pathExtracted, nameLoguru))))
   }
 
   return pathExtracted
@@ -185,7 +190,7 @@ const buildPlugin = async (path: string) => {
       cwd: pathDist,
       newer: true,
       strip: 1,
-      filter(path, stat) {
+      filter(path) {
         if (!path.endsWith('/')) return true
         const segments = path.split(/\//g)
         return segments[1] === x.name

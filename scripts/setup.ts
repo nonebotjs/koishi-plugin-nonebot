@@ -21,7 +21,7 @@ function copyFiles(path: string) {
       writeFileSync(dest, content
         .replace(/nonebot_plugin_template/g, fullname)
         .replace(/template/g, name)
-        .replace(/  "private": true,\r?\n/g, ''))
+        .replace(/ {2}"private": true,\r?\n/g, ''))
     }
   }
 }
@@ -32,5 +32,5 @@ async function main() {
 }
 
 if (module === require.main) {
-  main()
+  main().then()
 }
