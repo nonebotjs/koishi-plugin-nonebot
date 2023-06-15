@@ -1,6 +1,5 @@
 {
-  "name": "@nonebot/koishi-plugin-nonebotjs-tester",
-  "private": true,
+  "name": "koishi-plugin-nonebotjs-tester",
   "description": "plugin test nonebotjs",
   "version": "1.0.0",
   "main": "lib/index.js",
@@ -41,7 +40,7 @@
     "koishi-plugin-nonebot": "^1.2.2"
   },
   "devDependencies": {
-    "@types/node": "^18.16.14",
+    "@types/node": "^20.2.5",
     "atsc": "^1.2.2",
     "koishi": "^4.13.0",
     "koishi-plugin-nonebot": "^1.2.2",
