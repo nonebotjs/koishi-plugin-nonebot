@@ -1,5 +1,5 @@
 {
-  "name": "koishi-plugin-nonebotjs-tester",
+  "name": "koishi-plugin-nonebotjs-test",
   "description": "plugin test nonebotjs",
   "version": "1.0.0",
   "main": "lib/index.js",
