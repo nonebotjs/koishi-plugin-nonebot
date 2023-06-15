@@ -47,14 +47,14 @@ function skip(name: string, blacklist: string[]) {
 
 const preparePyodide = async () => {
   const pathCache = resolve(__dirname, '../build/cache')
-  await mkdir(pathCache, {recursive: true})
+  await mkdir(pathCache, { recursive: true })
 
   const pathExtracted = join(pathCache, 'pyodide')
-  await mkdir(pathExtracted, {recursive: true})
+  await mkdir(pathExtracted, { recursive: true })
 
   if (!await exists(join(pathExtracted, 'pyodide.js'))) {
     const stream = await download(pyodideSource)
-    await promisify(finished)(stream.pipe(bz2()).pipe(extract({cwd: pathExtracted, strip: 1})))
+    await promisify(finished)(stream.pipe(bz2()).pipe(extract({ cwd: pathExtracted, strip: 1 })))
   }
 
   return pathExtracted
@@ -67,7 +67,7 @@ const buildNonebot = async () => {
   const pathDist = join(pathPackage, 'dist')
 
   if (await exists(pathDist)) return
-  await mkdir(pathDist, {recursive: true})
+  await mkdir(pathDist, { recursive: true })
 
   await Promise.all(
     [
@@ -106,10 +106,10 @@ const buildPlugin = async (path: string) => {
   const pathDist = join(pathPackage, 'dist')
 
   if (await exists(pathDist)) return
-  await mkdir(pathDist, {recursive: true})
+  await mkdir(pathDist, { recursive: true })
 
   // Parents of each cycle
-  const {name, version, exclude = []} = JSON.parse(await readFile(join(pathPackage, 'nbp.json'), 'utf-8'))
+  const { name, version, exclude = [] } = JSON.parse(await readFile(join(pathPackage, 'nbp.json'), 'utf-8'))
   let parents = [`${name}==${version}`]
   // Finally collected deps
   const deps: JohnnydepItem[] = []
@@ -180,7 +180,7 @@ const buildPlugin = async (path: string) => {
     if (!x.url.endsWith('.tar.gz')) {
       return promisify(finished)(stream.pipe(createWriteStream(join(pathDist, x.filename))))
     }
-    await mkdir(pathDist, {recursive: true})
+    await mkdir(pathDist, { recursive: true })
     await promisify(finished)(stream.pipe(extract({
       cwd: pathDist,
       newer: true,
@@ -196,7 +196,7 @@ const buildPlugin = async (path: string) => {
   await writeFile(
     join(pathDist, 'deps.json'),
     JSON.stringify(
-      resultDeps.map((x) => ({name: x.name, filename: x.filename}))
+      resultDeps.map((x) => ({ name: x.name, filename: x.filename }))
     )
   )
 }
