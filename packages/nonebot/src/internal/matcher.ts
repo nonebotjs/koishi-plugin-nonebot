@@ -33,6 +33,7 @@ export class BaseMatcher {
   protected callbacks: (() => Promise<void>)[] = []
   protected message: string
   protected capture: RegExpExecArray
+  protected errorCatch: PyProxy
 
   protected getters = {
     Bot: () => {
@@ -62,6 +63,17 @@ export class BaseMatcher {
   }
 
   constructor(protected ctx: Context, kwargs: any = {}) {
+    this.errorCatch = this.ctx.nonebot.python.runPython(`
+      from nonebot import logger
+
+      def wrap_error_catch(func):
+        wrapped = logger.catch(func)
+        def error_catch_wrapper(*args, **kwargs):
+          wrapped(*args, **kwargs)
+        return error_catch_wrapper
+      wrap_error_catch
+    `)
+
     if (kwargs.handlers) {
       for (const handler of unwrap(kwargs.handlers)) {
         this.append_handler(handler)
@@ -93,17 +105,7 @@ export class BaseMatcher {
 
   protected parseFn(fn: PyProxy) {
     const params: Parameter[] = this.getParams(fn)
-    const wrapper = this.ctx.nonebot.python.runPython(`
-      from nonebot import logger
-
-      def wrap_error_catch(func):
-        wrapped = logger.catch(func)
-        def error_catch_wrapper(*args, **kwargs):
-          wrapped(*args, **kwargs)
-        return error_catch_wrapper
-      wrap_error_catch
-    `)
-    const callback = wrapper(fn).toJs()
+    const callback = this.errorCatch(fn).toJs()
     return async () => {
       const args = await Promise.all(params.map((param) => {
         const key = fallbackMap[param.name] || param.name
