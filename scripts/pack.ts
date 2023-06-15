@@ -12,8 +12,8 @@ register('nbp-pack', async (project) => {
     Object.keys(project.targets)
       .filter(
         (path) =>
-          (path.startsWith('/plugins') && !path.includes('_template')) ||
-          path === '/packages/nonebot'
+          (path.startsWith('/plugins') && !path.includes('_template'))
+          || path === '/packages/nonebot',
       )
       .map((path) => project.targets[path])
       .map((pkgJson) =>
@@ -27,9 +27,9 @@ register('nbp-pack', async (project) => {
             pathDist,
             `${pkgJson.name
               .replace('@nonebot/', '')
-              .replace('koishi-plugin-', '')}-${pkgJson.version}.tgz`
+              .replace('koishi-plugin-', '')}-${pkgJson.version}.tgz`,
           ),
-        ])
-      )
+        ]),
+      ),
   )
 })

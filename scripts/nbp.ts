@@ -79,8 +79,8 @@ const buildNonebot = async () => {
       // namePyyaml,
       namePil,
       nameNumpy,
-      nameLoguru
-    ].map((x) => cp(join(pathPyodide, x), join(pathDist, x)))
+      nameLoguru,
+    ].map((x) => cp(join(pathPyodide, x), join(pathDist, x))),
   )
 
   await writeFile(
@@ -102,7 +102,7 @@ const buildNonebot = async () => {
         name: 'loguru',
         filename: nameLoguru,
       },
-    ])
+    ]),
   )
 }
 
@@ -150,7 +150,7 @@ const buildPlugin = async (path: string) => {
         continue
       }
 
-      const confilcted = deps[conflictedIndex]
+      const conflicted = deps[conflictedIndex]
       const versions_available: string[] = JSON.parse(
         await spawnOutput('python', [
           '-m',
@@ -161,13 +161,13 @@ const buildPlugin = async (path: string) => {
           'json',
           '--no-deps',
           result.name,
-        ])
+        ]),
       )[0].versions_available
 
-      const selected =
-        versions_available.indexOf(confilcted.version_latest_in_spec) >
-        versions_available.indexOf(result.version_latest_in_spec)
-          ? confilcted
+      const selected
+        = versions_available.indexOf(conflicted.version_latest_in_spec)
+        > versions_available.indexOf(result.version_latest_in_spec)
+          ? conflicted
           : result
       deps.splice(conflictedIndex, 1, selected)
     }
@@ -201,8 +201,8 @@ const buildPlugin = async (path: string) => {
   await writeFile(
     join(pathDist, 'deps.json'),
     JSON.stringify(
-      resultDeps.map((x) => ({ name: x.name, filename: x.filename }))
-    )
+      resultDeps.map((x) => ({ name: x.name, filename: x.filename })),
+    ),
   )
 }
 

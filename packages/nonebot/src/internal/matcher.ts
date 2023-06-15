@@ -93,9 +93,9 @@ export class BaseMatcher {
 
   protected parseFn(fn: PyProxy) {
     const params: Parameter[] = this.getParams(fn)
-    let wrapper = this.ctx.nonebot.python.runPython(`
+    const wrapper = this.ctx.nonebot.python.runPython(`
       from nonebot import logger
-      
+
       def wrap_error_catch(func):
         wrapped = logger.catch(func)
         def error_catch_wrapper(*args, **kwargs):
@@ -169,7 +169,7 @@ export class BaseMatcher {
       for (const callback of this.callbacks) {
         await callback()
       }
-    } catch (e) {
+    } catch (e: Error | any) {
       if (!NoneBotException.check(e)) logger.warn(e)
     }
   }

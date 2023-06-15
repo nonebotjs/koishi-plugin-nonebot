@@ -137,7 +137,7 @@ class NoneBot extends Service {
 
 namespace NoneBot {
   export interface Config {
-    siteFolder?: string,
+    siteFolder?: string
     backtrace: boolean
   }
 
@@ -146,14 +146,14 @@ namespace NoneBot {
       .description('site-packages 目录。')
       .default('data/nonebot/site-packages'),
     backtrace: Schema.boolean()
-        .description('向前追踪错误')
-        .default(false),
+      .description('向前追踪错误')
+      .default(false),
     colorize: Schema.boolean()
-        .description('输出彩色日志')
-        .default(true),
+      .description('输出彩色日志')
+      .default(true),
     diagnose: Schema.boolean()
-        .description('日志错误诊断')
-        .default(false),
+      .description('日志错误诊断')
+      .default(false),
   })
 }
 
